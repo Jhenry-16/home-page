@@ -1,0 +1,61 @@
+<main class="hero-slider" id="inicio">
+  @for (slide of slides; track $index; let i = $index) {
+    <div class="hero-slide" [class.active]="currentSlide === i">
+      <div class="hero-background" [style.background-image]="'url(' + slide.background + ')'"></div>
+
+      <div class="overlay"></div>
+
+      <div class="container">
+        <div class="row align-items-center min-vh-100">
+          <!-- Texto -->
+          <div class="col-lg-6">
+            <div class="hero-content" [class.animate]="currentSlide === i">
+              <span class="hero-tag">
+                {{ slide.tag }}
+              </span>
+
+              <h1>
+                {{ slide.title }}
+              </h1>
+
+              <p>
+                {{ slide.description }}
+              </p>
+
+              <div class="hero-buttons">
+                <button mat-flat-button color="primary">
+                  {{ slide.primaryButton }}
+                </button>
+
+                <button mat-stroked-button color="accent">
+                  {{ slide.secondaryButton }}
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Imagen -->
+          <div class="col-lg-6">
+            <div class="hero-image" [class.zoom]="currentSlide === i">
+              <!-- <img [src]="slide.image" [alt]="slide.title" /> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+
+  <button class="slider-arrow prev" type="button" (click)="previousSlide()">
+    <mat-icon>chevron_left</mat-icon>
+  </button>
+
+  <button class="slider-arrow next" type="button" (click)="nextSlide()">
+    <mat-icon>chevron_right</mat-icon>
+  </button>
+
+  <div class="slider-dots">
+    @for (slide of slides; track $index; let i = $index) {
+      <button type="button" [class.active]="currentSlide === i" (click)="goToSlide(i)"></button>
+    }
+  </div>
+</main>

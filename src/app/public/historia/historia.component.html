@@ -1,0 +1,79 @@
+<section id="historia">
+  <div class="row container">
+    <div class="col-12 col-sm-6 d-flex">
+      <img class="image-historia" src="assets/images/fondos/fondo2.jpg" alt="José Casas" />
+    </div>
+
+    <div class="col-12 col-sm-6 texto-historia py-4 py-sm-0">
+      <h2>¿Quién es José Casas?</h2>
+      <p>
+        Héroe de la Patria y vecino de Pueblo Libre, con más de 20 años de experiencia en gestión
+        pública.
+      </p>
+
+      <ul>
+        <div class="d-flex">
+          <mat-icon>check_circle</mat-icon>
+          <li>Especialista en <span>Seguridad Ciudadana</span> y convivencia vecinal.</li>
+        </div>
+        <div class="d-flex">
+          <mat-icon>check_circle</mat-icon>
+          <li>Experto en<span>Gestión del Riesgo de Desastres</span> y Defensa Civil.</li>
+        </div>
+        <div class="d-flex">
+          <mat-icon>check_circle</mat-icon>
+          <li>Amplia experiencia en <span>Fiscalización</span> y control municipal.</li>
+        </div>
+        <div class="d-flex">
+          <mat-icon>check_circle</mat-icon>
+          <li>Promotor del <span>deporte, la vida saludable</span> y la juventud.</li>
+        </div>
+        <div class="d-flex">
+          <mat-icon>check_circle</mat-icon>
+          <li>Comprometido con la <span>transparencia</span>, honestidad y servicio al vecino.</li>
+        </div>
+      </ul>
+
+      <p>
+        Conozco la realidad de nuestro distrito y tengo el compromiso de trabajar cada día por un
+        Pueblo Libre más seguro, ordenado y con oportunidades para todos.
+      </p>
+
+      <div class="btn-historia">
+        <button mat-flat-button color="accent" (click)="abrirPdf()">
+          <mat-icon>picture_as_pdf</mat-icon> HOJA DE VIDA (PDF)
+        </button>
+        <button mat-flat-button color="primary" (click)="modalVerhistoria(verVideo)">
+          <mat-icon>play_circle</mat-icon>
+          VER VIDEO
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<ng-template #verVideo>
+  <div class="title-modal" cdkFocusInitial>Mi historia</div>
+  <mat-dialog-content align="center">
+    <iframe
+      [src]="videoUrl"
+      width="100%"
+      height="400"
+      frameborder="0"
+      allow="autoplay"
+      allowfullscreen
+    >
+    </iframe>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end" class="dialog-actions">
+    <button
+      type="button"
+      mat-raised-button
+      color="warn"
+      class="loadButton btnCancelar"
+      mat-dialog-close
+    >
+      Cerrar
+    </button>
+  </mat-dialog-actions>
+</ng-template>

@@ -1,0 +1,154 @@
+@use '@angular/material' as mat;
+
+/* FUENTE */
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/assets/fonts/Inter-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+/*Botones*/
+html {
+  /* Token global para el radio de borde de los botones */
+  --mdc-filled-button-container-shape: 0.25rem;
+  --mdc-outlined-button-container-shape: 0.25rem;
+  --mdc-text-button-container-shape: 0.25rem;
+  --mdc-protected-button-container-shape: 0.25rem;
+}
+
+/*  PALETA PRIMARY (#143F94) */
+
+$primary-color: (
+  50: #e6ecf7,
+  100: #c2d0eb,
+  200: #99b2de,
+  300: #7093d1,
+  400: #4f7bc7,
+  500: #143f94,
+  600: #123a88,
+  700: #10327a,
+  800: #0e2b6c,
+  900: #0a1e50,
+  contrast: (
+    50: #000,
+    100: #000,
+    200: #000,
+    300: #fff,
+    400: #fff,
+    500: #fff,
+    600: #fff,
+    700: #fff,
+    800: #fff,
+    900: #fff,
+  ),
+);
+
+/* PALETA SECONDARY (#E3027C)*/
+
+$secondary-color: (
+  50: #fde6f1,
+  100: #f9c0dc,
+  200: #f396c5,
+  300: #ed6aad,
+  400: #e74c9b,
+  500: #e3027c,
+  600: #cf026f,
+  700: #b80262,
+  800: #a10256,
+  900: #7a013f,
+  contrast: (
+    50: #000,
+    100: #000,
+    200: #000,
+    300: #fff,
+    400: #fff,
+    500: #fff,
+    600: #fff,
+    700: #fff,
+    800: #fff,
+    900: #fff,
+  ),
+);
+
+/*  PALETA ERROR (#D32F2F) */
+
+$error-color: (
+  50: #fde8e8,
+  100: #f9c2c2,
+  200: #f39999,
+  300: #ed6f6f,
+  400: #e94f4f,
+  500: #d32f2f,
+  600: #c12727,
+  700: #aa2020,
+  800: #931a1a,
+  900: #6e1212,
+  contrast: (
+    50: #000,
+    100: #000,
+    200: #000,
+    300: #fff,
+    400: #fff,
+    500: #fff,
+    600: #fff,
+    700: #fff,
+    800: #fff,
+    900: #fff,
+  ),
+);
+
+/* TIPOGRAFÍA */
+
+$typography: mat.m2-define-typography-config(
+  $font-family: 'Inter, sans-serif',
+);
+
+/* TEMA CLARO*/
+
+$light-theme: mat.m2-define-light-theme(
+  (
+    color: (
+      primary: mat.m2-define-palette($primary-color),
+      accent: mat.m2-define-palette($secondary-color),
+      warn: mat.m2-define-palette($error-color),
+    ),
+    typography: $typography,
+    density: 0,
+  )
+);
+
+/* TEMA OSCURO */
+
+$dark-theme: mat.m2-define-dark-theme(
+  (
+    color: (
+      primary: mat.m2-define-palette($primary-color),
+      accent: mat.m2-define-palette($secondary-color),
+      warn: mat.m2-define-palette($error-color),
+    ),
+    typography: $typography,
+    density: 0,
+  )
+);
+
+/* APLICAR TEMAS*/
+
+@include mat.typography-hierarchy($typography);
+
+html {
+  @include mat.all-component-themes($light-theme);
+}
+
+.dark-mode {
+  @include mat.all-component-colors($dark-theme);
+}
+
+/* GLOBAL */
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+}

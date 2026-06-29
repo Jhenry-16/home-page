@@ -1,0 +1,23 @@
+<div class="backdrop" (click)="closeMenu()"></div>
+
+<aside class="mobile-menu">
+  <div class="mobile-header">
+    <img src="/assets/images/logos/logo.png" alt="Logo" class="mobile-logo" />
+
+    <button mat-icon-button type="button" (click)="closeMenu()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <nav>
+    @for (nav of navMenu; track nav.seccion) {
+      <button mat-button class="mobile-item" type="button" (click)="scrollTo(nav.seccion)">
+        {{ nav.nombre }}
+      </button>
+    }
+  </nav>
+
+  <div class="mobile-footer">
+    <button mat-flat-button color="primary" class="contact-button">Contact Us</button>
+  </div>
+</aside>

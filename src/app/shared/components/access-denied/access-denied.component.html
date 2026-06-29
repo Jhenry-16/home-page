@@ -1,0 +1,22 @@
+<div class="error-container">
+  <div class="error-content animacion-arriba">
+    <div class="error-icon">
+      <mat-icon>gpp_maybe</mat-icon>
+      <span class="error-code">403</span>
+    </div>
+    <h1 class="titulo-secundario">Acceso Denegado</h1>
+    <p class="parrafo-secundario">
+      No tienes los permisos necesarios para ver esta página. Si crees que esto es un error, contacta con el administrador.
+    </p>
+    <div class="error-actions">
+      <button mat-raised-button color="primary" (click)="volverHome()">
+        <mat-icon>home</mat-icon>
+        Ir al Inicio
+      </button>
+      <button mat-stroked-button color="accent" class="btnCancelar" (click)="volverLogin()">
+        <mat-icon>group_add</mat-icon>
+        Cambiar de Usuario
+      </button>
+    </div>
+  </div>
+</div>

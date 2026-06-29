@@ -1,0 +1,73 @@
+<app-main-carrucel></app-main-carrucel>
+<app-historia></app-historia>
+
+<!-- <section id="propuestas">
+  <div class="row container">
+    <div class="col-12 col-sm-6 texto-propuestas">
+      <h2>Mis propuestas</h2>
+      <p>
+        Les presento un plan de trabajo hecho por y para vecinos. Este es el camino que propongo
+        para transformar nuestro distrito.
+      </p>
+      <button mat-flat-button color="primary" (click)="verVideo()">
+        <mat-icon>play_circle</mat-icon>
+        VER VIDEO
+      </button>
+    </div>
+    <div class="col-12 col-sm-6 py-4 py-sm-0">
+      <iframe
+        *ngIf="mostrarVideo"
+        [src]="videoUrl"
+        width="100%"
+        height="400"
+        frameborder="0"
+        allow="autoplay"
+        allowfullscreen
+      >
+      </iframe>
+    </div>
+  </div>
+</section> -->
+
+<!-- <section class="cv-card">
+  <div>
+    <h2>Hoja de Vida</h2>
+    <p>
+      Conoce mi formación académica, experiencia profesional y trayectoria en el servicio público.
+    </p>
+    <button mat-flat-button color="primary">
+      <mat-icon>picture_as_pdf</mat-icon>
+      DESCARGAR HOJA DE VIDA (PDF)
+    </button>
+  </div>
+
+  <img src="assets/images/hoja-vida-pdf.png" alt="Hoja de vida PDF" />
+</section> -->
+<section id="propuestas">
+  <div class="container">
+    <h2 class="titulo-propuestas">Mis principales propuestas</h2>
+    <div class="cards-propuestas">
+      <mat-card class="texto-propuestas" *ngFor="let p of propuestas">
+        <mat-icon>{{ p.icon }}</mat-icon>
+        <h3>{{ p.title }}</h3>
+        <ul>
+          <li *ngFor="let item of p.items">• {{ item }}</li>
+        </ul>
+      </mat-card>
+    </div>
+  </div>
+</section>
+
+<app-preguntas></app-preguntas>
+
+<!-- <section class="thanks">
+  <mat-icon>check_circle</mat-icon>
+  <div>
+    <h2>¡Gracias por participar!</h2>
+    <p>
+      José Casas y su equipo revisarán tu consulta y te responderemos a la brevedad. Tu opinión nos
+      ayuda a tomar mejores decisiones.
+    </p>
+  </div>
+  <mat-icon>forum</mat-icon>
+</section> -->

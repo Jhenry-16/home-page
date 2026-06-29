@@ -1,0 +1,56 @@
+@use 'variables' as v;
+
+.scroll-top {
+  position: fixed;
+  right: 30px;
+  bottom: 30px;
+  width: 70px;
+  height: 70px;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.35s;
+  cursor: pointer;
+  z-index: 9999;
+}
+.scroll-top.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.progress-ring {
+  position: absolute;
+  inset: 0;
+  transform: rotate(-90deg);
+}
+
+.bg {
+  fill: none;
+  stroke: #e6e6e6;
+  stroke-width: 3;
+}
+
+.progress {
+  fill: none;
+  stroke: v.$secondary-color;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 289;
+  stroke-dashoffset: 289;
+  transition: stroke-dashoffset 0.15s linear;
+}
+
+button {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 55px;
+  height: 55px;
+  background: v.$surface-color !important;
+  color: v.$secondary-color !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+button:hover {
+  transform: translate(-50%, -50%) scale(1.08);
+}

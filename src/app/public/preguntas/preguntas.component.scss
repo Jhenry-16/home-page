@@ -1,0 +1,100 @@
+@use 'variables' as v;
+
+#historia {
+  min-height: 80vh;
+  padding: 24px 0;
+  display: flex;
+  background: v.$surface-color;
+  align-items: center;
+  justify-content: center;
+}
+
+.texto-preguntas {
+  h2 {
+    font-size: 32px;
+    margin: 16px 0;
+    text-align: center;
+    color: v.$primary-color;
+    font-weight: 1000;
+  }
+
+  p {
+    font-size: 16px;
+    line-height: 1.5;
+    text-align: center;
+  }
+}
+
+.contenido-formulario {
+  display: flex;
+  gap: 8px;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.voice {
+  padding: 40px;
+  text-align: center;
+  background: linear-gradient(#f8fbff 0%, #eef7ff 55%, #fff 100%);
+  position: relative;
+
+  > mat-icon {
+    font-size: 76px;
+    width: 76px;
+    height: 76px;
+    color: #064aad;
+    margin-top: 80px;
+  }
+
+  h2 {
+    color: #064aad;
+    font-size: 28px;
+    font-weight: 1000;
+  }
+
+  p {
+    color: #1d2c45;
+    font-weight: 600;
+  }
+
+  img {
+    width: 100%;
+    margin-top: 35px;
+  }
+}
+
+.thanks {
+  min-height: 110px;
+  background: #064aad;
+  color: #fff;
+  border-radius: 8px;
+  padding: 25px 80px;
+  display: grid;
+  grid-template-columns: 80px 1fr 80px;
+  align-items: center;
+  gap: 24px;
+
+  mat-icon {
+    font-size: 64px;
+    width: 64px;
+    height: 64px;
+  }
+
+  h2 {
+    margin: 0;
+    font-size: 28px;
+  }
+
+  p {
+    margin: 4px 0 0;
+    font-size: 16px;
+  }
+}
+
+.btn-historia {
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+}

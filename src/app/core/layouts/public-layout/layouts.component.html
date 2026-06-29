@@ -1,0 +1,11 @@
+<app-header (menuClick)="openMenu()"> </app-header>
+
+<router-outlet></router-outlet>
+
+<app-footer></app-footer>
+
+<app-scroll-top></app-scroll-top>
+
+@if (mobileMenuOpen) {
+  <app-mobile-menu (close)="closeMenu()"> </app-mobile-menu>
+}

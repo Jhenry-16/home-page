@@ -21,14 +21,26 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
+              "src/assets",
               {
                 "glob": "**/*",
-                "input": "public"
+                "input": "public",
+                "output": "/"
               }
             ],
             "styles": [
-              "src/styles.scss"
-            ]
+              "src/styles.scss",
+               "node_modules/bootstrap/dist/css/bootstrap.min.css"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": ["src/assets/styles"]
+            },
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+            ], 
+            "outputPath": {
+              "base": "dist/ProyectoHP"
+            }
           },
           "configurations": {
             "production": {
@@ -75,6 +87,7 @@
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": [
+               "src/assets",
               {
                 "glob": "**/*",
                 "input": "public"

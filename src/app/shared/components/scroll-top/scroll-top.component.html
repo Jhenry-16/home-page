@@ -1,0 +1,9 @@
+<div class="scroll-top" [class.show]="showButton" (click)="scrollToTop()">
+  <svg class="progress-ring" viewBox="0 0 100 100">
+    <circle class="bg" cx="50" cy="50" r="46"></circle>
+    <circle class="progress" cx="50" cy="50" r="46" [style.strokeDashoffset]="dashOffset"></circle>
+  </svg>
+  <button mat-fab color="primary">
+    <mat-icon> north </mat-icon>
+  </button>
+</div>
