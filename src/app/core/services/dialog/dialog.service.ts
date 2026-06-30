@@ -13,6 +13,8 @@ export class DialogService {
       data,
       disableClose: true,
       autoFocus: false,
+      hasBackdrop: true,
+      backdropClass: 'cdk-overlay-dark-backdrop',
       //height: '400px',
       //width: '600px'
     });

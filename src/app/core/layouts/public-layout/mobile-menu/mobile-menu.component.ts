@@ -27,8 +27,7 @@ export class MobileMenuComponent {
     { nombre: 'Historia', seccion: 'historia' },
     { nombre: 'Propuestas', seccion: 'propuestas' },
     { nombre: 'Haz tu pregunta', seccion: 'preguntas' },
-    { nombre: 'Noticias', seccion: 'noticias' },
-    { nombre: 'Contactos', seccion: 'contactos' },
+    { nombre: 'Conversatorio', seccion: 'Coversatorio' },
   ];
 
   @HostListener('document:keydown.escape')

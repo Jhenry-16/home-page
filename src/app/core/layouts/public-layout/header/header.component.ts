@@ -43,12 +43,8 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
       seccion: 'preguntas',
     },
     {
-      nombre: 'Noticias',
-      seccion: 'noticias',
-    },
-    {
-      nombre: 'Contactos',
-      seccion: 'contactos',
+      nombre: 'Conversatorio',
+      seccion: 'conversatorio',
     },
   ];
 

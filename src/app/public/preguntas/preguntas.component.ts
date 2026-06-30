@@ -6,9 +6,12 @@ import { DialogService } from '../../core/services/dialog/dialog.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { DialogcustomComponent } from '../../core/dialogcustom/dialogcustom.component';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { ToastrService } from 'ngx-toastr';
+import { timeout } from 'rxjs';
 
 @Component({
   selector: 'app-preguntas',
+  standalone: true,
   imports: [CommonModule, MaterialModule],
   templateUrl: './preguntas.component.html',
   styleUrl: './preguntas.component.scss',
@@ -17,6 +20,7 @@ export class PreguntasComponent {
   constructor(
     private sanitizer: DomSanitizer,
     private dialogService: DialogService,
+    private toastrService: ToastrService,
   ) {
     const rawUrl = `https://drive.google.com/file/d/1GF9uTllgsgPq3twhPOdIB83RHrBxe-5C/preview`;
     this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(rawUrl);
@@ -24,6 +28,10 @@ export class PreguntasComponent {
 
   private matDialogRef!: MatDialogRef<DialogcustomComponent>;
   videoUrl!: SafeResourceUrl;
+  enviarPregunta() {
+    console.log('object');
+    this.toastrService.success('Pregunta registrada correctamente', 'Exitos');
+  }
 
   abrirPdf() {
     const link = document.createElement('a');

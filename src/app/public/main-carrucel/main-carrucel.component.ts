@@ -5,6 +5,7 @@ import { AnimacionDirective } from '../../shared/directives/animacion.directive'
 
 @Component({
   selector: 'app-main-carrucel',
+  standalone: true,
   imports: [CommonModule, MaterialModule],
   templateUrl: './main-carrucel.component.html',
   styleUrl: './main-carrucel.component.scss',

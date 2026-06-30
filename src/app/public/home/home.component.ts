@@ -5,15 +5,18 @@ import { MainCarrucelComponent } from '../main-carrucel/main-carrucel.component'
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { HistoriaComponent } from '../historia/historia.component';
 import { PreguntasComponent } from '../preguntas/preguntas.component';
+import { ConversatorioComponent } from '../conversatorio/conversatorio.component';
 
 @Component({
   selector: 'app-home',
+  standalone: true,
   imports: [
     CommonModule,
     MaterialModule,
     MainCarrucelComponent,
     HistoriaComponent,
     PreguntasComponent,
+    ConversatorioComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',

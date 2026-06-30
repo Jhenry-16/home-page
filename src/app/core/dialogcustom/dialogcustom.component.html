@@ -1,1 +1,5 @@
-<ng-container *ngTemplateOutlet="data.template"></ng-container>
+<div class="dialog-content">
+  <button type="button" class="closeDialogUp" mat-dialog-close></button>
+  <ng-container *ngTemplateOutlet="data.template; context: { $implicit: data.data }">
+  </ng-container>
+</div>

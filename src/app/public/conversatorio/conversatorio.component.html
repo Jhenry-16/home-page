@@ -1,0 +1,26 @@
+<section id="conversatorio">
+  <div class="container">
+    <div class="texto-conversatorio">
+      <h2>Recorriendo pueblo libre</h2>
+      <p>Tu opinión es muy importante. Escríbenos tu pregunta, propuesta o preocupación.</p>
+    </div>
+    <div class="row">
+      <div class="conversatorio-inner">
+        <div id="conversatorio-map" class="map" aria-label="Mapa de ubicaciones"></div>
+
+        <mat-card class="info-card" *ngIf="activeRecorrido">
+          <div class="card-row">
+            <img class="thumb" [src]="activeRecorrido.imagen" alt="{{ activeRecorrido.titulo }}" />
+            <div class="card-body">
+              <h3>{{ activeRecorrido.titulo }}</h3>
+              <p class="date">{{ activeRecorrido.fecha }}</p>
+              <a class="more" href="#" (click)="$event.preventDefault()"
+                >Ver más fotos y videos →</a
+              >
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</section>

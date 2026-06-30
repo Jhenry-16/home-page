@@ -1,4 +1,6 @@
 @use '@angular/material' as mat;
+//Incluye los estilos core de Angular Material
+@include mat.core();
 
 /* FUENTE */
 
@@ -133,12 +135,9 @@ $dark-theme: mat.m2-define-dark-theme(
 );
 
 /* APLICAR TEMAS*/
-
 @include mat.typography-hierarchy($typography);
 
-html {
-  @include mat.all-component-themes($light-theme);
-}
+@include mat.all-component-themes($light-theme);
 
 .dark-mode {
   @include mat.all-component-colors($dark-theme);

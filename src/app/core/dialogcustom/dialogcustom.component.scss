@@ -28,10 +28,10 @@
     opacity: 1;
   }
 }
-::ng-deep.mat-mdc-dialog-surface {
+::ng-deep .mat-mdc-dialog-surface {
   border-radius: 16px !important;
 }
 
-::ng-deep.cdk-overlay-backdrop-showing {
+::ng-deep .cdk-overlay-backdrop-showing {
   backdrop-filter: blur(3px) !important;
 }
