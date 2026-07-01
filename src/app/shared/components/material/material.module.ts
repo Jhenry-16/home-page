@@ -35,6 +35,8 @@ import { AnimacionDirective } from '../../directives/animacion.directive';
 import { HttpClientModule } from '@angular/common/http';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MY_DATE_FORMATS } from '../../utils/formato-fecha.util';
+import { GoogleMapsModule } from '@angular/google-maps';
+
 @NgModule({
   exports: [
     MatSidenavModule,
@@ -71,6 +73,7 @@ import { MY_DATE_FORMATS } from '../../utils/formato-fecha.util';
     MatRadioModule,
     HttpClientModule,
     MatStepperModule,
+    GoogleMapsModule,
   ],
   providers: [
     {

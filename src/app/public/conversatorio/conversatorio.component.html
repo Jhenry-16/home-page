@@ -5,20 +5,41 @@
       <p>Tu opinión es muy importante. Escríbenos tu pregunta, propuesta o preocupación.</p>
     </div>
     <div class="row">
-      <div class="conversatorio-inner">
-        <div id="conversatorio-map" class="map" aria-label="Mapa de ubicaciones"></div>
-
-        <mat-card class="info-card" *ngIf="activeRecorrido">
-          <div class="card-row">
-            <img class="thumb" [src]="activeRecorrido.imagen" alt="{{ activeRecorrido.titulo }}" />
-            <div class="card-body">
-              <h3>{{ activeRecorrido.titulo }}</h3>
-              <p class="date">{{ activeRecorrido.fecha }}</p>
-              <a class="more" href="#" (click)="$event.preventDefault()"
-                >Ver más fotos y videos →</a
+      <div class="mapa-componentes">
+        <mat-card class="card-mapa mat-elevation-z8">
+          <mat-card-content class="content-mapa">
+            <google-map width="100%" height="100%" [center]="center" [zoom]="zoom">
+              <map-marker
+                *ngFor="let marker of markers"
+                [position]="marker.position"
+                [title]="marker.title"
+                [icon]="selectedMarker === marker ? marker.hoverIcon : marker.icon"
+                (mapMouseover)="hoverMarker(marker)"
+                (mapMouseout)="leaveMarker()"
               >
-            </div>
-          </div>
+              </map-marker>
+            </google-map>
+
+            <mat-card class="info-card mat-elevation-z10" *ngIf="selectedMarker">
+              <mat-card-header>
+                <mat-icon color="accent">location_on</mat-icon>
+                <mat-card-title>
+                  {{ selectedMarker.title }}
+                </mat-card-title>
+              </mat-card-header>
+
+              <mat-card-content>
+                <p>
+                  <strong>Dirección:</strong><br />
+                  {{ selectedMarker.address }}
+                </p>
+
+                <p>
+                  {{ selectedMarker.description }}
+                </p>
+              </mat-card-content>
+            </mat-card>
+          </mat-card-content>
         </mat-card>
       </div>
     </div>

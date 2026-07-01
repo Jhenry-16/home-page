@@ -1,123 +1,91 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MaterialModule } from '../../shared/components/material/material.module';
-import { LocationData } from '../../core/data/location.data';
-import { Location } from '../../core/models/location.model';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 @Component({
   selector: 'app-conversatorio',
   standalone: true,
-  imports: [MaterialModule],
+  imports: [MaterialModule, GoogleMapsModule],
   templateUrl: './conversatorio.component.html',
   styleUrl: './conversatorio.component.scss',
 })
-export class ConversatorioComponent implements OnInit, OnDestroy {
-  recorridos: Location[] = LocationData;
+export class ConversatorioComponent {
+  // Centro inicial del mapa
+  center: google.maps.LatLngLiteral = {
+    lat: -12.076993652236,
+    lng: -77.06241386101154,
+  };
 
-  private map: any;
-  private markers = new Map<number, any>();
-  activeRecorrido?: Location;
-  private apiKey = 'AIzaSyAOVYRIgupAurZup5y1PRh8Ismb1A3lLao';
+  zoom = 15;
 
-  ngOnInit(): void {
-    this.loadGoogleMaps().then(() => this.initMap());
-  }
+  selectedMarker: any = null;
 
-  ngOnDestroy(): void {
-    this.markers.forEach((m) => {
-      if (m && m.setMap) {
-        m.setMap(null);
-      }
-    });
-  }
+  // Ubicaciones
+  markers = [
+    {
+      title: 'Municipalidad de Pueblo Libre',
+      address: 'Av. General Manuel Vivanco 859',
+      description: 'Sede principal de atención al ciudadano.',
 
-  private loadGoogleMaps(): Promise<void> {
-    return new Promise((resolve) => {
-      const win = window as any;
-      if (win.google && win.google.maps) {
-        return resolve();
-      }
-      const scriptId = 'google-maps-script';
-      if (document.getElementById(scriptId)) {
-        (document.getElementById(scriptId) as HTMLScriptElement).addEventListener('load', () =>
-          resolve(),
-        );
-        return;
-      }
-      const script = document.createElement('script');
-      script.id = scriptId;
-      script.src = `https://maps.googleapis.com/maps/api/js?key=${this.apiKey}&libraries=places`;
-      script.async = true;
-      script.defer = true;
-      script.onload = () => resolve();
-      document.head.appendChild(script);
-    });
-  }
-
-  private initMap() {
-    const center = { lat: -12.0735, lng: -77.067 };
-    this.map = new (window as any).google.maps.Map(
-      document.getElementById('conversatorio-map') as HTMLElement,
-      {
-        center,
-        zoom: 14,
-        mapTypeControl: false,
-        streetViewControl: false,
-        fullscreenControl: false,
+      position: {
+        lat: -12.076993652236,
+        lng: -77.06241386101154,
       },
-    );
+      icon: {
+        url: 'assets/images/iconos/location-inactive.png',
+        scaledSize: new google.maps.Size(64, 64),
+      },
 
-    // close card when clicking on map
-    this.map.addListener('click', () => this.closeCard());
+      hoverIcon: {
+        url: 'assets/images/iconos/location-active.png',
+        scaledSize: new google.maps.Size(64, 64),
+      },
+    },
+    {
+      title: 'Plaza Bolívar',
+      address: 'Plaza Bolívar, Pueblo Libre',
+      description: 'Espacio público para actividades culturales.',
 
-    this.createMarkers();
+      position: {
+        lat: -12.07368,
+        lng: -77.06789,
+      },
+      icon: {
+        url: 'assets/images/iconos/location-inactive.png',
+        scaledSize: new google.maps.Size(64, 64),
+      },
+
+      hoverIcon: {
+        url: 'assets/images/iconos/location-active.png',
+        scaledSize: new google.maps.Size(64, 64),
+      },
+    },
+
+    {
+      title: 'Museo Nacional de Arqueología',
+      address: 'Plaza Bolívar, Pueblo Libre',
+      description: 'Museo histórico y punto de interés turístico.',
+
+      position: {
+        lat: -12.074792,
+        lng: -77.070517,
+      },
+      icon: {
+        url: 'assets/images/iconos/location-inactive.png',
+        scaledSize: new google.maps.Size(64, 64),
+      },
+      hoverIcon: {
+        url: 'assets/images/iconos/location-active.png',
+        scaledSize: new google.maps.Size(64, 64),
+      },
+    },
+  ];
+
+  hoverMarker(marker: any): void {
+    this.selectedMarker = marker;
   }
 
-  private createMarkers() {
-    this.recorridos.forEach((r) => {
-      const marker = new (window as any).google.maps.Marker({
-        position: { lat: r.lat, lng: r.lng },
-        map: this.map,
-        icon: this.iconUrl('blue'),
-        title: r.titulo,
-      });
-      marker.addListener('click', () => this.onMarkerClick(r.id));
-      this.markers.set(r.id, marker);
-    });
-  }
-
-  private onMarkerClick(id: number) {
-    const found = this.recorridos.find((r) => r.id === id);
-    if (!found) return;
-    // reset previous
-    if (this.activeRecorrido && this.activeRecorrido.id !== id) {
-      const prevMarker = this.markers.get(this.activeRecorrido.id);
-      if (prevMarker) prevMarker.setIcon(this.iconUrl('blue'));
-    }
-    const marker = this.markers.get(id);
-    if (marker) {
-      marker.setIcon(this.iconUrl('green'));
-      this.map.panTo({ lat: found.lat, lng: found.lng });
-    }
-    this.activeRecorrido = found;
-  }
-
-  closeCard() {
-    if (this.activeRecorrido) {
-      const marker = this.markers.get(this.activeRecorrido.id);
-      if (marker) marker.setIcon(this.iconUrl('blue'));
-    }
-    this.activeRecorrido = undefined;
-  }
-
-  private iconUrl(color: 'blue' | 'green') {
-    const url =
-      color === 'green'
-        ? 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
-        : 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png';
-    return {
-      url,
-      scaledSize: new (window as any).google.maps.Size(40, 40),
-      anchor: new (window as any).google.maps.Point(20, 40),
-    };
+  leaveMarker(): void {
+    this.selectedMarker = null;
   }
 }
