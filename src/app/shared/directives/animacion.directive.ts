@@ -1,34 +1,35 @@
-import { AfterViewInit, Directive, ElementRef, Input } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, Input, OnDestroy } from '@angular/core';
 
 @Directive({
   selector: '[animacion]',
 })
-export class AnimacionDirective implements AfterViewInit {
-  @Input('animacion') animClass!: string;
+export class AnimacionDirective implements AfterViewInit, OnDestroy {
+  @Input('animacion') animClass = '';
 
-  constructor(private el: ElementRef) {}
+  private observer!: IntersectionObserver;
 
-  ngAfterViewInit() {
-    const native = this.el.nativeElement;
+  constructor(private el: ElementRef<HTMLElement>) {}
 
-    // Clase base de animación (oculta)
-    native.classList.add(this.animClass);
+  ngAfterViewInit(): void {
+    const element = this.el.nativeElement;
+    element.classList.add(this.animClass);
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            native.classList.add('show');
-          } else {
-            native.classList.remove('show');
-          }
-        });
+    this.observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          element.classList.add('show');
+        } else {
+          element.classList.remove('show');
+        }
       },
       {
         threshold: 0.2,
       },
     );
+    this.observer.observe(element);
+  }
 
-    observer.observe(native);
+  ngOnDestroy(): void {
+    this.observer.disconnect();
   }
 }

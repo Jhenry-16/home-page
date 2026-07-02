@@ -1,428 +1,621 @@
-.videos-section {
-  padding: 5rem 0;
-  background: linear-gradient(180deg, #f8fbff 0%, #eef5ff 100%);
-  overflow: hidden;
+@use 'variables' as v;
+
+$primary: #1565ff;
+$secondary: #0f172a;
+$background: #f6f9ff;
+$text: #1e293b;
+$gray: #64748b;
+$white: #ffffff;
+$shadow: rgba(15, 23, 42, 0.12);
+
+:host {
+  display: block;
+  width: 100%;
 }
 
-/*=====================================
-=            ENCABEZADO
-=====================================*/
+.social-section {
+  position: relative;
+  overflow: hidden;
+  padding: 40px 0;
+  background: v.$surface-color;
+  animation: fadeUp 0.7s ease-out;
+}
 
-.section-badge {
+.badge-social {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.55rem 1.2rem;
+  gap: 10px;
+  padding: 12px 24px;
   border-radius: 50px;
-  background: #e8f0ff;
-  color: #1565c0;
-  font-weight: 600;
-  font-size: 0.9rem;
+  background: v.$secondary-badge;
+  color: v.$secondary-color;
+  font-size: 12px;
+  font-weight: 700;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+  }
 
   mat-icon {
-    font-size: 20px;
     width: 20px;
     height: 20px;
+    font-size: 20px;
   }
 }
 
+//==================================================
+// TITULOS
+//==================================================
+
 .title {
-  font-size: clamp(2rem, 5vw, 3.8rem);
+  margin: 16px 0 8px;
+  font-size: 32px;
   font-weight: 800;
-  color: #16325c;
+  letter-spacing: -1px;
+  color: v.$primary-color;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .subtitle {
-  max-width: 700px;
-  margin: auto;
-  color: #5d6777;
-  font-size: 1.1rem;
+  font-size: 16px;
+  line-height: 1.5;
+  color: v.$text;
+  margin-bottom: 30px;
 }
 
-/*=====================================
-=            PLATAFORMAS
-=====================================*/
+//==================================================
+// SLIDER STRUCTURE (INFINITE CAROUSEL)
+//==================================================
 
-.platforms {
-  .platform-btn {
-    width: 62px;
-    height: 62px;
+.slider-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 0 60px;
+  box-sizing: border-box;
+}
 
-    transition: 0.35s;
+.slider-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 58px;
+  height: 58px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(v.$primary-color, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: v.$primary-color;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+  z-index: 500;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
 
-    border-radius: 50%;
+  mat-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    font-size: 34px;
+    width: 34px;
+    height: 34px;
+  }
 
-    background: white;
+  &:hover:not(:disabled) {
+    background: v.$primary-color;
+    color: v.$surface-color;
+    transform: translateY(-50%) scale(1.08);
+    box-shadow: 0 12px 30px rgba(v.$primary-color, 0.35);
+  }
 
-    border: 2px solid transparent;
-
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
-
-    img {
-      width: 30px;
-      height: 30px;
-      object-fit: contain;
-    }
-
-    &:hover {
-      transform: translateY(-5px);
-    }
-
-    &.active {
-      border-color: #1565c0;
-
-      transform: translateY(-5px) scale(1.08);
-
-      box-shadow: 0 12px 30px rgba(21, 101, 192, 0.25);
-    }
+  &:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    pointer-events: none;
   }
 }
 
-/*=====================================
-=            CARRUSEL
-=====================================*/
+.prev {
+  left: 20px;
+}
 
-/*======================================
-=            CARRUSEL
-======================================*/
+.next {
+  right: 20px;
+}
 
-.carousel-wrapper {
+//==================================================
+// CONTENEDOR TARJETAS (VIEWPORT & TRACK)
+//==================================================
+
+.cards-container {
+  --card-width: 260px;
+  --card-gap: 24px;
+  --card-outer-width: calc(var(--card-width) + var(--card-gap));
+  --half-card-width: calc(var(--card-width) / 2);
+
   position: relative;
   width: 100%;
-  height: 650px;
   overflow: hidden;
+  padding: 40px 0; // Padding ensures scaling up and box shadow glows do not get clipped
+  box-sizing: border-box;
+  -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
 }
 
-/*======================================
-=            CONTENEDOR
-======================================*/
-
-.carousel {
+.cards-track {
+  display: flex;
+  gap: var(--card-gap);
   position: relative;
-  width: 100%;
-  height: 100%;
+  left: 50%;
+  width: max-content;
+  will-change: transform;
 }
 
-/*======================================
-=            TARJETAS
-======================================*/
+//==================================================
+// TARJETA (VIDEO CARD)
+//==================================================
 
 .video-card {
-  position: absolute;
-
-  top: 50%;
-  left: 50%;
-
-  width: 320px;
-  height: 520px;
-
-  translate: -50% -50%;
-
-  border-radius: 24px;
-
+  position: relative;
+  width: var(--card-width);
+  height: 470px;
+  min-width: var(--card-width);
+  border-radius: 28px;
   overflow: hidden;
-
   cursor: pointer;
-
+  background: $white;
+  border: 2px solid transparent;
+  opacity: 0.55;
+  transform: scale(0.9);
   transition:
-    transform 0.55s cubic-bezier(0.22, 0.61, 0.36, 1),
-    opacity 0.45s,
-    box-shadow 0.45s;
-
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.18);
+    transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+    box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+    border-color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+    opacity 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  z-index: 1;
 }
 
-/* Estados: centro, laterales, lejanos */
-
+/* Active card in the center */
 .video-card.active {
-  width: 380px;
-  height: 600px;
-
-  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.35);
-
-  border: 3px solid #1b5cff;
-
-  transform-origin: center center;
+  opacity: 1;
+  transform: scale(1.03);
+  border-color: v.$primary-color;
+  box-shadow: 0 20px 45px rgba(21, 101, 255, 0.3);
+  z-index: 10;
 }
 
-.video-card.side {
-  filter: brightness(0.95);
+/* Individual card hover effect */
+.video-card:hover {
+  opacity: 1 !important;
+  transform: scale(1.08) !important;
+  z-index: 100;
+  box-shadow: 0 25px 60px rgba(21, 101, 255, 0.45);
 }
 
-.video-card.far {
-  filter: brightness(0.75);
+/* Fade out other cards slightly when hovering a card */
+.cards-track:hover .video-card:not(:hover) {
+  opacity: 0.4;
+  transform: scale(0.86);
 }
 
-/*======================================
-=            IMAGEN
-======================================*/
+//==================================================
+// IMAGEN / VIDEO COVER
+//==================================================
 
-.thumb {
+.cover {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.5s ease;
 }
 
-/*======================================
-=            OVERLAY
-======================================*/
+.video-card:hover .cover {
+  transform: scale(1.06);
+}
 
-.overlay {
+//==================================================
+// DEGRADADO
+//==================================================
+
+.gradient {
   position: absolute;
   inset: 0;
-
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.88),
-    rgba(0, 0, 0, 0.15) 45%,
-    rgba(0, 0, 0, 0.05)
-  );
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
+  z-index: 5;
 }
 
-/*======================================
-=            HEADER
-======================================*/
+//==================================================
+// HEADER DEL CARD
+//==================================================
 
 .header {
   position: absolute;
-
   top: 18px;
-
   left: 18px;
-
   right: 18px;
-
   display: flex;
-
   justify-content: space-between;
-
   align-items: center;
-
-  color: #fff;
+  z-index: 20;
 }
 
 .social {
   display: flex;
-
-  gap: 10px;
-
   align-items: center;
+  gap: 12px;
 }
 
 .social img {
-  width: 38px;
-  height: 38px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
-  background: #fff;
-  padding: 4px;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  background: white;
 }
 
-.social strong {
-  display: block;
-
-  font-size: 15px;
+.social h5 {
+  margin: 0;
+  color: white;
+  font-size: 1rem;
+  font-weight: 700;
 }
 
 .social small {
-  opacity: 0.75;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.82rem;
 }
 
-.duration {
+.header button {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
   background: rgba(255, 255, 255, 0.18);
-
-  backdrop-filter: blur(10px);
-
-  padding: 5px 12px;
-
-  border-radius: 50px;
-
-  font-size: 0.8rem;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: white;
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/*======================================
-=            PLAY
-======================================*/
+.header button:hover {
+  background: white;
+  color: $primary;
+  transform: rotate(90deg);
+}
+
+//==================================================
+// BOTÓN PLAY
+//==================================================
 
 .play {
   position: absolute;
-
-  left: 50%;
   top: 50%;
-
+  left: 50%;
   transform: translate(-50%, -50%);
-
-  width: 78px;
-  height: 78px;
-
+  width: 82px;
+  height: 82px;
+  border-radius: 50%;
+  border: none;
   background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  z-index: 20;
+  transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+  cursor: pointer;
+  animation: pulsePlay 2s infinite ease-in-out;
 
-  backdrop-filter: blur(10px);
-
-  transition: 0.3s;
+  mat-icon {
+    width: 44px;
+    height: 44px;
+    font-size: 44px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
-.play:hover {
-  transform: translate(-50%, -50%) scale(1.08);
+.video-card:hover .play {
+  transform: translate(-50%, -50%) scale(1.15);
+  background: white;
+  color: $primary;
+  box-shadow: 0 15px 35px rgba(255, 255, 255, 0.35);
+  animation: none;
 }
 
-/*======================================
-=            FOOTER
-======================================*/
+//==================================================
+// CONTENIDO
+//==================================================
 
-.footer {
+.content {
   position: absolute;
-
-  left: 20px;
-  right: 20px;
-  bottom: 18px;
-
-  color: #fff;
+  left: 22px;
+  right: 22px;
+  bottom: 22px;
+  color: white;
+  z-index: 15;
 }
 
-.footer h4 {
-  font-size: 1.5rem;
-
-  font-weight: 700;
-
-  margin-bottom: 8px;
+.content h4 {
+  margin-bottom: 14px;
+  font-size: 1.35rem;
+  line-height: 1.35;
+  font-weight: 600;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-.footer p {
-  opacity: 0.9;
-
-  margin-bottom: 18px;
-}
+//==================================================
+// ESTADÍSTICAS
+//==================================================
 
 .stats {
   display: flex;
-
-  justify-content: space-between;
-
   align-items: center;
-
-  font-size: 0.85rem;
+  gap: 22px;
+  margin-top: 16px;
 }
 
 .stats span {
-  display: flex;
-
+  display: inline-flex;
   align-items: center;
-
-  gap: 5px;
+  gap: 6px;
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 500;
 }
 
 .stats mat-icon {
+  width: 18px;
+  height: 18px;
   font-size: 18px;
 }
 
-/*======================================
-=            FLECHAS
-======================================*/
+//==================================================
+// PAGINACIÓN
+//==================================================
 
-.nav {
-  position: absolute;
-
-  top: 50%;
-
-  transform: translateY(-50%);
-
-  width: 58px;
-  height: 58px;
-
-  background: #fff !important;
-
-  color: #1b5cff !important;
-
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
-
-  z-index: 500;
-}
-
-.prev {
-  left: 15px;
-}
-
-.next {
-  right: 15px;
-}
-
-/*======================================
-=            DOTS
-======================================*/
-
-.dots {
+.pagination-custom {
   display: flex;
-
   justify-content: center;
-
+  align-items: center;
   gap: 10px;
+  margin-top: 25px;
 }
 
-.dots span {
-  width: 10px;
-  height: 10px;
-
+.pagination-custom span {
+  width: 11px;
+  height: 11px;
   border-radius: 50%;
-
-  background: #c7d3ea;
-
+  background: #d6dce7;
+  transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
   cursor: pointer;
 
-  transition: 0.3s;
+  &:hover {
+    background: $primary;
+  }
+
+  &.active {
+    width: 38px;
+    border-radius: 30px;
+    background: $primary;
+  }
 }
 
-.dots span.active {
-  width: 36px;
-
-  border-radius: 20px;
-
-  background: #1b5cff;
+/*Animaciones*/
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/*======================================
-=            RESPONSIVE
-======================================*/
+@keyframes pulsePlay {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(255, 255, 255, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+  }
+}
 
-@media (max-width: 992px) {
+//==================================================
+// MEDIA QUERIES (RESPONSIVE ALIGNMENT)
+//==================================================
+
+@media (max-width: 1200px) {
+  .cards-container {
+    --card-width: 230px;
+    --card-gap: 24px;
+  }
+
   .video-card {
-    width: 250px;
     height: 420px;
   }
 
-  .video-card[style*='scale(1)'] {
-    width: 280px;
-    height: 460px;
+  .content h4 {
+    font-size: 1.2rem;
+  }
+
+  .play {
+    width: 70px;
+    height: 70px;
+
+    mat-icon {
+      width: 36px;
+      height: 36px;
+      font-size: 36px;
+    }
   }
 }
 
 @media (max-width: 992px) {
-  .video-card.active {
-    width: 320px;
-    height: 520px;
+  .cards-container {
+    --card-width: 210px;
+    --card-gap: 18px;
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
   }
 
-  .video-card.side {
-    transform-origin: center center;
+  .video-card {
+    height: 390px;
+  }
+
+  .title {
+    font-size: 28px;
   }
 }
 
 @media (max-width: 768px) {
-  .carousel-wrapper {
-    height: 520px;
+  .social-section {
+    padding: 30px 0;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .subtitle {
+    font-size: 0.95rem;
+    padding: 0 20px;
+    margin-bottom: 20px;
+  }
+
+  .slider-wrapper {
+    padding: 0 40px;
+  }
+
+  .slider-arrow {
+    width: 48px;
+    height: 48px;
+
+    mat-icon {
+      font-size: 28px;
+      width: 28px;
+      height: 28px;
+    }
+  }
+
+  .prev {
+    left: 5px;
+  }
+
+  .next {
+    right: 5px;
+  }
+
+  .cards-container {
+    --card-width: 260px;
+    --card-gap: 20px;
+    padding: 25px 0;
+    -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
   }
 
   .video-card {
-    width: 220px;
-    height: 360px;
+    height: 470px;
+  }
+}
+
+@media (max-width: 480px) {
+  .slider-wrapper {
+    padding: 0 20px;
   }
 
-  .video-card.active {
-    width: 260px;
-    height: 420px;
-    border-width: 2px;
+  .slider-arrow {
+    display: none; // Hide arrows on small mobiles to maximize screen area for swipe/touch
   }
 
-  .nav {
-    display: none;
+  .cards-container {
+    --card-width: 180px;
+    --card-gap: 12px;
+    padding: 15px 0;
+    -webkit-mask-image: linear-gradient(to right, transparent, black 2%, black 98%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 2%, black 98%, transparent);
+  }
+
+  .video-card {
+    height: 320px;
+    border-radius: 20px;
+  }
+
+  .social img {
+    width: 32px;
+    height: 32px;
+  }
+
+  .social h5 {
+    font-size: 0.85rem;
+  }
+
+  .social small {
+    font-size: 0.75rem;
+  }
+
+  .header button {
+    width: 30px;
+    height: 30px;
+  }
+
+  .play {
+    width: 50px;
+    height: 50px;
+
+    mat-icon {
+      width: 24px;
+      height: 24px;
+      font-size: 24px;
+    }
+  }
+
+  .content {
+    left: 14px;
+    right: 14px;
+    bottom: 14px;
+  }
+
+  .content h4 {
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+  }
+
+  .stats {
+    margin-top: 8px;
+    gap: 12px;
+  }
+
+  .stats span {
+    font-size: 0.75rem;
+  }
+
+  .badge-social {
+    font-size: 0.75rem;
+    padding: 8px 16px;
+  }
+
+  .more-btn {
+    width: 100%;
+    justify-content: center;
   }
 }

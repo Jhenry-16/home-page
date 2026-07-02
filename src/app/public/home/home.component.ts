@@ -7,6 +7,7 @@ import { HistoriaComponent } from '../historia/historia.component';
 import { PreguntasComponent } from '../preguntas/preguntas.component';
 import { ConversatorioComponent } from '../conversatorio/conversatorio.component';
 import { VideosCarrucelComponent } from '../videos-carrucel/videos-carrucel.component';
+import { AnimacionDirective } from '../../shared/directives/animacion.directive';
 
 @Component({
   selector: 'app-home',
@@ -18,6 +19,8 @@ import { VideosCarrucelComponent } from '../videos-carrucel/videos-carrucel.comp
     HistoriaComponent,
     PreguntasComponent,
     ConversatorioComponent,
+    VideosCarrucelComponent,
+    AnimacionDirective,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
@@ -39,17 +42,35 @@ export class HomeComponent {
     {
       icon: 'shield',
       title: 'Seguridad Ciudadana',
-      items: ['Más serenazgo', 'Más cámaras', 'Tecnología e IA', 'Patrullaje integrado'],
+      items: [
+        'Monitoreo inteligente las 24 horas.',
+        `Aplicativo móvil "Alerta Pueblo Libre."`,
+        'Patrullaje focalizado en zonas críticas.',
+        'Iluminación LED blanca en vías y parques.',
+      ],
     },
     {
       icon: 'account_balance',
-      title: 'Orden y Fiscalización',
-      items: ['Recuperar espacios públicos', 'Comercio ordenado', 'Fiscalización efectiva'],
+      title: 'Empleo y Emprendimiento',
+      items: [
+        'Bolsa de trabajo municipal.',
+        'Capacitación Laboral,',
+        'Capacitación tributaria.',
+        'Asesoría administrativa.',
+        'Ordenamiento comercial.',
+        'Recuperación del espacio público.',
+      ],
     },
     {
       icon: 'park',
-      title: 'Parques y Áreas Verdes',
-      items: ['Más iluminación', 'Mantenimiento permanente', 'Más áreas verdes'],
+      title: 'Parques y Espacios Públicos para la Familia',
+      items: [
+        'Juegos infantiles modernos.',
+        'Espacios para adultos mayores.',
+        'Zonas deportivas familiares.',
+        'Modernización del mobiliario urbano.',
+        'Programación permanente de actividades deportivas y recreativas.',
+      ],
     },
     {
       icon: 'directions_car',
@@ -57,24 +78,48 @@ export class HomeComponent {
       items: ['Soluciones inteligentes', 'Ordenamiento vial', 'Respeto al peatón'],
     },
     {
-      icon: 'local_parking',
-      title: 'Estacionamientos Inteligentes',
-      items: ['Más espacios', 'Convenios', 'Zonas reguladas'],
+      icon: 'heart_broken',
+      title: 'Salud Preventiva',
+      items: [
+        'Sistema Municipal de Salud Preventiva.',
+        'Brigadas de rescate municipal.',
+        'Campañas permanentes de prevención y control.',
+        'Implementación de boticas municipales.',
+      ],
     },
     {
       icon: 'pets',
       title: 'Bienestar Animal',
-      items: ['Veterinaria Municipal', 'Campañas gratuitas', 'Adopción responsable'],
+      items: [
+        'Veterinaria municipal a costo social.',
+        'Campañas de vacunación.',
+        'Esterilización.',
+        'Desparasitación.',
+        'Registro de mascotas.',
+        'Brigada Municipal de Protección Animal.',
+        'Tachos especiales para mascotas.',
+      ],
     },
     {
       icon: 'school',
-      title: 'Educación y Capacitación',
-      items: ['Casa del Vecino', 'Cursos gratuitos', 'Talleres para jóvenes'],
+      title: 'Educación y deporte',
+      items: [
+        'Centro Preuniversitario Municipal.',
+        'Cursos técnicos.',
+        'Certificación por competencias.',
+        'Mejoramiento de complejos deportivos.',
+        'Escuelas deportivas municipales.',
+      ],
     },
     {
       icon: 'elderly',
-      title: 'Adulto Mayor',
-      items: ['Programas de salud', 'Actividades recreativas', 'Atención preferente'],
+      title: 'Inclusión Social y Atención a Poblaciones Vulnerables',
+      items: [
+        'Orientación legal.',
+        'Atención preventiva en salud.',
+        'Actividades recreativas.',
+        'Fortalecimiento de programas sociales.',
+      ],
     },
     {
       icon: 'sports_soccer',

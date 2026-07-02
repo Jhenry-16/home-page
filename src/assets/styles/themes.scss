@@ -146,7 +146,8 @@ $dark-theme: mat.m2-define-dark-theme(
 /* GLOBAL */
 
 html,
-body {
+body,
+footer {
   height: 100%;
   margin: 0;
   font-family: 'Inter', sans-serif;

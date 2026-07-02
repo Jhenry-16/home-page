@@ -1,118 +1,91 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, OnDestroy, OnInit } from '@angular/core';
 import { MaterialModule } from '../../shared/components/material/material.module';
-
-export interface SocialVideo {
-  id: number;
-  platform: 'all' | 'youtube' | 'facebook' | 'instagram' | 'tiktok';
-  title: string;
-  description: string;
-  thumbnail: string;
-  videoUrl: string;
-  user: string;
-  publishedAt: string;
-  likes: number;
-  comments: number;
-  duration: string;
-}
+import { AnimacionDirective } from '../../shared/directives/animacion.directive';
 
 export type Platform = 'all' | 'youtube' | 'facebook' | 'instagram' | 'tiktok';
 
 @Component({
   selector: 'app-videos-carrucel',
   standalone: true,
-  imports: [CommonModule, MaterialModule],
+  imports: [CommonModule, MaterialModule, AnimacionDirective],
   templateUrl: './videos-carrucel.component.html',
   styleUrl: './videos-carrucel.component.scss',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class VideosCarrucelComponent implements OnInit, OnDestroy {
-  readonly autoplayTime = 4000;
+export class VideosCarrucelComponent implements OnDestroy, OnInit {
+  // Index of the currently centered card in the cloned array
+  currentIndex = 0;
 
-  private timer?: ReturnType<typeof setInterval>;
+  // Controls whether CSS transitions are enabled on the track
+  transitionEnabled = true;
 
-  readonly platforms: Platform[] = ['all', 'youtube', 'facebook', 'instagram', 'tiktok'];
+  // Tracks if a slide animation is currently running to prevent spamming
+  isTransitioning = false;
 
-  readonly selectedPlatform = signal<Platform>('all');
+  // Autoplay control
+  isPaused = false;
+  private autoplayInterval?: ReturnType<typeof setInterval>;
 
-  readonly currentIndex = signal(0);
+  selectedSocial = 'tiktok';
 
-  readonly videos = signal<SocialVideo[]>([
+  videos = [
     {
       id: 1,
-      platform: 'youtube',
-      title: 'Instalación de nuevas líneas eléctricas',
-      description: 'Conoce nuestro trabajo de modernización.',
-      thumbnail: 'assets/images/videos/video1.jpg',
-      videoUrl: 'https://youtube.com',
-      user: '@Electro',
-      publishedAt: 'Hace 2 días',
-      likes: 12500,
-      comments: 180,
-      duration: '1:28',
+      social: 'tiktok',
+      user: '@jose-casas',
+      title: 'Conversatorio Pueblo Libre',
+      image: 'assets/images/fondos/fondo1.jpg',
+      likes: '12.5K',
+      comments: 128,
     },
     {
       id: 2,
-      platform: 'facebook',
-      title: 'Conversatorio con vecinos',
-      description: 'Escuchamos a la comunidad.',
-      thumbnail: 'assets/images/videos/video2.jpg',
-      videoUrl: 'https://facebook.com',
-      user: '@Electro',
-      publishedAt: 'Hace 4 días',
-      likes: 6200,
-      comments: 70,
-      duration: '0:58',
-    },
-    {
-      id: 3,
-      platform: 'instagram',
-      title: 'Energía para todos',
-      description: 'Seguimos creciendo.',
-      thumbnail: 'assets/images/videos/video3.jpg',
-      videoUrl: 'https://instagram.com',
-      user: '@Electro',
-      publishedAt: 'Hace 5 días',
-      likes: 9400,
+      social: 'instagram',
+      user: '@jose-casas',
+      title: 'Conversatorio con el sector 8',
+      image: 'assets/images/fondos/fondo1.jpg',
+      likes: '8.2K',
       comments: 96,
-      duration: '1:14',
     },
     {
       id: 4,
-      platform: 'tiktok',
-      title: 'Mantenimiento preventivo',
-      description: 'Nuestro equipo en acción.',
-      thumbnail: 'assets/images/videos/video4.jpg',
-      videoUrl: 'https://tiktok.com',
-      user: '@Electro',
-      publishedAt: 'Hace 1 semana',
-      likes: 22100,
-      comments: 420,
-      duration: '0:42',
+      social: 'facebook',
+      user: '@jose-casas',
+      title: 'Conversatorio con el sector 3',
+      image: 'assets/images/fondos/fondo4.jpg',
+      likes: '4.3K',
+      comments: 72,
     },
     {
       id: 5,
-      platform: 'youtube',
-      title: 'Proyecto de electrificación',
-      description: 'Más energía para más familias.',
-      thumbnail: 'assets/images/videos/video5.jpg',
-      videoUrl: 'https://youtube.com',
-      user: '@Electro',
-      publishedAt: 'Hace 8 días',
-      likes: 18200,
+      social: 'tiktok',
+      user: '@jose-casas',
+      title: 'Conversatorio con el sector 2',
+      image: 'assets/images/fondos/fondo2.jpg',
+      likes: '15.7K',
       comments: 210,
-      duration: '2:08',
     },
-  ]);
+  ];
 
-  readonly filteredVideos = computed(() => {
-    if (this.selectedPlatform() === 'all') {
-      return this.videos();
-    }
+  // Tripled array to facilitate seamless infinite looping
+  get clonedVideos() {
+    return [...this.videos, ...this.videos, ...this.videos];
+  }
 
-    return this.videos().filter((video) => video.platform === this.selectedPlatform());
-  });
+  // Active index of the original videos array
+  get activeIndex(): number {
+    const N = this.videos.length;
+    if (N === 0) return 0;
+    return ((this.currentIndex % N) + N) % N;
+  }
 
   ngOnInit(): void {
+    const N = this.videos.length;
+    if (N > 0) {
+      // Start in the middle segment to allow scrolling left and right immediately
+      this.currentIndex = N;
+    }
     this.startAutoplay();
   }
 
@@ -120,155 +93,106 @@ export class VideosCarrucelComponent implements OnInit, OnDestroy {
     this.stopAutoplay();
   }
 
-  startAutoplay(): void {
+  private startAutoplay(): void {
     this.stopAutoplay();
-
-    this.timer = setInterval(() => {
-      this.next();
-    }, this.autoplayTime);
+    this.autoplayInterval = setInterval(() => {
+      if (!this.isPaused) {
+        this.nextSlide(false);
+      }
+    }, 3500);
   }
 
-  stopAutoplay(): void {
-    if (this.timer) {
-      clearInterval(this.timer);
-
-      this.timer = undefined;
+  private stopAutoplay(): void {
+    if (this.autoplayInterval) {
+      clearInterval(this.autoplayInterval);
+      this.autoplayInterval = undefined;
     }
   }
 
-  next(): void {
-    const total = this.filteredVideos().length;
-
-    if (total <= 1) return;
-
-    this.currentIndex.update((value) => (value + 1) % total);
+  pauseAutoplay(): void {
+    this.isPaused = true;
   }
 
-  previous(): void {
-    const total = this.filteredVideos().length;
-
-    if (total <= 1) return;
-
-    this.currentIndex.update((value) => (value - 1 + total) % total);
+  resumeAutoplay(): void {
+    this.isPaused = false;
   }
 
-  goTo(index: number): void {
-    this.currentIndex.set(index);
+  nextSlide(restart = true): void {
+    const N = this.videos.length;
+    if (N <= 1 || this.isTransitioning) return;
+
+    this.isTransitioning = true;
+    this.transitionEnabled = true;
+    this.currentIndex++;
+
+    if (restart) {
+      this.startAutoplay();
+    }
+  }
+
+  prevSlide(): void {
+    const N = this.videos.length;
+    if (N <= 1 || this.isTransitioning) return;
+
+    this.isTransitioning = true;
+    this.transitionEnabled = true;
+    this.currentIndex--;
 
     this.startAutoplay();
   }
 
-  selectPlatform(platform: Platform): void {
-    this.selectedPlatform.set(platform);
+  goToSlide(index: number): void {
+    const N = this.videos.length;
+    if (N <= 1 || this.isTransitioning) return;
 
-    this.currentIndex.set(0);
+    this.isTransitioning = true;
+    this.transitionEnabled = true;
 
+    const currentOrg = this.activeIndex;
+    let diff = index - currentOrg;
+    if (diff > N / 2) {
+      diff -= N;
+    } else if (diff < -N / 2) {
+      diff += N;
+    }
+
+    this.currentIndex = this.currentIndex + diff;
     this.startAutoplay();
   }
 
-  openVideo(video: SocialVideo): void {
-    window.open(video.videoUrl, '_blank', 'noopener,noreferrer');
+  goToCard(idx: number): void {
+    const N = this.videos.length;
+    if (N <= 1 || this.isTransitioning) return;
+
+    this.isTransitioning = true;
+    this.transitionEnabled = true;
+    this.currentIndex = idx;
+    this.startAutoplay();
   }
 
-  trackByVideo(index: number, video: SocialVideo): number {
-    return video.id;
-  }
+  onTransitionEnd(): void {
+    this.isTransitioning = false;
+    const N = this.videos.length;
+    if (N === 0) return;
 
-  formatNumber(value: number): string {
-    if (value >= 1000000) {
-      return (value / 1000000).toFixed(1) + 'M';
-    }
-
-    if (value >= 1000) {
-      return (value / 1000).toFixed(1) + 'K';
-    }
-
-    return value.toString();
-  }
-
-  /**
-   * Devuelve la posición relativa del video
-   * 0 = centro
-   * -1 = izquierda
-   * 1 = derecha
-   * -2 = izquierda lejana
-   * 2 = derecha lejana
-   */
-
-  getOffset(index: number): number {
-    const total = this.filteredVideos().length;
-
-    let diff = index - this.currentIndex();
-
-    if (diff > total / 2) {
-      diff -= total;
-    }
-
-    if (diff < -total / 2) {
-      diff += total;
-    }
-
-    return diff;
-  }
-
-  isVisible(index: number): boolean {
-    return Math.abs(this.getOffset(index)) <= 2;
-  }
-
-  isSide(index: number): boolean {
-    return Math.abs(this.getOffset(index)) === 1;
-  }
-
-  isFar(index: number): boolean {
-    return Math.abs(this.getOffset(index)) === 2;
-  }
-
-  getTransform(index: number): string {
-    const offset = this.getOffset(index);
-
-    const vw = typeof window !== 'undefined' ? window.innerWidth : 1200;
-
-    // distances adapt to viewport width
-    const small = vw < 768;
-    const medium = vw >= 768 && vw < 992;
-
-    const dist1 = small ? 120 : medium ? 200 : 260; // offset 1 distance
-    const dist2 = small ? 220 : medium ? 380 : 470; // offset 2 distance
-
-    switch (offset) {
-      case 0:
-        return `translateX(0) translateY(${small ? '-18px' : '-30px'}) scale(1)`;
-
-      case -1:
-        return `translateX(-${dist1}px) translateY(0) scale(.88)`;
-
-      case 1:
-        return `translateX(${dist1}px) translateY(0) scale(.88)`;
-
-      case -2:
-        return `translateX(-${dist2}px) translateY(0) scale(.75)`;
-
-      case 2:
-        return `translateX(${dist2}px) translateY(0) scale(.75)`;
-
-      default:
-        return 'scale(.6)';
+    if (this.currentIndex >= 2 * N) {
+      this.transitionEnabled = false;
+      this.currentIndex = this.currentIndex - N;
+      setTimeout(() => {
+        this.transitionEnabled = true;
+      }, 50);
+    } else if (this.currentIndex < N) {
+      this.transitionEnabled = false;
+      this.currentIndex = this.currentIndex + N;
+      setTimeout(() => {
+        this.transitionEnabled = true;
+      }, 50);
     }
   }
 
-  getOpacity(index: number): number {
-    const offset = Math.abs(this.getOffset(index));
-
-    if (offset === 0) return 1;
-
-    if (offset === 1) return 0.8;
-
-    if (offset === 2) return 0.45;
-
-    return 0;
-  }
-
-  getZIndex(index: number): number {
-    return 100 - Math.abs(this.getOffset(index));
+  getTrackTransform(): string {
+    const N = this.videos.length;
+    if (N === 0) return 'translateX(0)';
+    return `translateX(calc(-1 * var(--half-card-width) - ${this.currentIndex} * var(--card-outer-width)))`;
   }
 }

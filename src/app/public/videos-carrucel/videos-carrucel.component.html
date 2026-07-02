@@ -1,154 +1,105 @@
-<section class="videos-section container py-5">
-  <!-- Encabezado -->
-  <div class="text-center mb-5">
-    <span class="section-badge">
-      <mat-icon>play_circle</mat-icon>
-      NUESTRAS REDES SOCIALES
-    </span>
+<section class="social-section">
+  <div class="container">
+    <div class="text-center mb-2" animacion="fade-up">
+      <span class="badge-social">
+        <mat-icon color="accent">play_circle</mat-icon>
+        NUESTRAS REDES
+      </span>
+    </div>
 
-    <h2 class="title mt-3">Videos destacados</h2>
+    <div class="text-center" animacion="fade-up">
+      <h2 class="title">Videos destacados</h2>
+      <p class="subtitle">Descubre lo más reciente y relevante de nuestras redes sociales.</p>
+    </div>
 
-    <p class="subtitle">
-      Descubre nuestras últimas publicaciones en YouTube, Facebook, Instagram y TikTok.
-    </p>
-  </div>
-
-  <!-- Plataformas -->
-
-  <div class="platforms d-flex justify-content-center flex-wrap gap-3 mb-5">
-    <button
-      *ngFor="let platform of platforms"
-      mat-mini-fab
-      type="button"
-      class="platform-btn"
-      [class.active]="selectedPlatform() === platform"
-      (click)="selectPlatform(platform)"
+    <div
+      class="slider-wrapper"
+      animacion="zoom-in"
+      (mouseenter)="pauseAutoplay()"
+      (mouseleave)="resumeAutoplay()"
     >
-      <img [src]="'assets/icons/' + platform + '.svg'" [alt]="platform" />
-    </button>
-  </div>
+      <!-- Flecha izquierda -->
+      <button class="slider-arrow prev" type="button" (click)="prevSlide()">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
 
-  <!-- Carrusel -->
-
-  <div class="carousel-wrapper" (mouseenter)="stopAutoplay()" (mouseleave)="startAutoplay()">
-    <!-- Flecha izquierda -->
-
-    <button mat-fab color="primary" class="nav prev" (click)="previous()">
-      <mat-icon>chevron_left</mat-icon>
-    </button>
-
-    <!-- Tarjetas -->
-
-    <div class="carousel">
-      <div
-        *ngFor="let video of filteredVideos(); let i = index; trackBy: trackByVideo"
-        class="video-card"
-        [class.active]="getOffset(i) === 0"
-        [class.side]="isSide(i)"
-        [class.far]="isFar(i)"
-        [style.transform]="getTransform(i)"
-        [style.opacity]="getOpacity(i)"
-        [style.z-index]="getZIndex(i)"
-        [style.pointer-events]="isVisible(i) ? 'auto' : 'none'"
-        [style.visibility]="isVisible(i) ? 'visible' : 'hidden'"
-        (click)="openVideo(video)"
-      >
-        <!-- Imagen -->
-
-        <img class="thumb" [src]="video.thumbnail" [alt]="video.title" />
-
-        <div class="overlay"></div>
-
-        <!-- Header -->
-
-        <div class="header">
-          <div class="social">
-            <img [src]="'assets/icons/' + video.platform + '.svg'" [alt]="video.platform" />
-
-            <div>
-              <strong>
-                {{ video.platform | titlecase }}
-              </strong>
-
-              <small>
-                {{ video.user }}
-              </small>
-            </div>
-          </div>
-
-          <div class="duration">
-            {{ video.duration }}
-          </div>
-        </div>
-
-        <!-- Play -->
-
-        <button
-          mat-fab
-          color="primary"
-          class="play"
-          (click)="openVideo(video); $event.stopPropagation()"
+      <!-- Tarjetas -->
+      <div class="cards-container">
+        <div
+          class="cards-track"
+          [style.transform]="getTrackTransform()"
+          [style.transition]="transitionEnabled ? 'transform .4s ease' : 'none'"
+          (transitionend)="onTransitionEnd()"
         >
-          <mat-icon> play_arrow </mat-icon>
-        </button>
+          <div
+            class="video-card"
+            *ngFor="let video of clonedVideos; let i = index"
+            [class.active]="i === currentIndex"
+            (click)="goToCard(i)"
+          >
+            <!-- HEADER -->
+            <div class="header">
+              <div class="social">
+                <img
+                  [src]="'assets/images/iconos/' + video.social + '-color.png'"
+                  [alt]="video.social"
+                />
 
-        <!-- Footer -->
+                <div>
+                  <h5>{{ video.social | titlecase }}</h5>
+                  <small>{{ video.user }}</small>
+                </div>
+              </div>
 
-        <div class="footer">
-          <h4>
-            {{ video.title }}
-          </h4>
+              <button mat-icon-button>
+                <mat-icon>more_horiz</mat-icon>
+              </button>
+            </div>
 
-          <p>
-            {{ video.description }}
-          </p>
+            <!-- Imagen -->
+            <img class="cover" [src]="video.image" [alt]="video.title" />
 
-          <div class="stats">
-            <span>
-              <mat-icon>favorite</mat-icon>
+            <!-- Play -->
+            <button class="play">
+              <mat-icon>play_arrow</mat-icon>
+            </button>
 
-              {{ formatNumber(video.likes) }}
-            </span>
+            <!-- Gradiente -->
+            <div class="gradient"></div>
 
-            <span>
-              <mat-icon>chat_bubble_outline</mat-icon>
+            <!-- Contenido -->
+            <div class="content">
+              <h4>{{ video.title }}</h4>
 
-              {{ video.comments }}
-            </span>
+              <div class="stats">
+                <span>
+                  <mat-icon>favorite</mat-icon>
+                  {{ video.likes }}
+                </span>
 
-            <span>
-              {{ video.publishedAt }}
-            </span>
+                <span>
+                  <mat-icon>chat_bubble</mat-icon>
+                  {{ video.comments }}
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+
+      <!-- Flecha derecha -->
+      <button class="slider-arrow next" type="button" (click)="nextSlide()">
+        <mat-icon>chevron_right</mat-icon>
+      </button>
     </div>
 
-    <!-- Flecha derecha -->
-
-    <button mat-fab color="primary" class="nav next" (click)="next()">
-      <mat-icon> chevron_right </mat-icon>
-    </button>
-  </div>
-
-  <!-- Indicadores -->
-
-  <div class="dots mt-5">
-    <span
-      *ngFor="let video of filteredVideos(); let i = index"
-      [class.active]="i === currentIndex()"
-      (click)="goTo(i)"
-    >
-    </span>
-  </div>
-
-  <!-- Botón -->
-
-  <div class="text-center mt-5">
-    <button mat-flat-button color="primary">
-      <mat-icon> smart_display </mat-icon>
-
-      Ver todos los videos
-    </button>
+    <!-- PAGINADOR -->
+    <div class="pagination-custom">
+      <span
+        *ngFor="let video of videos; let i = index"
+        [class.active]="i === activeIndex"
+        (click)="goToSlide(i)"
+      ></span>
+    </div>
   </div>
 </section>
