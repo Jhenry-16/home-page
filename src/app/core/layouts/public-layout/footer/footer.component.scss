@@ -1,8 +1,5 @@
 @use 'variables' as v;
 
-:host {
-  display: block;
-}
 footer {
   background: v.$primary-color;
   color: v.$surface-color;
@@ -41,7 +38,8 @@ footer {
   border-right: 1px solid rgba(255, 255, 255, 0.35);
   align-items: center;
   @media (max-width: 768px) {
-    margin-bottom: 24px;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
     border-right: none;
     border-bottom: 1px solid rgba(255, 255, 255, 0.35);
   }
@@ -111,4 +109,11 @@ footer {
   margin-top: 1.5rem;
   color: rgba(255, 255, 255, 0.66);
   font-size: 16px;
+}
+
+.footer-content {
+  @media (max-width: 468px) {
+    width: 100%;
+    text-align: center;
+  }
 }

@@ -1,11 +1,5 @@
 @use 'variables' as v;
 
-:host {
-  position: fixed;
-  inset: 0;
-  z-index: 2000;
-}
-
 /* Fondo oscuro */
 
 .backdrop {

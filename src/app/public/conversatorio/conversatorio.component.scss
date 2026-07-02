@@ -1,13 +1,5 @@
 @use 'variables' as v;
 
-:host {
-  display: block;
-  font-family: 'Inter', sans-serif;
-  color: v.$primary-color;
-  width: 100%;
-  height: 100%;
-}
-
 #conversatorio {
   min-height: 80vh;
   padding: 24px 0;
