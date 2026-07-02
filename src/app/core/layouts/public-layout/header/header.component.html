@@ -5,7 +5,14 @@
         <!-- Logo -->
         <div class="col-lg-2 col-md-6 col-8">
           <a routerLink="/" class="logo" aria-label="Ir al inicio">
-            <img src="/assets/images/logos/logo.png" alt="Logo" />
+            <img
+              [src]="
+                isSticky
+                  ? '/assets/images/logos/logo-azul.png'
+                  : '/assets/images/logos/logo-blanco.png'
+              "
+              alt="Logo"
+            />
           </a>
         </div>
 

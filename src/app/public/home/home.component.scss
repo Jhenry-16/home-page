@@ -20,7 +20,10 @@
   margin: 0 0 16px;
   text-align: center;
   color: v.$primary-color;
-  font-weight: 1000;
+  text-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.35),
+    0 4px 12px rgba(0, 0, 0, 0.2);
+  font-weight: 800;
 }
 
 .cards-propuestas {

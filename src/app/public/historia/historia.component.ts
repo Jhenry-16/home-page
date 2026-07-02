@@ -28,7 +28,7 @@ export class HistoriaComponent {
 
   abrirPdf() {
     const link = document.createElement('a');
-    link.href = 'https://drive.google.com/file/d/1neXLBmz72Ed_-XIhAAZkeomqm69obGBs/view';
+    link.href = 'https://drive.google.com/file/d/1H2XK3iYcZdRCPvRu-P4o6NJ7gO0mCEj-/view';
     link.target = '_blank';
     link.download = 'Hoja_de_Vida_Jose_Casas_Carrion.pdf';
     link.click();

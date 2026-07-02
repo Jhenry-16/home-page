@@ -1,0 +1,428 @@
+.videos-section {
+  padding: 5rem 0;
+  background: linear-gradient(180deg, #f8fbff 0%, #eef5ff 100%);
+  overflow: hidden;
+}
+
+/*=====================================
+=            ENCABEZADO
+=====================================*/
+
+.section-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1.2rem;
+  border-radius: 50px;
+  background: #e8f0ff;
+  color: #1565c0;
+  font-weight: 600;
+  font-size: 0.9rem;
+
+  mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.title {
+  font-size: clamp(2rem, 5vw, 3.8rem);
+  font-weight: 800;
+  color: #16325c;
+}
+
+.subtitle {
+  max-width: 700px;
+  margin: auto;
+  color: #5d6777;
+  font-size: 1.1rem;
+}
+
+/*=====================================
+=            PLATAFORMAS
+=====================================*/
+
+.platforms {
+  .platform-btn {
+    width: 62px;
+    height: 62px;
+
+    transition: 0.35s;
+
+    border-radius: 50%;
+
+    background: white;
+
+    border: 2px solid transparent;
+
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+
+    img {
+      width: 30px;
+      height: 30px;
+      object-fit: contain;
+    }
+
+    &:hover {
+      transform: translateY(-5px);
+    }
+
+    &.active {
+      border-color: #1565c0;
+
+      transform: translateY(-5px) scale(1.08);
+
+      box-shadow: 0 12px 30px rgba(21, 101, 192, 0.25);
+    }
+  }
+}
+
+/*=====================================
+=            CARRUSEL
+=====================================*/
+
+/*======================================
+=            CARRUSEL
+======================================*/
+
+.carousel-wrapper {
+  position: relative;
+  width: 100%;
+  height: 650px;
+  overflow: hidden;
+}
+
+/*======================================
+=            CONTENEDOR
+======================================*/
+
+.carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/*======================================
+=            TARJETAS
+======================================*/
+
+.video-card {
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  width: 320px;
+  height: 520px;
+
+  translate: -50% -50%;
+
+  border-radius: 24px;
+
+  overflow: hidden;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.55s cubic-bezier(0.22, 0.61, 0.36, 1),
+    opacity 0.45s,
+    box-shadow 0.45s;
+
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.18);
+}
+
+/* Estados: centro, laterales, lejanos */
+
+.video-card.active {
+  width: 380px;
+  height: 600px;
+
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.35);
+
+  border: 3px solid #1b5cff;
+
+  transform-origin: center center;
+}
+
+.video-card.side {
+  filter: brightness(0.95);
+}
+
+.video-card.far {
+  filter: brightness(0.75);
+}
+
+/*======================================
+=            IMAGEN
+======================================*/
+
+.thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/*======================================
+=            OVERLAY
+======================================*/
+
+.overlay {
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.88),
+    rgba(0, 0, 0, 0.15) 45%,
+    rgba(0, 0, 0, 0.05)
+  );
+}
+
+/*======================================
+=            HEADER
+======================================*/
+
+.header {
+  position: absolute;
+
+  top: 18px;
+
+  left: 18px;
+
+  right: 18px;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  color: #fff;
+}
+
+.social {
+  display: flex;
+
+  gap: 10px;
+
+  align-items: center;
+}
+
+.social img {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #fff;
+  padding: 4px;
+}
+
+.social strong {
+  display: block;
+
+  font-size: 15px;
+}
+
+.social small {
+  opacity: 0.75;
+}
+
+.duration {
+  background: rgba(255, 255, 255, 0.18);
+
+  backdrop-filter: blur(10px);
+
+  padding: 5px 12px;
+
+  border-radius: 50px;
+
+  font-size: 0.8rem;
+}
+
+/*======================================
+=            PLAY
+======================================*/
+
+.play {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  transform: translate(-50%, -50%);
+
+  width: 78px;
+  height: 78px;
+
+  background: rgba(255, 255, 255, 0.18);
+
+  backdrop-filter: blur(10px);
+
+  transition: 0.3s;
+}
+
+.play:hover {
+  transform: translate(-50%, -50%) scale(1.08);
+}
+
+/*======================================
+=            FOOTER
+======================================*/
+
+.footer {
+  position: absolute;
+
+  left: 20px;
+  right: 20px;
+  bottom: 18px;
+
+  color: #fff;
+}
+
+.footer h4 {
+  font-size: 1.5rem;
+
+  font-weight: 700;
+
+  margin-bottom: 8px;
+}
+
+.footer p {
+  opacity: 0.9;
+
+  margin-bottom: 18px;
+}
+
+.stats {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  font-size: 0.85rem;
+}
+
+.stats span {
+  display: flex;
+
+  align-items: center;
+
+  gap: 5px;
+}
+
+.stats mat-icon {
+  font-size: 18px;
+}
+
+/*======================================
+=            FLECHAS
+======================================*/
+
+.nav {
+  position: absolute;
+
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  width: 58px;
+  height: 58px;
+
+  background: #fff !important;
+
+  color: #1b5cff !important;
+
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
+
+  z-index: 500;
+}
+
+.prev {
+  left: 15px;
+}
+
+.next {
+  right: 15px;
+}
+
+/*======================================
+=            DOTS
+======================================*/
+
+.dots {
+  display: flex;
+
+  justify-content: center;
+
+  gap: 10px;
+}
+
+.dots span {
+  width: 10px;
+  height: 10px;
+
+  border-radius: 50%;
+
+  background: #c7d3ea;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+.dots span.active {
+  width: 36px;
+
+  border-radius: 20px;
+
+  background: #1b5cff;
+}
+
+/*======================================
+=            RESPONSIVE
+======================================*/
+
+@media (max-width: 992px) {
+  .video-card {
+    width: 250px;
+    height: 420px;
+  }
+
+  .video-card[style*='scale(1)'] {
+    width: 280px;
+    height: 460px;
+  }
+}
+
+@media (max-width: 992px) {
+  .video-card.active {
+    width: 320px;
+    height: 520px;
+  }
+
+  .video-card.side {
+    transform-origin: center center;
+  }
+}
+
+@media (max-width: 768px) {
+  .carousel-wrapper {
+    height: 520px;
+  }
+
+  .video-card {
+    width: 220px;
+    height: 360px;
+  }
+
+  .video-card.active {
+    width: 260px;
+    height: 420px;
+    border-width: 2px;
+  }
+
+  .nav {
+    display: none;
+  }
+}

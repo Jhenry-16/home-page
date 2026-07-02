@@ -1,47 +1,11 @@
 <section id="conversatorio">
   <div class="container">
     <div class="texto-conversatorio">
-      <h2>Recorriendo pueblo libre</h2>
-      <p>Tu opinión es muy importante. Escríbenos tu pregunta, propuesta o preocupación.</p>
+      <h2>Recorriendo Pueblo Libre</h2>
+      <p>Conoce los lugares que hemos visitado y conversatorios con nuestros vecinos.</p>
     </div>
     <div class="row">
-      <div class="mapa-componentes">
-        <mat-card class="card-mapa mat-elevation-z8">
-          <mat-card-content class="content-mapa">
-            <google-map width="100%" height="100%" [center]="center" [zoom]="zoom">
-              <map-marker
-                *ngFor="let marker of markers"
-                [position]="marker.position"
-                [title]="marker.title"
-                [icon]="selectedMarker === marker ? marker.hoverIcon : marker.icon"
-                (mapMouseover)="hoverMarker(marker)"
-                (mapMouseout)="leaveMarker()"
-              >
-              </map-marker>
-            </google-map>
-
-            <mat-card class="info-card mat-elevation-z10" *ngIf="selectedMarker">
-              <mat-card-header>
-                <mat-icon color="accent">location_on</mat-icon>
-                <mat-card-title>
-                  {{ selectedMarker.title }}
-                </mat-card-title>
-              </mat-card-header>
-
-              <mat-card-content>
-                <p>
-                  <strong>Dirección:</strong><br />
-                  {{ selectedMarker.address }}
-                </p>
-
-                <p>
-                  {{ selectedMarker.description }}
-                </p>
-              </mat-card-content>
-            </mat-card>
-          </mat-card-content>
-        </mat-card>
-      </div>
+      <app-map></app-map>
     </div>
   </div>
 </section>

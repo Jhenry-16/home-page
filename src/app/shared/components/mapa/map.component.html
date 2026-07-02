@@ -1,3 +1,29 @@
-<div class="map-container">
-  <div id="map"></div>
+<div class="mapa-componentes">
+  <mat-card class="card-mapa mat-elevation-z8">
+    <mat-card-content class="content-mapa">
+      <div id="map" class="leaflet-map"></div>
+
+      <mat-card class="info-card mat-elevation-z10" *ngIf="selectedMarker">
+        <div class="imagen-card">
+          <img [src]="selectedMarker.foto" alt="foto" />
+        </div>
+        <div class="content-card">
+          <mat-card-header>
+            <mat-icon color="accent"> location_on </mat-icon>
+
+            <mat-card-title>
+              {{ selectedMarker.title }}
+            </mat-card-title>
+          </mat-card-header>
+
+          <mat-card-content>
+            <p>
+              {{ selectedMarker.fecha }}
+            </p>
+            <a [href]="selectedMarker.link" target="_blank">Ver más fotos y videos</a>
+          </mat-card-content>
+        </div>
+      </mat-card>
+    </mat-card-content>
+  </mat-card>
 </div>

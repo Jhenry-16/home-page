@@ -1,0 +1,154 @@
+<section class="videos-section container py-5">
+  <!-- Encabezado -->
+  <div class="text-center mb-5">
+    <span class="section-badge">
+      <mat-icon>play_circle</mat-icon>
+      NUESTRAS REDES SOCIALES
+    </span>
+
+    <h2 class="title mt-3">Videos destacados</h2>
+
+    <p class="subtitle">
+      Descubre nuestras últimas publicaciones en YouTube, Facebook, Instagram y TikTok.
+    </p>
+  </div>
+
+  <!-- Plataformas -->
+
+  <div class="platforms d-flex justify-content-center flex-wrap gap-3 mb-5">
+    <button
+      *ngFor="let platform of platforms"
+      mat-mini-fab
+      type="button"
+      class="platform-btn"
+      [class.active]="selectedPlatform() === platform"
+      (click)="selectPlatform(platform)"
+    >
+      <img [src]="'assets/icons/' + platform + '.svg'" [alt]="platform" />
+    </button>
+  </div>
+
+  <!-- Carrusel -->
+
+  <div class="carousel-wrapper" (mouseenter)="stopAutoplay()" (mouseleave)="startAutoplay()">
+    <!-- Flecha izquierda -->
+
+    <button mat-fab color="primary" class="nav prev" (click)="previous()">
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+
+    <!-- Tarjetas -->
+
+    <div class="carousel">
+      <div
+        *ngFor="let video of filteredVideos(); let i = index; trackBy: trackByVideo"
+        class="video-card"
+        [class.active]="getOffset(i) === 0"
+        [class.side]="isSide(i)"
+        [class.far]="isFar(i)"
+        [style.transform]="getTransform(i)"
+        [style.opacity]="getOpacity(i)"
+        [style.z-index]="getZIndex(i)"
+        [style.pointer-events]="isVisible(i) ? 'auto' : 'none'"
+        [style.visibility]="isVisible(i) ? 'visible' : 'hidden'"
+        (click)="openVideo(video)"
+      >
+        <!-- Imagen -->
+
+        <img class="thumb" [src]="video.thumbnail" [alt]="video.title" />
+
+        <div class="overlay"></div>
+
+        <!-- Header -->
+
+        <div class="header">
+          <div class="social">
+            <img [src]="'assets/icons/' + video.platform + '.svg'" [alt]="video.platform" />
+
+            <div>
+              <strong>
+                {{ video.platform | titlecase }}
+              </strong>
+
+              <small>
+                {{ video.user }}
+              </small>
+            </div>
+          </div>
+
+          <div class="duration">
+            {{ video.duration }}
+          </div>
+        </div>
+
+        <!-- Play -->
+
+        <button
+          mat-fab
+          color="primary"
+          class="play"
+          (click)="openVideo(video); $event.stopPropagation()"
+        >
+          <mat-icon> play_arrow </mat-icon>
+        </button>
+
+        <!-- Footer -->
+
+        <div class="footer">
+          <h4>
+            {{ video.title }}
+          </h4>
+
+          <p>
+            {{ video.description }}
+          </p>
+
+          <div class="stats">
+            <span>
+              <mat-icon>favorite</mat-icon>
+
+              {{ formatNumber(video.likes) }}
+            </span>
+
+            <span>
+              <mat-icon>chat_bubble_outline</mat-icon>
+
+              {{ video.comments }}
+            </span>
+
+            <span>
+              {{ video.publishedAt }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Flecha derecha -->
+
+    <button mat-fab color="primary" class="nav next" (click)="next()">
+      <mat-icon> chevron_right </mat-icon>
+    </button>
+  </div>
+
+  <!-- Indicadores -->
+
+  <div class="dots mt-5">
+    <span
+      *ngFor="let video of filteredVideos(); let i = index"
+      [class.active]="i === currentIndex()"
+      (click)="goTo(i)"
+    >
+    </span>
+  </div>
+
+  <!-- Botón -->
+
+  <div class="text-center mt-5">
+    <button mat-flat-button color="primary">
+      <mat-icon> smart_display </mat-icon>
+
+      Ver todos los videos
+    </button>
+  </div>
+</section>

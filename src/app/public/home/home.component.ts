@@ -6,6 +6,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { HistoriaComponent } from '../historia/historia.component';
 import { PreguntasComponent } from '../preguntas/preguntas.component';
 import { ConversatorioComponent } from '../conversatorio/conversatorio.component';
+import { VideosCarrucelComponent } from '../videos-carrucel/videos-carrucel.component';
 
 @Component({
   selector: 'app-home',
