@@ -9,6 +9,7 @@
   src: url('/assets/fonts/Inter-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
+  font-display: swap;
 }
 /*Botones*/
 html {
@@ -146,9 +147,6 @@ $dark-theme: mat.m2-define-dark-theme(
 /* GLOBAL */
 
 html,
-body,
-footer {
-  height: 100%;
-  margin: 0;
+body {
   font-family: 'Inter', sans-serif;
 }

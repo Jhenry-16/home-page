@@ -1,5 +1,9 @@
 @use 'variables' as v;
 
+:host {
+  display: block;
+}
+
 $primary: #1565ff;
 $secondary: #0f172a;
 $background: #f6f9ff;

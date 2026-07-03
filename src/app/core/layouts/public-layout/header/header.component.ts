@@ -55,7 +55,6 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
 
   @HostListener('window:scroll')
   onScroll(): void {
-    console.log('Scroll position:', window.scrollY);
     this.isSticky = window.scrollY > 60;
     this.updateActiveSection();
   }

@@ -1,8 +1,17 @@
 :host {
   display: block;
-  min-height: 100vh;
 }
 
-router-outlet {
-  display: block;
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  width: 100%;
+  overflow-x: clip;
+}
+
+.layout-content {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
 }

@@ -1,6 +1,10 @@
 @use 'variables' as v;
 
-/* Fondo oscuro */
+:host {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+}
 
 .backdrop {
   position: absolute;
@@ -113,7 +117,7 @@ nav {
 
 @media (max-width: 576px) {
   .mobile-menu {
-    width: 100%;
+    width: 100vw;
   }
 }
 

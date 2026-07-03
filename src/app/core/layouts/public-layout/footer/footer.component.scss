@@ -1,5 +1,9 @@
 @use 'variables' as v;
 
+:host {
+  display: block;
+}
+
 footer {
   background: v.$primary-color;
   color: v.$surface-color;

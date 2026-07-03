@@ -6,9 +6,9 @@
   overflow: hidden;
   background: linear-gradient(
     90deg,
-    rgba(254, 254, 254, 0.95) 0%,
-    rgba(254, 254, 254, 0.82) 45%,
-    rgba(20, 63, 148, 0.9) 100%
+    rgba(v.$surface-color, 0.95) 0%,
+    rgba(v.$surface-color, 0.82) 45%,
+    rgba(v.$primary-color, 0.9) 100%
   );
 }
 
