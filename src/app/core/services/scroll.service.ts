@@ -1,32 +1,34 @@
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ScrollService {
-  /*altura$=> observable de altura */
-  private altura$ = new BehaviorSubject<number>(0);
-  scroll$ = this.altura$.asObservable();
+  private isSticky = false;
+  private activeSectionSubject = new BehaviorSubject<string>('inicio');
+  activeSection$ = this.activeSectionSubject.asObservable();
 
-  constructor(zone: NgZone) {
-    zone.runOutsideAngular(() => {
-      window.addEventListener('scroll', () => zone.run(() => this.altura$.next(window.scrollY)));
-    });
+  setSticky(status: boolean): void {
+    this.isSticky = status;
   }
 
-  observe(hl: HTMLElement, threshold = 0.2) {
-    return new Promise<void>((res) => {
-      const ob = new IntersectionObserver(
-        (e) => {
-          if (e[0].isIntersecting) {
-            ob.disconnect();
-            res();
-          }
-        },
-        { threshold },
-      );
-      ob.observe(hl);
+  setActiveSection(id: string): void {
+    this.activeSectionSubject.next(id);
+  }
+  scrollTo(id: string): void {
+    const section = document.getElementById(id);
+    if (!section) {
+      console.warn(`La sección con id "${id}" no fue encontrada.`);
+      return;
+    }
+    const headerHeight = this.isSticky ? 85 : 110;
+    const top = section.getBoundingClientRect().top + window.scrollY - headerHeight;
+
+    window.scrollTo({
+      top,
+      behavior: 'smooth',
     });
+    this.setActiveSection(id);
   }
 }

@@ -23,12 +23,20 @@
               </p>
 
               <div class="hero-buttons">
-                <button mat-flat-button color="primary">
-                  {{ slide.primaryButton }}
+                <button
+                  mat-flat-button
+                  color="primary"
+                  (click)="abrirLink(slide.primaryButton.url)"
+                >
+                  {{ slide.primaryButton.boton }}
                 </button>
 
-                <button mat-raised-button color="accent">
-                  {{ slide.secondaryButton }}
+                <button
+                  mat-raised-button
+                  color="accent"
+                  (click)="abrirLink(slide.secondaryButton.url)"
+                >
+                  {{ slide.secondaryButton.boton }}
                 </button>
               </div>
             </div>

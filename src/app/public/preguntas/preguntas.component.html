@@ -1,82 +1,154 @@
 <section id="preguntas">
   <div class="container pb-4">
-    <div class="texto-preguntas">
+    <div class="texto-preguntas" animacion="slide-left">
       <h2>Pregúntale a José Casas</h2>
       <p>Tu opinión es muy importante. Escríbenos tu pregunta, propuesta o preocupación.</p>
     </div>
-    <div class="contenido-formulario">
-      <div class="row">
-        <div class="col-12 col-sm-6">
+    <div class="contenido-formulario" animacion="zoom-in">
+      <form [formGroup]="formPreguntas" (ngSubmit)="enviarPregunta()" class="row">
+        <div class="col-12 col-sm-4">
           <mat-form-field appearance="outline" class="full-width mat-body">
-            <mat-label>Nombre(s)</mat-label>
-            <input matInput placeholder="Escribe tu nombre" />
+            <mat-label class="mat-body">Nombre(s)</mat-label>
+            <input
+              formControlName="nombres"
+              matInput
+              placeholder="Escribe tu nombre"
+              (keydown)="validarDatosinput($event, 'letraespacio')"
+            />
+            <mat-error>Campo obligatorio</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-12 col-sm-4">
+          <mat-form-field appearance="outline" class="full-width mat-body">
+            <mat-label class="mat-body">Apellido Peterno</mat-label>
+            <input
+              formControlName="apaterno"
+              matInput
+              placeholder="Apellido paterno"
+              (keydown)="validarDatosinput($event, 'letraespacio')"
+            />
+            <mat-error>Campo obligatorio</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-12 col-sm-4">
+          <mat-form-field appearance="outline" class="full-width mat-body">
+            <mat-label class="mat-body">Apellido Materno</mat-label>
+            <input
+              formControlName="amaterno"
+              matInput
+              placeholder="Apellido materno"
+              (keydown)="validarDatosinput($event, 'letraespacio')"
+            />
+            <mat-error>Campo obligatorio</mat-error>
           </mat-form-field>
         </div>
         <div class="col-12 col-sm-6">
           <mat-form-field appearance="outline" class="full-width mat-body">
-            <mat-label>Apellidos</mat-label>
-            <input matInput placeholder="Escribe tus apellidos" />
+            <mat-label class="mat-body">Celular</mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="celular"
+              (keydown)="validarDatosinput($event, 'numero')"
+              mainlength="9"
+              maxlength="9"
+            />
+            <mat-error>
+              <span *ngIf="formPreguntas.get('celular')?.hasError('required')">
+                Campo obligatorio</span
+              >
+              <span *ngIf="formPreguntas.get('celular')?.hasError('minlength')">
+                Télefono/Celular inválido</span
+              >
+            </mat-error>
           </mat-form-field>
         </div>
         <div class="col-12 col-sm-6">
           <mat-form-field appearance="outline" class="full-width mat-body">
-            <mat-label>Celular</mat-label>
-            <input matInput placeholder="9XXXXXXXX" />
-          </mat-form-field>
-        </div>
-        <div class="col-12 col-sm-6">
-          <mat-form-field appearance="outline" class="full-width mat-body">
-            <mat-label>Correo electrónico</mat-label>
-            <input matInput placeholder="tu@correo.com" />
+            <mat-label class="mat-body">Correo electrónico</mat-label>
+            <input formControlName="correo" matInput placeholder="tucorreo@correo.com" />
+            <mat-error>
+              <span *ngIf="formPreguntas.get('correo')?.hasError('required')">
+                Campo obligatorio</span
+              >
+              <span *ngIf="formPreguntas.get('correo')?.hasError('email')"> Correo inválido </span>
+            </mat-error>
           </mat-form-field>
         </div>
         <div class="col-12 col-sm-6">
           <mat-form-field appearance="outline" class="full-width mat-body">
             <mat-label>Sector donde vives</mat-label>
-            <mat-select>
-              <mat-option>Sector 1</mat-option>
-              <mat-option>Sector 2</mat-option>
-              <mat-option>Sector 3</mat-option>
+            <mat-select formControlName="sector" class="mat-body">
+              <mat-option>--Selecione sector--</mat-option>
+              <mat-option *ngFor="let sector of listaSector" [value]="sector.descripcion">{{
+                sector.descripcion
+              }}</mat-option>
             </mat-select>
+            <mat-error>Campo obligatorio</mat-error>
           </mat-form-field>
         </div>
         <div class="col-12 col-sm-6">
           <mat-form-field appearance="outline" class="full-width mat-body">
             <mat-label>Tema de tu consulta</mat-label>
-            <mat-select>
-              <mat-option>Seguridad</mat-option>
-              <mat-option>Orden</mat-option>
-              <mat-option>Desarrollo</mat-option>
+            <mat-select formControlName="tema" class="mat-body">
+              <mat-option>--Selecione tema a consultar--</mat-option>
+              <mat-option *ngFor="let tema of listaTema" [value]="tema.descripcion">{{
+                tema.descripcion
+              }}</mat-option>
             </mat-select>
+            <mat-error>Campo obligatorio</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-12 col-sm-12">
+          <mat-form-field appearance="outline" class="full-width mat-body">
+            <mat-label>Formar parte del equipo como:</mat-label>
+            <mat-select formControlName="tipoapoyo" class="mat-body">
+              <mat-option>--Selecione como apoyar--</mat-option>
+              <mat-option *ngFor="let tipo of listaTipoapoyo" [value]="tipo.descripcion">{{
+                tipo.descripcion
+              }}</mat-option>
+            </mat-select>
+            <mat-error>Campo obligatorio</mat-error>
           </mat-form-field>
         </div>
         <div class="col-12">
           <mat-form-field appearance="outline" class="full-width mat-body">
             <mat-label>Escribe tu pregunta</mat-label>
             <textarea
+              class="mat-body"
               matInput
               rows="3"
+              formControlName="pregunta"
               placeholder="Cuéntanos tu pregunta, propuesta o preocupación..."
             ></textarea>
           </mat-form-field>
         </div>
         <div class="col-12">
-          <mat-checkbox> Acepto el tratamiento de mis datos personales. </mat-checkbox>
+          <div class="d-flex align-items-center flex-content-center">
+            <mat-checkbox formControlName="termino"> </mat-checkbox>
+            <p class="info-termino">
+              Acepto el tratamiento de mis datos personales.
+              <span>Más información.</span>
+            </p>
+          </div>
         </div>
 
         <div class="mt-4" align="center">
-          <button mat-flat-button color="primary" (click)="enviarPregunta()">
+          <button mat-flat-button color="primary" type="submit" [disabled]="formPreguntas.invalid">
             <mat-icon>send</mat-icon>
             ENVIAR MI PREGUNTA
           </button>
         </div>
-      </div>
+      </form>
       <div class="voice">
         <mat-icon>groups</mat-icon>
         <h2>Tu voz cuenta</h2>
         <p>Queremos escucharte para construir juntos el Pueblo Libre que todos merecemos.</p>
         <img src="assets/images/fondos/pueblo_libre.png" alt="Pueblo Libre" />
       </div>
+      @if (progressEnvio) {
+        <app-progress-bar></app-progress-bar>
+      }
     </div>
   </div>
 </section>

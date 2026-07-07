@@ -1,5 +1,9 @@
 <div class="dialog-content">
-  <button type="button" class="closeDialogUp" mat-dialog-close></button>
+  <button type="button" class="closeDialogUp" mat-dialog-close>
+    <div class="d-flex align-items-center justify-content-center">
+      <mat-icon>close</mat-icon>
+    </div>
+  </button>
   <ng-container *ngTemplateOutlet="data.template; context: { $implicit: data.data }">
   </ng-container>
 </div>

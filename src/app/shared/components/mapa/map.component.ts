@@ -26,7 +26,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
   markers = [
     {
-      title: 'Coversatorio con vecinos de Madgalena Vieja',
+      title: 'Coversatorio con vecinos de Madgalena',
       fecha: '18 de agosto, 2026',
       foto: 'assets/images/fondos/fondo1.jpg',
       link: '#',

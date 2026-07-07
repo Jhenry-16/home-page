@@ -4,32 +4,36 @@ import { AfterViewInit, Directive, ElementRef, Input, OnDestroy } from '@angular
   selector: '[animacion]',
 })
 export class AnimacionDirective implements AfterViewInit, OnDestroy {
-  @Input('animacion') animClass = '';
+  @Input('animacion')
+  animClass = '';
 
-  private observer!: IntersectionObserver;
+  private observer?: IntersectionObserver;
 
-  constructor(private el: ElementRef<HTMLElement>) {}
+  constructor(private readonly el: ElementRef<HTMLElement>) {}
 
   ngAfterViewInit(): void {
     const element = this.el.nativeElement;
-    element.classList.add(this.animClass);
+
+    if (this.animClass) {
+      element.classList.add(this.animClass);
+    }
 
     this.observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          element.classList.add('show');
-        } else {
-          element.classList.remove('show');
-        }
+        element.classList.toggle('show', entry.isIntersecting);
       },
       {
         threshold: 0.2,
       },
     );
+
     this.observer.observe(element);
   }
 
   ngOnDestroy(): void {
-    this.observer.disconnect();
+    if (this.observer) {
+      this.observer.disconnect();
+      this.observer = undefined;
+    }
   }
 }

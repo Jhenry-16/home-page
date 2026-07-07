@@ -1,5 +1,6 @@
 @use './assets/styles/themes.scss';
 @use './assets/styles/variables.scss' as v;
+@use './assets/styles/mixins.scss' as m;
 
 *,
 *::before,
@@ -38,6 +39,11 @@ mat-icon {
 .mat-mdc-outlined-button.mat-accent {
   --mat-button-outlined-outline-color: var(--mat-sys-secondary) !important;
 }
+/*Input*/
+.mat-mdc-form-field-error-wrapper {
+  padding: 0 !important;
+}
+
 /* Dialog */
 .dialog-actions {
   padding: 1rem 1.5rem !important;

@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { MaterialModule } from '../../shared/components/material/material.module';
-import { AnimacionDirective } from '../../shared/directives/animacion.directive';
+import { HeaderComponent } from '../../core/layouts/public-layout/header/header.component';
+import { RouterLink } from '@angular/router';
+import { ScrollService } from '../../core/services/scroll.service';
 
 @Component({
   selector: 'app-main-carrucel',
@@ -11,22 +13,23 @@ import { AnimacionDirective } from '../../shared/directives/animacion.directive'
   styleUrl: './main-carrucel.component.scss',
 })
 export class MainCarrucelComponent implements OnInit, OnDestroy {
-  constructor(private cdr: ChangeDetectorRef) {}
+  private readonly cdr = inject(ChangeDetectorRef);
+  private readonly scrollService = inject(ScrollService);
 
   currentSlide = 0;
-  private intervalId?: number;
+  private intervalId?: any;
   readonly interval = 7000;
 
-  slides = [
+  readonly slides = [
     {
       background: 'assets/images/fondos/fondo4.jpg',
       image: 'assets/images/fondos/fondo4.jpg',
-      tag: 'Candidato a la Alcaldía',
+      tag: 'Alcalde de Pueblo Libre, Gestión 2027-2030',
       title: 'José Luis Casas Carrión',
       description:
         'Trabajaremos por un distrito más seguro, moderno y con oportunidades para todos.',
-      primaryButton: 'Conoce más',
-      secondaryButton: 'Mis propuestas',
+      primaryButton: { boton: 'Conoce más', url: 'historia' },
+      secondaryButton: { boton: 'Mis propuestas', url: 'propuestas' },
     },
     {
       background: 'assets/images/fondos/fondo1.jpg',
@@ -35,8 +38,8 @@ export class MainCarrucelComponent implements OnInit, OnDestroy {
       title: 'Juntos construiremos el cambio',
       description:
         'Escucharemos a cada vecino para impulsar un verdadero desarrollo en nuestro distrito.',
-      primaryButton: 'Ver historia',
-      secondaryButton: 'Contáctanos',
+      primaryButton: { boton: 'Ver historia', url: 'historia' },
+      secondaryButton: { boton: 'Conversatorio', url: 'conversatorio' },
     },
     {
       background: 'assets/images/fondos/fondo3.jpg',
@@ -44,8 +47,8 @@ export class MainCarrucelComponent implements OnInit, OnDestroy {
       tag: 'Pueblo Libre',
       title: 'Más seguridad, más desarrollo',
       description: 'Nuestro compromiso es trabajar con transparencia y resultados para todos.',
-      primaryButton: 'Ver propuestas',
-      secondaryButton: 'Haz tu pregunta',
+      primaryButton: { boton: 'Ver propuestas', url: 'propuestas' },
+      secondaryButton: { boton: 'Haz tu pregunta', url: 'preguntas' },
     },
   ];
 
@@ -78,13 +81,19 @@ export class MainCarrucelComponent implements OnInit, OnDestroy {
 
   previousSlide(): void {
     this.currentSlide = (this.currentSlide - 1 + this.slides.length) % this.slides.length;
+    this.cdr.detectChanges();
     this.stopSlider();
     this.startSlider();
   }
 
   goToSlide(index: number): void {
     this.currentSlide = index;
+    this.cdr.detectChanges();
     this.stopSlider();
     this.startSlider();
+  }
+
+  abrirLink(url: string): void {
+    this.scrollService.scrollTo(url);
   }
 }

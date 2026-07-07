@@ -1,0 +1,30 @@
+@use '@angular/material' as mat;
+@use 'variables' as v;
+
+@mixin my-elevation($level) {
+  @include mat.elevation($level);
+}
+
+@mixin telefono {
+  @media (max-width: v.$telefono) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (max-width: v.$tablet) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: v.$desktop) {
+    @content;
+  }
+}
+
+@mixin desktopXL {
+  @media (max-width: v.$desktopXL) {
+    @content;
+  }
+}

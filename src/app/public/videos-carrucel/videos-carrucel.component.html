@@ -57,10 +57,10 @@
             </div>
 
             <!-- Imagen -->
-            <img class="cover" [src]="video.image" [alt]="video.title" />
+            <img class="cover" [src]="video.imagen" [alt]="video.title" />
 
             <!-- Play -->
-            <button class="play">
+            <button class="play" (click)="abrirVideo(video.urlvideo)">
               <mat-icon>play_arrow</mat-icon>
             </button>
 

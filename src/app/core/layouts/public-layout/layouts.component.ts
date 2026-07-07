@@ -5,6 +5,7 @@ import { FooterComponent } from './footer/footer.component';
 import { MaterialModule } from '../../../shared/components/material/material.module';
 import { ScrollTopComponent } from '../../../shared/components/scroll-top/scroll-top.component';
 import { MobileMenuComponent } from './mobile-menu/mobile-menu.component';
+import { BotonFlotanteComponent } from '../../../shared/components/boton-flotante/boton-flotante.component';
 
 @Component({
   selector: 'app-layout',
@@ -15,6 +16,7 @@ import { MobileMenuComponent } from './mobile-menu/mobile-menu.component';
     MaterialModule,
     ScrollTopComponent,
     MobileMenuComponent,
+    BotonFlotanteComponent,
   ],
   templateUrl: './layouts.component.html',
   styleUrl: './layouts.component.scss',

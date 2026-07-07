@@ -43,10 +43,10 @@ export class HomeComponent {
       icon: 'shield',
       title: 'Seguridad Ciudadana',
       items: [
-        'Monitoreo inteligente las 24 horas.',
+        'Creación de la Central Distrital C4 (Centro de Comando, Control, Comunicaciones y Cómputo).',
         `Aplicativo móvil "Alerta Pueblo Libre."`,
         'Patrullaje focalizado en zonas críticas.',
-        'Iluminación LED blanca en vías y parques.',
+        'Botón de pánico para emergencias.',
       ],
     },
     {
@@ -75,7 +75,15 @@ export class HomeComponent {
     {
       icon: 'directions_car',
       title: 'Tránsito y Movilidad',
-      items: ['Soluciones inteligentes', 'Ordenamiento vial', 'Respeto al peatón'],
+      items: [
+        'Gestión inteligente del tránsito.',
+        'Rutas seguras para peatones.',
+        'Evaluación e implementación progresiva de ciclovías.',
+        'Eliminación de barreras arquitectónicas.',
+        'Accesibilidad para personas con discapacidad y adultos mayores.',
+        'Elaboración del nuevo PDU.',
+        'Transparencia en licencias urbanas.',
+      ],
     },
     {
       icon: 'heart_broken',
@@ -102,34 +110,46 @@ export class HomeComponent {
     },
     {
       icon: 'school',
-      title: 'Educación y deporte',
+      title: 'Educación',
       items: [
-        'Centro Preuniversitario Municipal.',
+        'Centro Preuniversitario Municipal(presencial y virtual).',
+        'Prioridad para jóvenes del distrito.',
         'Cursos técnicos.',
         'Certificación por competencias.',
-        'Mejoramiento de complejos deportivos.',
-        'Escuelas deportivas municipales.',
+        'Especialización laboral.',
       ],
     },
     {
       icon: 'elderly',
-      title: 'Inclusión Social y Atención a Poblaciones Vulnerables',
+      title: 'Inclusión social y atención a poblaciones vulnerables',
       items: [
         'Orientación legal.',
         'Atención preventiva en salud.',
         'Actividades recreativas.',
         'Fortalecimiento de programas sociales.',
+        'Actividades recreativas.',
+        'Actividades deportivas.',
       ],
     },
     {
       icon: 'sports_soccer',
-      title: 'Deporte y Vida Saludable',
-      items: ['Más infraestructura', 'Escuelas deportivas', 'Actividades gratuitas'],
+      title: 'Deporte',
+      items: [
+        'Mejoramiento de complejos deportivos.',
+        'Ampliación de disciplinas deportivas.',
+        'Escuelas deportivas municipales.',
+        'Programas deportivos inclusivos para: Jóvenes, Adultos mayores y Personas con discapacidad',
+      ],
     },
     {
-      icon: 'computer',
-      title: 'Gobierno Digital',
-      items: ['Trámites en línea', 'Respuesta rápida', 'Transparencia total'],
+      icon: 'restore_from_trash',
+      title: 'Limpieza pública',
+      items: [
+        'Optimización de la recolección de residuos.',
+        'Segregación en la fuente.',
+        'Reciclaje.',
+        'Educación ambiental.',
+      ],
     },
   ];
 }
