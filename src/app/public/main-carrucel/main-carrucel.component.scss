@@ -46,9 +46,11 @@
   inset: 0;
   background: linear-gradient(
     90deg,
-    rgba(0, 0, 0, 0.78) 0%,
-    rgba(0, 0, 0, 0.55) 45%,
-    rgba(0, 0, 0, 0.15) 100%
+    rgba(0, 0, 0, 0.65) 0%,
+    rgba(0, 0, 0, 0.45) 25%,
+    rgba(0, 0, 0, 0.2) 50%,
+    rgba(0, 0, 0, 0.05) 75%,
+    rgba(0, 0, 0, 0) 100%
   );
 }
 
@@ -82,11 +84,13 @@
 .hero-tag {
   display: inline-flex;
   align-items: center;
-  margin-bottom: 24px;
+  margin: 24px 0;
   padding: 10px;
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(12px);
+  background: rgba(v.$primary-color, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   font-size: 16px;
   font-weight: 500;
 }

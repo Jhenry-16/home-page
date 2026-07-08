@@ -23,9 +23,11 @@ $shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
   margin: auto;
   height: $header-height;
   min-height: $header-height;
-  padding: 0 18px;
-  background: rgba(0, 0, 0, 0.28);
-  backdrop-filter: blur(12px);
+  padding: 0 24px;
+  background: rgba(v.$primary-color, 0.15);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(v.$surface-color, 0.08);
   border-radius: v.$radius;
   transition: all 0.35s ease;
 }
@@ -104,6 +106,7 @@ $shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
     &:hover button,
     &.active button {
       color: v.$primary-color;
+      font-weight: 800;
     }
   }
 

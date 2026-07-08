@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { MaterialModule } from '../../shared/components/material/material.module';
 import { HeaderComponent } from '../../core/layouts/public-layout/header/header.component';
 import { RouterLink } from '@angular/router';
@@ -15,6 +15,7 @@ import { ScrollService } from '../../core/services/scroll.service';
 export class MainCarrucelComponent implements OnInit, OnDestroy {
   private readonly cdr = inject(ChangeDetectorRef);
   private readonly scrollService = inject(ScrollService);
+  private readonly ngZone = inject(NgZone);
 
   currentSlide = 0;
   private intervalId?: any;
@@ -34,7 +35,7 @@ export class MainCarrucelComponent implements OnInit, OnDestroy {
     {
       background: 'assets/images/fondos/fondo1.jpg',
       image: 'assets/images/slider/candidato2.png',
-      tag: 'Compromiso',
+      tag: 'Unidos por el distrito',
       title: 'Juntos construiremos el cambio',
       description:
         'Escucharemos a cada vecino para impulsar un verdadero desarrollo en nuestro distrito.',
@@ -44,7 +45,7 @@ export class MainCarrucelComponent implements OnInit, OnDestroy {
     {
       background: 'assets/images/fondos/fondo3.jpg',
       image: 'assets/images/slider/candidato3.png',
-      tag: 'Pueblo Libre',
+      tag: 'Por un Pueblo Libre seguro',
       title: 'Más seguridad, más desarrollo',
       description: 'Nuestro compromiso es trabajar con transparencia y resultados para todos.',
       primaryButton: { boton: 'Ver propuestas', url: 'propuestas' },
@@ -61,22 +62,29 @@ export class MainCarrucelComponent implements OnInit, OnDestroy {
   }
 
   startSlider(): void {
-    this.intervalId = setInterval(() => {
-      this.nextSlide();
-    }, this.interval);
+    this.stopSlider();
+    this.ngZone.runOutsideAngular(() => {
+      this.intervalId = setInterval(() => {
+        this.ngZone.run(() => {
+          this.nextSlide(false);
+        });
+      }, this.interval);
+    });
   }
 
   stopSlider(): void {
     if (this.intervalId) {
       clearInterval(this.intervalId);
+      this.intervalId = undefined;
     }
   }
 
-  nextSlide(): void {
+  nextSlide(manual = true): void {
     this.currentSlide = (this.currentSlide + 1) % this.slides.length;
     this.cdr.detectChanges();
-    this.stopSlider();
-    this.startSlider();
+    if (manual) {
+      this.startSlider();
+    }
   }
 
   previousSlide(): void {
@@ -89,6 +97,7 @@ export class MainCarrucelComponent implements OnInit, OnDestroy {
   goToSlide(index: number): void {
     this.currentSlide = index;
     this.cdr.detectChanges();
+    this.currentSlide = index;
     this.stopSlider();
     this.startSlider();
   }

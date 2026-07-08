@@ -1,6 +1,69 @@
-<div class="whatsapp-container">
-  <button mat-fab class="whatsapp-float" (click)="openWhatsApp()">
-    <img src="assets/images/iconos/whatsapp-color.png" alt="WhatsApp" />
-    <span class="whatsapp-text"> Únete al equipo ganador </span>
+<!-- <div class="whatsapp-container">
+  <button
+    mat-fab
+    class="whatsapp-float"
+    (click)="openWhatsApp()"
+    aria-label="Únete al equipo ganador por WhatsApp"
+  >
+    <span class="mdc-button__label">
+      <img src="assets/images/iconos/whatsapp-color.png" alt="WhatsApp" />
+      <span class="whatsapp-text">Únete al equipo ganador</span>
+    </span>
+  </button>
+</div> -->
+<div class="buttons-container">
+  <!-- Botón Principal (Medio Círculo) -->
+  <button mat-fab class="main-button" aria-label="Compartir en redes">
+    <span class="mdc-button__label">
+      <mat-icon svgIcon="compartir"></mat-icon>
+    </span>
+  </button>
+
+  <!-- Botón de Facebook -->
+  <button
+    mat-mini-fab
+    class="social-button facebook-button"
+    (click)="irARed('facebook')"
+    style="transition-delay: 0s, 0s, 0s"
+  >
+    <span class="mdc-button__label">
+      <mat-icon svgIcon="facebook"></mat-icon>
+    </span>
+  </button>
+
+  <!-- Botón de Instagram -->
+  <button
+    mat-mini-fab
+    class="social-button instagram-button"
+    (click)="irARed('instagram')"
+    style="transition-delay: 0.04s, 0s, 0.04s"
+  >
+    <span class="mdc-button__label">
+      <mat-icon svgIcon="instagram"></mat-icon>
+    </span>
+  </button>
+
+  <!-- Botón de TikTok -->
+  <button
+    mat-mini-fab
+    class="social-button tiktok-button"
+    (click)="irARed('tiktok')"
+    style="transition-delay: 0.08s, 0s, 0.08s"
+  >
+    <span class="mdc-button__label">
+      <mat-icon svgIcon="tiktok"></mat-icon>
+    </span>
+  </button>
+
+  <!-- Botón de WhatsApp -->
+  <button
+    mat-mini-fab
+    class="social-button whatsapp-button"
+    (click)="irARed('whatsapp')"
+    style="transition-delay: 0.12s, 0s, 0.12s"
+  >
+    <span class="mdc-button__label">
+      <mat-icon svgIcon="whatsapp"></mat-icon>
+    </span>
   </button>
 </div>

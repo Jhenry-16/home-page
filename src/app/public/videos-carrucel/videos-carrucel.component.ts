@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, CUSTOM_ELEMENTS_SCHEMA, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { MaterialModule } from '../../shared/components/material/material.module';
 import { AnimacionDirective } from '../../shared/directives/animacion.directive';
 import { VideosCorto } from '../../core/data/videos-corto.data';
@@ -15,6 +21,7 @@ export type Platform = 'all' | 'youtube' | 'facebook' | 'instagram' | 'tiktok';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class VideosCarrucelComponent implements OnDestroy, OnInit {
+  constructor(private cdRef: ChangeDetectorRef) {}
   currentIndex = 0;
   transitionEnabled = true;
   isTransitioning = false;
@@ -134,14 +141,18 @@ export class VideosCarrucelComponent implements OnDestroy, OnInit {
     if (this.currentIndex >= 2 * N) {
       this.transitionEnabled = false;
       this.currentIndex = this.currentIndex - N;
+      this.cdRef.detectChanges();
       setTimeout(() => {
         this.transitionEnabled = true;
+        this.cdRef.detectChanges();
       }, 50);
     } else if (this.currentIndex < N) {
       this.transitionEnabled = false;
       this.currentIndex = this.currentIndex + N;
+      this.cdRef.detectChanges();
       setTimeout(() => {
         this.transitionEnabled = true;
+        this.cdRef.detectChanges();
       }, 50);
     }
   }
