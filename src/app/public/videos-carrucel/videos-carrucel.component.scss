@@ -44,29 +44,12 @@ $shadow: rgba(15, 23, 42, 0.12);
   }
 }
 
-//==================================================
-// TITULOS
-//==================================================
-
-.title {
-  margin: 16px 0 8px;
-  font-size: 32px;
-  font-weight: 800;
-  letter-spacing: -1px;
-  color: v.$primary-color;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
 .subtitle {
   font-size: 16px;
   line-height: 1.5;
   color: v.$text;
   margin-bottom: 30px;
 }
-
-//==================================================
-// SLIDER STRUCTURE (INFINITE CAROUSEL)
-//==================================================
 
 .slider-wrapper {
   position: relative;
@@ -130,10 +113,6 @@ $shadow: rgba(15, 23, 42, 0.12);
   right: 20px;
 }
 
-//==================================================
-// CONTENEDOR TARJETAS (VIEWPORT & TRACK)
-//==================================================
-
 .cards-container {
   --card-width: 260px;
   --card-gap: 24px;
@@ -143,7 +122,7 @@ $shadow: rgba(15, 23, 42, 0.12);
   position: relative;
   width: 100%;
   overflow: hidden;
-  padding: 40px 0; // Padding ensures scaling up and box shadow glows do not get clipped
+  padding: 40px 0;
   box-sizing: border-box;
   -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
   mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
@@ -157,10 +136,6 @@ $shadow: rgba(15, 23, 42, 0.12);
   width: max-content;
   will-change: transform;
 }
-
-//==================================================
-// TARJETA (VIDEO CARD)
-//==================================================
 
 .video-card {
   position: relative;
@@ -183,7 +158,6 @@ $shadow: rgba(15, 23, 42, 0.12);
   z-index: 1;
 }
 
-/* Active card in the center */
 .video-card.active {
   opacity: 1;
   transform: scale(1.03);
@@ -192,7 +166,6 @@ $shadow: rgba(15, 23, 42, 0.12);
   z-index: 10;
 }
 
-/* Individual card hover effect */
 .video-card:hover {
   opacity: 1 !important;
   transform: scale(1.08) !important;
@@ -200,15 +173,10 @@ $shadow: rgba(15, 23, 42, 0.12);
   box-shadow: 0 25px 60px rgba(21, 101, 255, 0.45);
 }
 
-/* Fade out other cards slightly when hovering a card */
 .cards-track:hover .video-card:not(:hover) {
   opacity: 0.4;
   transform: scale(0.86);
 }
-
-//==================================================
-// IMAGEN / VIDEO COVER
-//==================================================
 
 .cover {
   width: 100%;
@@ -221,20 +189,12 @@ $shadow: rgba(15, 23, 42, 0.12);
   transform: scale(1.06);
 }
 
-//==================================================
-// DEGRADADO
-//==================================================
-
 .gradient {
   position: absolute;
   inset: 0;
   background: linear-gradient(to top, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
   z-index: 5;
 }
-
-//==================================================
-// HEADER DEL CARD
-//==================================================
 
 .header {
   position: absolute;
@@ -294,10 +254,6 @@ $shadow: rgba(15, 23, 42, 0.12);
   transform: rotate(90deg);
 }
 
-//==================================================
-// BOTÓN PLAY
-//==================================================
-
 .play {
   position: absolute;
   top: 50%;
@@ -337,10 +293,6 @@ $shadow: rgba(15, 23, 42, 0.12);
   animation: none;
 }
 
-//==================================================
-// CONTENIDO
-//==================================================
-
 .content {
   position: absolute;
   left: 22px;
@@ -357,10 +309,6 @@ $shadow: rgba(15, 23, 42, 0.12);
   font-weight: 600;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
-
-//==================================================
-// ESTADÍSTICAS
-//==================================================
 
 .stats {
   display: flex;
@@ -383,10 +331,6 @@ $shadow: rgba(15, 23, 42, 0.12);
   height: 18px;
   font-size: 18px;
 }
-
-//==================================================
-// PAGINACIÓN
-//==================================================
 
 .pagination-custom {
   display: flex;
@@ -438,10 +382,6 @@ $shadow: rgba(15, 23, 42, 0.12);
     box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
   }
 }
-
-//==================================================
-// MEDIA QUERIES (RESPONSIVE ALIGNMENT)
-//==================================================
 
 @media (max-width: 1200px) {
   .cards-container {
@@ -543,7 +483,7 @@ $shadow: rgba(15, 23, 42, 0.12);
   }
 
   .slider-arrow {
-    display: none; // Hide arrows on small mobiles to maximize screen area for swipe/touch
+    display: none;
   }
 
   .cards-container {

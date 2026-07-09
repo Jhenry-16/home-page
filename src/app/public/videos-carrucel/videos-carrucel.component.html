@@ -8,7 +8,7 @@
     </div>
 
     <div class="text-center" animacion="fade-up">
-      <h2 class="title">Videos destacados</h2>
+      <h2 class="titulo-seccion">Videos destacados</h2>
       <p class="subtitle">Descubre lo más reciente y relevante de nuestras redes sociales.</p>
     </div>
 
@@ -27,7 +27,7 @@
       <div class="cards-container">
         <div
           class="cards-track"
-          [style.transform]="getTrackTransform()"
+          [style.transform]="trackTransform"
           [style.transition]="transitionEnabled ? 'transform .4s ease' : 'none'"
           (transitionend)="onTransitionEnd()"
         >

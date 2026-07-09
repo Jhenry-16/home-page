@@ -18,7 +18,7 @@ import { timeout } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { validarInput, ValidationType } from '../../shared/utils/validaciones.util';
 import { MatFormField } from '@angular/material/form-field';
-import { Sector, TemasConsulta, Tipoapoyo } from '../../core/data/seleccion.data';
+import { Sector, Tipoapoyo } from '../../core/data/seleccion.data';
 import { PreloaderService } from '../../core/services/preloader.service';
 import { PreloaderComponent } from '../../shared/components/progress-bar/progress-bar.component';
 import { resetFormControls } from '../../shared/utils/reset-form.util';
@@ -45,19 +45,16 @@ export class PreguntasComponent {
   videoUrl!: SafeResourceUrl;
   formPreguntas!: FormGroup;
   listaSector = Sector;
-  listaTema = TemasConsulta;
   listaTipoapoyo = Tipoapoyo;
   progressEnvio = false;
 
   buildForm() {
     this.formPreguntas = this.formBuild.group({
       nombres: ['', Validators.required],
-      apaterno: ['', Validators.required],
-      amaterno: ['', Validators.required],
+      apellidos: ['', Validators.required],
       celular: ['', [Validators.required, Validators.minLength(9)]],
       correo: ['', [Validators.required, Validators.email]],
       sector: ['', Validators.required],
-      tema: ['', Validators.required],
       pregunta: [''],
       termino: ['', Validators.required],
       tipoapoyo: ['', Validators.required],

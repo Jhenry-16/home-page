@@ -6,13 +6,12 @@
     aria-label="Únete al equipo ganador por WhatsApp"
   >
     <span class="mdc-button__label">
-      <img src="assets/images/iconos/whatsapp-color.png" alt="WhatsApp" />
+      <mat-icon svgIcon="whatsapp" class="whatsapp-icon"></mat-icon>
       <span class="whatsapp-text">Únete al equipo ganador</span>
     </span>
   </button>
 </div> -->
-<div class="buttons-container">
-  <!-- Botón Principal (Medio Círculo) -->
+<div *ngIf="isButtonVisible" class="buttons-container">
   <button mat-fab class="main-button" aria-label="Compartir en redes">
     <span class="mdc-button__label">
       <mat-icon svgIcon="compartir"></mat-icon>

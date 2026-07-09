@@ -1,8 +1,7 @@
-import { Component, HostListener, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../material/material.module';
-import { MatIconRegistry } from '@angular/material/icon';
-import { DomSanitizer } from '@angular/platform-browser';
+import { IconoSvgService } from '../../../core/services/icono-svg.service';
 
 @Component({
   selector: 'app-boton-flotante',
@@ -12,32 +11,25 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrl: './boton-flotante.component.scss',
 })
 export class BotonFlotanteComponent {
-  private iconRegistry = inject(MatIconRegistry);
-  private sanitizer = inject(DomSanitizer);
+  private iconManager = inject(IconoSvgService);
+  private cdRef = inject(ChangeDetectorRef);
 
   constructor() {
-    const iconPath = 'assets/images/iconos';
+    const redes = ['compartir', 'facebook', 'instagram', 'tiktok', 'whatsapp'];
+    this.iconManager.registerIcons(redes);
+  }
 
-    this.iconRegistry.addSvgIcon(
-      'compartir',
-      this.sanitizer.bypassSecurityTrustResourceUrl(`${iconPath}/compartir.svg`),
-    );
-    this.iconRegistry.addSvgIcon(
-      'facebook',
-      this.sanitizer.bypassSecurityTrustResourceUrl(`${iconPath}/facebook.svg`),
-    );
-    this.iconRegistry.addSvgIcon(
-      'instagram',
-      this.sanitizer.bypassSecurityTrustResourceUrl(`${iconPath}/instagram.svg`),
-    );
-    this.iconRegistry.addSvgIcon(
-      'tiktok',
-      this.sanitizer.bypassSecurityTrustResourceUrl(`${iconPath}/tiktok.svg`),
-    );
-    this.iconRegistry.addSvgIcon(
-      'whatsapp',
-      this.sanitizer.bypassSecurityTrustResourceUrl(`${iconPath}/whatsapp.svg`),
-    );
+  isButtonVisible = false;
+
+  @HostListener('window:scroll', [])
+  onWindowScroll(): void {
+    const scrollPosition =
+      window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    const previousVisibility = this.isButtonVisible;
+    this.isButtonVisible = scrollPosition > 400;
+    if (previousVisibility !== this.isButtonVisible) {
+      this.cdRef.detectChanges();
+    }
   }
 
   openWhatsApp(): void {
@@ -50,17 +42,16 @@ export class BotonFlotanteComponent {
 
     switch (plataforma) {
       case 'facebook':
-        url = 'https://facebook.com';
+        url = 'https://www.facebook.com/JoseCasasOficial';
         break;
       case 'instagram':
-        url = 'https://instagram.com';
+        url = 'https://www.instagram.com/josecasascarrion/';
         break;
       case 'tiktok':
-        url = 'https://tiktok.com';
+        url = 'https://www.tiktok.com/@josecasascarrion?_r=1&_t=ZS-97LhnDizHJy';
         break;
       case 'whatsapp':
-        const mensaje = encodeURIComponent('Hola, deseo más información.');
-        url = `https://wa.me{mensaje}`; // Cambia por tu número o link de grupo
+        this.openWhatsApp();
         break;
     }
 

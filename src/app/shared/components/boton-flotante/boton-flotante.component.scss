@@ -145,7 +145,7 @@
 
 .buttons-container {
   position: fixed;
-  right: 30px; /* Oculta la mitad en el borde de la pantalla */
+  right: 30px;
   top: 50%;
   transform: translateY(-50%);
   z-index: 1000;
@@ -159,7 +159,7 @@
     right: 30px;
 
     .main-button.mat-mdc-fab {
-      border-radius: 50% !important;
+      animation-play-state: paused;
     }
 
     .facebook-button {
@@ -182,17 +182,18 @@
 }
 
 .main-button.mat-mdc-fab {
-  position: absolute;
-  z-index: 100;
   width: 60px;
   height: 60px;
+  min-width: 60px;
+  padding: 0 !important;
   border-radius: 50% !important;
-  background-color: v.$secondary-color !important;
-  color: v.$surface-color !important;
-  box-shadow: -5px 5px 15px rgba(0, 0, 0, 0.15) !important;
+  overflow: hidden;
+  background: v.$secondary-color !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
   transition:
-    transform 0.2s ease,
-    border-radius 0.3s ease,
+    width 0.4s ease,
+    border-radius 0.4s ease,
+    transform 0.3s ease,
     background-color 0.3s;
   animation: pulseBtn 3s infinite;
 
@@ -200,7 +201,6 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    padding-left: 8px; /* Centrado visual mientras está cortado */
     width: 100%;
     height: 100%;
   }
@@ -211,11 +211,10 @@
   }
 
   &:active {
-    transform: scale(0.95);
+    transform: scale(0.97) translate(2px, 2px);
   }
 }
 
-// Botones de Redes Sociales (CORREGIDO PARA CENTRAR ICONOS)
 .social-button.mat-mdc-mini-fab {
   position: absolute;
   z-index: 10;
@@ -223,15 +222,13 @@
   opacity: 0;
   width: 50px !important;
   height: 50px !important;
-  padding: 0 !important; /* Resetea paddings nativos */
+  padding: 0 !important;
   background-color: #e8e8e8 !important;
   box-shadow: -2px 5px 10px rgba(0, 0, 0, 0.1) !important;
   transition:
     transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
     opacity 0.3s ease,
     background-color 0.2s;
-
-  // Forzamos a flexbox el contenedor interno propio de Angular Material
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -242,14 +239,13 @@
     justify-content: center !important;
     width: 100%;
     height: 100%;
-    padding: 0 !important; /* Limpia cualquier desfase */
+    padding: 0 !important;
   }
 
-  // Iconos de las redes sociales a 32px
   mat-icon {
     width: 32px !important;
     height: 32px !important;
-    font-size: 32px !important; /* Asegura el tamaño de la fuente si es icon-font */
+    font-size: 32px !important;
     color: #333;
     display: flex !important;
     align-items: center;
@@ -258,29 +254,48 @@
   }
 }
 
-/* Efectos hover */
-.facebook-button:hover {
-  background-color: #1877f2 !important;
+.facebook-button {
   mat-icon {
-    color: white !important;
+    color: #1877f2 !important;
+  }
+  &:hover {
+    background-color: #1877f2 !important;
+    mat-icon {
+      color: white !important;
+    }
   }
 }
-.instagram-button:hover {
-  background-color: #e1306c !important;
+.instagram-button {
   mat-icon {
-    color: white !important;
+    color: #e1306c !important;
+  }
+  &:hover {
+    background-color: #e1306c !important;
+    mat-icon {
+      color: white !important;
+    }
   }
 }
-.tiktok-button:hover {
-  background-color: #000000 !important;
+.tiktok-button {
   mat-icon {
-    color: white !important;
+    color: #121212 !important;
+  }
+  &:hover {
+    background-color: #121212 !important;
+    mat-icon {
+      color: white !important;
+    }
   }
 }
-.whatsapp-button:hover {
-  background-color: #25d366 !important;
+.whatsapp-button {
   mat-icon {
-    color: white !important;
+    color: #25d366 !important;
+  }
+  &:hover {
+    background-color: #25d366 !important;
+    mat-icon {
+      color: white !important;
+    }
   }
 }
 

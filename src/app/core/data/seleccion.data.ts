@@ -41,32 +41,17 @@ export const Sector = [
   },
 ];
 
-export const TemasConsulta = [
-  {
-    idTemaconsulta: 1,
-    descripcion: 'Seguridad',
-  },
-  {
-    idTemaconsulta: 2,
-    descripcion: 'Orden',
-  },
-  {
-    idTemaconsulta: 3,
-    descripcion: 'Desarrollo',
-  },
-  {
-    idTemaconsulta: 4,
-    descripcion: 'Otro',
-  },
-];
-
 export const Tipoapoyo = [
   {
     idTipoapoyo: 1,
+    descripcion: 'Conversatorio',
+  },
+  {
+    idTipoapoyo: 2,
     descripcion: 'Personero',
   },
   {
     idTipoapoyo: 2,
-    descripcion: 'Conversatorio',
+    descripcion: 'Simpatizante',
   },
 ];

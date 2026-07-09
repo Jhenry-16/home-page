@@ -1,123 +1,313 @@
+@use 'sass:color';
 @use 'variables' as v;
 
 :host {
   display: block;
+  width: 100%;
 }
 
 footer {
-  background: v.$primary-color;
+  background: linear-gradient(
+    135deg,
+    v.$primary-color 0%,
+    color.adjust(v.$primary-color, $lightness: -12%) 100%
+  );
   color: v.$surface-color;
-  gap: 35px;
-  padding: 42px 58px;
-  h4 {
-    margin: 0 0 18px;
-    font-size: 18px;
-    font-weight: 600;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  padding: 24px 24px 0;
+}
+
+.column-title {
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.95);
+  margin-bottom: 24px;
+  position: relative;
+  display: inline-block;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+    width: 32px;
+    height: 3px;
+    background: v.$secondary-color;
+    border-radius: 2px;
   }
-  p {
-    font-size: 16px;
-    line-height: 1.5;
-    margin: 0;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+
+  @media (max-width: 768px) {
+    &::after {
+      left: 50%;
+      transform: translateX(-50%);
+    }
   }
 }
 
+// Layout de columnas adaptables
+.footer-column {
+  @media (max-width: 767.98px) {
+    text-align: center;
+    align-items: center;
+    &:not(:last-child) {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 28px;
+      margin-bottom: 20px;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .brand-col {
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    padding-right: 32px;
+  }
+  .social-col {
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+  .contact-col {
+    padding-left: 32px;
+  }
+}
+
+// Logo del Footer
 .logo-footer {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
+  display: inline-flex;
   img {
-    height: 62px;
-    transition: all 0.35s ease;
+    height: 52px;
+    max-width: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.12));
+    transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
   &:hover img {
     transform: scale(1.05);
   }
 }
 
-.footer-brand {
+// Bloque de texto del candidato
+.brand-text {
   display: flex;
-  gap: 18px;
-  border-right: 1px solid rgba(255, 255, 255, 0.35);
-  align-items: center;
-  @media (max-width: 768px) {
-    margin-bottom: 12px;
-    padding-bottom: 12px;
-    border-right: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+  flex-direction: column;
+  gap: 3px;
+  margin-top: 14px;
+
+  .candidate-name {
+    font-size: 19px;
+    font-weight: 700;
+    color: v.$surface-color;
+    margin: 0;
+    letter-spacing: 0.3px;
+  }
+
+  .candidate-subtitle {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.85);
+    margin: 0;
+  }
+
+  .candidate-period-wrapper {
+    margin-top: 4px;
+  }
+
+  .candidate-period {
+    font-size: 14px;
+    font-weight: 700;
+    color: v.$secondary-color;
+    background: rgba(v.$secondary-color, 0.12);
+    padding: 2px 10px;
+    border-radius: 20px;
+    display: inline-block;
+    border: 1px solid rgba(v.$secondary-color, 0.2);
   }
 }
 
-.social {
+// Botones de Redes Sociales
+.social-links-container {
   display: flex;
-  justify-content: center;
-  gap: 18px;
-  a {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(8px);
-    display: flex;
+  @media (max-width: 767.98px) {
     justify-content: center;
-    align-items: center;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    transition: 0.4s ease;
-    &:hover {
-      background: v.$secondary-color;
-      transform: translateY(-8px);
-      box-shadow: 0 15px 35px rgba(227, 2, 124, 0.35);
-    }
-    &:hover img {
-      transform: rotate(8deg) scale(1.15);
-    }
-  }
-  img {
-    width: 30px;
-    filter: brightness(0) invert(1);
-    transition: 0.4s ease;
   }
 }
 
-.btn-whatsapp {
-  height: 56px;
-  padding: 0 28px;
-  background: v.$green !important;
-  color: v.$surface-color !important;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+.social-grid {
   display: flex;
-  align-items: center;
   gap: 12px;
-  font-weight: 700;
-  transition: 0.35s ease;
+  align-items: center;
+}
 
-  img {
-    width: 26px;
-    transition: 0.35s;
+.social-btn {
+  width: 44px !important;
+  height: 44px !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06) !important;
+  transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+
+  mat-icon {
+    width: 22px;
+    height: 22px;
+    color: rgba(255, 255, 255, 0.85);
+    fill: currentColor;
+    transition: transform 0.25s ease;
   }
 
   &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 35px rgba(37, 211, 102, 0.35);
+    transform: translateY(-4px) scale(1.04);
+    color: v.$surface-color !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+    mat-icon {
+      transform: scale(1.08);
+      color: v.$surface-color;
+    }
   }
 
-  &:hover img {
-    transform: rotate(12deg) scale(1.1);
+  &.facebook:hover {
+    background-color: #1877f2 !important;
+    box-shadow: 0 6px 14px rgba(24, 119, 242, 0.3) !important;
+  }
+
+  &.instagram:hover {
+    background-color: #e1306c !important;
+    box-shadow: 0 6px 14px rgba(225, 48, 108, 0.3) !important;
+  }
+
+  &.tiktok:hover {
+    background-color: #010101 !important;
+    box-shadow: 0 6px 14px rgba(1, 1, 1, 0.3) !important;
+  }
+
+  &.whatsapp:hover {
+    background-color: v.$green !important;
+    box-shadow: 0 6px 14px rgba(37, 211, 102, 0.3) !important;
   }
 }
 
+// Tarjetas de Contacto Interactivas
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  @media (max-width: 767.98px) {
+    align-items: center;
+  }
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: inherit;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  width: 100%;
+  max-width: 240px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.12);
+    transform: translateX(3px);
+
+    @media (max-width: 767.98px) {
+      transform: translateY(-2px);
+    }
+  }
+
+  .contact-icon-wrapper {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: v.$surface-color;
+    transition: all 0.2s ease;
+
+    mat-icon {
+      font-size: 16px;
+      width: 16px;
+      height: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &.whatsapp-bg {
+      background: rgba(v.$green, 0.1);
+      color: v.$green;
+    }
+  }
+
+  &:hover .contact-icon-wrapper {
+    background: v.$secondary-color;
+    color: white;
+
+    &.whatsapp-bg {
+      background: v.$green;
+      color: white;
+    }
+  }
+
+  .contact-detail {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+  }
+
+  .contact-label {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: rgba(255, 255, 255, 0.45);
+    font-weight: 500;
+    line-height: 1.1;
+  }
+
+  .contact-value {
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.2;
+  }
+}
+
+// Parte Inferior del Footer (Créditos y Copyright)
 .footer-bottom {
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
-  padding: 1rem 0;
-  margin-top: 1.5rem;
-  color: rgba(255, 255, 255, 0.66);
-  font-size: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 20px 0;
+  margin-top: 40px;
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 13px;
+
+  .dev-credits {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    .highlight-team {
+      color: rgba(255, 255, 255, 0.75);
+      font-weight: 500;
+    }
+  }
 }
 
-.footer-content {
-  @media (max-width: 468px) {
-    width: 100%;
-    text-align: center;
+@keyframes beat {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.12);
   }
 }

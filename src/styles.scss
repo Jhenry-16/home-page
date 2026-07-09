@@ -66,6 +66,56 @@ mat-icon {
 .full-width {
   width: 100%;
 }
+/*Titulo sección*/
+.titulo-seccion {
+  font-size: 32px;
+  padding-bottom: 4px;
+  margin-bottom: 20px;
+  color: v.$primary-color;
+  text-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.35),
+    0 4px 12px rgba(0, 0, 0, 0.2);
+  font-weight: 800;
+  display: block;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    width: 32px;
+    height: 3px;
+    background: v.$primary-color;
+    border-radius: 2px;
+    transition:
+      width 0.3s ease,
+      left 0.3s ease,
+      transform 0.3s ease;
+    left: 0;
+    transform: none;
+  }
+
+  &:hover::after {
+    left: 5%;
+    width: 90%;
+  }
+
+  @include m.tablet {
+    &::after {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    &:hover::after {
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+    }
+  }
+}
 
 /*Animaciones*/
 .fade-up {

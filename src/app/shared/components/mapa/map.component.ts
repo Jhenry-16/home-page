@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { MaterialModule } from '../material/material.module';
 import * as L from 'leaflet';
+import { LocalizacionData } from '../../../core/data/localizacion.data';
 
 @Component({
   selector: 'app-map',
@@ -24,25 +25,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   private map?: L.Map;
   selectedMarker: any;
 
-  markers = [
-    {
-      title: 'Coversatorio con vecinos de Madgalena',
-      fecha: '18 de agosto, 2026',
-      foto: 'assets/images/fondos/fondo1.jpg',
-      link: '#',
-      lat: -12.076993652236,
-      lng: -77.06241386101154,
-    },
-
-    {
-      title: 'Coversatorio con vecinos de Santa Rosa',
-      fecha: '14 de julio, 2026',
-      foto: 'assets/images/fondos/fondo1.jpg',
-      link: '#',
-      lat: -12.07368,
-      lng: -77.06789,
-    },
-  ];
+  markers = LocalizacionData;
 
   ngAfterViewInit() {
     this.initMap();

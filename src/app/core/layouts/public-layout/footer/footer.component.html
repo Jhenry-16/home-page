@@ -1,63 +1,119 @@
 <footer>
-  <div class="row container full-width">
-    <div class="col-12 col-sm-4 footer-brand">
-      <div class="logo-footer">
-        <img src="assets/images/logos/logo-blanco.png" alt="logo-footer" />
+  <div class="container-xl px">
+    <div class="row gy-4 gy-md-0 align-items-stretch">
+      <div class="col-12 col-md-4 d-flex flex-column footer-column brand-col">
+        <div class="brand-wrapper">
+          <a class="logo-footer" href="#" aria-label="Volver al inicio">
+            <img src="assets/images/logos/logo-blanco.png" alt="logo-footer" />
+          </a>
+          <div class="brand-text">
+            <h3 class="candidate-name">José Luis Casas</h3>
+            <p class="candidate-subtitle">Alcalde de Pueblo Libre</p>
+            <div class="candidate-period-wrapper">
+              <span class="candidate-period">Gestión 2027 - 2030</span>
+            </div>
+          </div>
+        </div>
       </div>
-      <p>José Luis Casas<br />Alcalde de Pueblo Libre gestión 2027-2030</p>
-    </div>
 
-    <div class="col-12 col-sm-4 footer-content mb-4 py-sm-0">
-      <h4>Síguenos en redes</h4>
-      <div class="social">
-        <a href="https://www.facebook.com/JoseCasasOficial" target="_blank" aria-label="Facebook">
-          <img src="assets/images/iconos/facebook.png" alt="Facebook" />
-        </a>
+      <!-- Columna 2: Redes Sociales -->
+      <div class="col-12 col-md-4 d-flex flex-column footer-column social-col">
+        <h4 class="column-title">Síguenos en nuestras redes</h4>
+        <div class="social-links-container">
+          <div class="social-grid">
+            <a
+              mat-mini-fab
+              class="social-btn facebook"
+              href="https://www.facebook.com/JoseCasasOficial"
+              target="_blank"
+              aria-label="Facebook"
+            >
+              <mat-icon svgIcon="facebook"></mat-icon>
+            </a>
 
-        <a
-          href="https://www.instagram.com/josecasascarrion/"
-          target="_blank"
-          aria-label="Instagram"
-        >
-          <img src="assets/images/iconos/instagram.png" alt="Instagram" />
-        </a>
+            <a
+              mat-mini-fab
+              class="social-btn instagram"
+              href="https://www.instagram.com/josecasascarrion/"
+              target="_blank"
+              aria-label="Instagram"
+            >
+              <mat-icon svgIcon="instagram"></mat-icon>
+            </a>
 
-        <a
-          href="https://www.tiktok.com/@josecasascarrion?_r=1&_t=ZS-97LhnDizHJy"
-          target="_blank"
-          aria-label="TikTok"
-        >
-          <img src="assets/images/iconos/tiktok.png" alt="TikTok" />
-        </a>
-        <a
-          href="https://whatsapp.com/channel/0029Vb7dNfbG8l5LCj6Mac1V"
-          target="_blank"
-          aria-label="WhatsApp"
-        >
+            <a
+              mat-mini-fab
+              class="social-btn tiktok"
+              href="https://www.tiktok.com/@josecasascarrion?_r=1&_t=ZS-97LhnDizHJy"
+              target="_blank"
+              aria-label="TikTok"
+            >
+              <mat-icon svgIcon="tiktok"></mat-icon>
+            </a>
+
+            <a
+              mat-mini-fab
+              class="social-btn whatsapp"
+              href="https://whatsapp.com/channel/0029Vb7dNfbG8l5LCj6Mac1V"
+              target="_blank"
+              aria-label="WhatsApp Channel"
+            >
+              <mat-icon svgIcon="whatsapp"></mat-icon>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Columna 3: Contacto -->
+      <div class="col-12 col-md-4 d-flex flex-column footer-column contact-col">
+        <h4 class="column-title">Contáctanos</h4>
+        <div class="contact-info">
+          <a href="tel:906876795" class="contact-item">
+            <div class="contact-icon-wrapper">
+              <mat-icon>phone</mat-icon>
+            </div>
+            <div class="contact-detail">
+              <span class="contact-label">Llámanos</span>
+              <span class="contact-value">906 876 795</span>
+            </div>
+          </a>
+
+          <a
+            href="https://whatsapp.com/channel/0029Vb7dNfbG8l5LCj6Mac1V"
+            target="_blank"
+            class="contact-item"
+          >
+            <div class="contact-icon-wrapper whatsapp-bg">
+              <mat-icon svgIcon="whatsapp"></mat-icon>
+            </div>
+            <div class="contact-detail">
+              <span class="contact-label">Canal Oficial</span>
+              <span class="contact-value">WhatsApp</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Enlace para ser parte del equipo (Dejado comentado para posterior uso si es requerido)
+      <div class="col-12 col-md-3">
+        <h4 class="column-title">Sé parte del equipo:</h4>
+        <button mat-flat-button class="btn-whatsapp" (click)="grupoWhatsapp()">
           <img src="assets/images/iconos/whatsapp.png" alt="Icono de WhatsApp" />
-        </a>
-      </div>
+          <span>Unirme</span>
+        </button>
+      </div> 
+      -->
     </div>
-
-    <div class="col-6 col-sm-4 mb-4 py-sm-0 footer-content" align="center">
-      <h4>Contáctanos</h4>
-      <p>Cel: 906876795</p>
-    </div>
-
-    <!-- <div class="col-6 col-sm-3">
-      <h4>Se parte del equipo en:</h4>
-
-      <button mat-flat-button class="btn-whatsapp" (click)="grupoWhatsapp()">
-        <img src="assets/images/iconos/whatsapp.png" alt="Icono de WhatsApp" />
-        <span>Unirme</span>
-      </button>
-    </div> -->
   </div>
 
   <div class="footer-bottom">
-    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
-      <span>© {{ anioActual }} Todo lo derechos reservados.</span>
-      <span>Equipo de desarrollo.</span>
+    <div class="container-xl">
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+        <p class="copyright-text mb-0">© {{ anioActual }} Todos los derechos reservados.</p>
+        <p class="dev-credits mb-0">
+          <span class="highlight-team">Equipo de Desarrollo</span>
+        </p>
+      </div>
     </div>
   </div>
 </footer>
