@@ -36,6 +36,31 @@ mat-icon {
   flex-shrink: 0;
 }
 /*Botones*/
+button:hover {
+  transform: scale(1.02);
+}
+
+@keyframes sh0 {
+  0% {
+    transform: rotate(0deg) translate3d(0, 0, 0);
+  }
+
+  25% {
+    transform: rotate(7deg) translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: rotate(-7deg) translate3d(0, 0, 0);
+  }
+
+  75% {
+    transform: rotate(1deg) translate3d(0, 0, 0);
+  }
+
+  100% {
+    transform: rotate(0deg) translate3d(0, 0, 0);
+  }
+}
 .mat-mdc-outlined-button.mat-accent {
   --mat-button-outlined-outline-color: var(--mat-sys-secondary) !important;
 }

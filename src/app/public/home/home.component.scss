@@ -21,12 +21,15 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
-  @include m.tablet {
+  @media (max-width: 1024px) {
     grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  @include m.tablet {
+    grid-template-columns: 1fr;
     gap: 16px;
   }
-
-  @media (max-width: 576px) {
+  @include m.telefono {
     grid-template-columns: 1fr;
     gap: 16px;
   }

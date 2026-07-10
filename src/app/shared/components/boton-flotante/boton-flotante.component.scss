@@ -145,7 +145,7 @@
 
 .buttons-container {
   position: fixed;
-  right: 30px;
+  right: 10px;
   top: 50%;
   transform: translateY(-50%);
   z-index: 1000;
@@ -156,7 +156,7 @@
   transition: right 0.3s ease;
 
   &:hover {
-    right: 30px;
+    right: 10px;
 
     .main-button.mat-mdc-fab {
       animation-play-state: paused;
