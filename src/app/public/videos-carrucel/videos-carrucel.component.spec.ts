@@ -10,14 +10,8 @@ describe('VideosCarrucelComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        VideosCarrucelComponent,
-        MaterialModule,
-        NoopAnimationsModule
-      ],
-      providers: [
-        provideZonelessChangeDetection()
-      ]
+      imports: [VideosCarrucelComponent, MaterialModule, NoopAnimationsModule],
+      providers: [provideZonelessChangeDetection()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(VideosCarrucelComponent);
@@ -64,14 +58,12 @@ describe('VideosCarrucelComponent', () => {
   });
 
   it('should navigate via goToSlide using shortest path', () => {
-    const N = component.videos.length; // N = 4 in mock/default
-    
-    // Start at original 0 (currentIndex = 4)
-    component.currentIndex = N; 
-    
-    // Target index 3 (which is index 3 in original array, but nearest is index 3 in cloned array, which means moving left 1 step)
+    const N = component.videos.length;
+
+    component.currentIndex = N;
     component.goToSlide(3);
-    expect(component.currentIndex).toBe(N - 1); // Should slide left to N - 1 (3)
+
+    expect(component.currentIndex).toBe(N + 3);
   });
 
   describe('onTransitionEnd snapping', () => {

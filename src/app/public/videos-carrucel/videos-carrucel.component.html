@@ -17,6 +17,8 @@
       animacion="zoom-in"
       (mouseenter)="pauseAutoplay()"
       (mouseleave)="resumeAutoplay()"
+      (touchstart)="onTouchStart($event)"
+      (touchend)="onTouchEnd($event)"
     >
       <!-- Flecha izquierda -->
       <button class="slider-arrow prev" type="button" (click)="prevSlide()">
@@ -27,7 +29,7 @@
       <div class="cards-container">
         <div
           class="cards-track"
-          [style.transform]="trackTransform"
+          [style.transform]="getTrackTransform()"
           [style.transition]="transitionEnabled ? 'transform .4s ease' : 'none'"
           (transitionend)="onTransitionEnd()"
         >
@@ -35,7 +37,7 @@
             class="video-card"
             *ngFor="let video of clonedVideos; let i = index"
             [class.active]="i === currentIndex"
-            (click)="goToCard(i)"
+            (click)="!isDragging && goToCard(i)"
           >
             <!-- HEADER -->
             <div class="header">
@@ -51,9 +53,9 @@
                 </div>
               </div>
 
-              <button mat-icon-button>
+              <!-- <button mat-icon-button>
                 <mat-icon>more_horiz</mat-icon>
-              </button>
+              </button> -->
             </div>
 
             <!-- Imagen -->

@@ -25,6 +25,7 @@ footer {
   margin-bottom: 24px;
   position: relative;
   display: inline-block;
+  cursor: default;
 
   &::after {
     content: '';
@@ -36,11 +37,19 @@ footer {
     background: v.$secondary-color;
     border-radius: 2px;
   }
+  &:hover::after {
+    width: 50%;
+  }
 
   @media (max-width: 768px) {
     &::after {
       left: 50%;
       transform: translateX(-50%);
+    }
+    &:hover::after {
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
     }
   }
 }

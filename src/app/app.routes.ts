@@ -17,4 +17,33 @@ export const routes: Routes = [
       },
     ],
   },
+  {
+    path: 'access-denied',
+    loadComponent: () =>
+      import('./shared/components/access-denied/access-denied.component').then(
+        (c) => c.AccessDeniedComponent,
+      ),
+  },
+  // ERROR 403
+  {
+    path: '403',
+
+    loadComponent: () =>
+      import('./shared/components/access-denied/access-denied.component').then(
+        (c) => c.AccessDeniedComponent,
+      ),
+  },
+
+  // ERROR 404
+  {
+    path: '404',
+
+    loadComponent: () =>
+      import('./shared/components/not-found/not-found.component').then((c) => c.NotFoundComponent),
+  },
+  {
+    path: '**',
+
+    redirectTo: '404',
+  },
 ];

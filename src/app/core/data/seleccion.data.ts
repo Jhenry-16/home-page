@@ -51,7 +51,7 @@ export const Tipoapoyo = [
     descripcion: 'Personero',
   },
   {
-    idTipoapoyo: 2,
-    descripcion: 'Simpatizante',
+    idTipoapoyo: 3,
+    descripcion: 'Partidario',
   },
 ];

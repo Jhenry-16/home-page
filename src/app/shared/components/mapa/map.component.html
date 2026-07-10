@@ -17,9 +17,13 @@
             </mat-card-header>
 
             <mat-card-content>
-              <p class="m-0">
-                {{ selectedMarker.fecha }}
-              </p>
+              @if (selectedMarker.fecha != '') {
+                <p class="m-0">
+                  {{ selectedMarker.fecha }}
+                </p>
+              } @else {
+                <p class="p-color m-0">Por definir, 2026</p>
+              }
               <a [href]="selectedMarker.link" target="_blank">Ver más fotos y videos</a>
             </mat-card-content>
           </div>

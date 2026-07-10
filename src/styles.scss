@@ -68,6 +68,7 @@ mat-icon {
 }
 /*Titulo sección*/
 .titulo-seccion {
+  cursor: default;
   font-size: 32px;
   padding-bottom: 4px;
   margin-bottom: 20px;
@@ -121,6 +122,17 @@ mat-icon {
 .fade-up {
   opacity: 0;
   transform: translateY(30px);
+  transition: all 0.8s ease;
+
+  &.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-below {
+  opacity: 0;
+  transform: translateY(-30px);
   transition: all 0.8s ease;
 
   &.show {

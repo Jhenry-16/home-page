@@ -1,5 +1,6 @@
 export const Propuestas = [
   {
+    idPropuesta: 1,
     icon: 'shield',
     title: 'Seguridad Ciudadana',
     items: [
@@ -10,6 +11,7 @@ export const Propuestas = [
     ],
   },
   {
+    idPropuesta: 2,
     icon: 'account_balance',
     title: 'Empleo y Emprendimiento',
     items: [
@@ -22,6 +24,7 @@ export const Propuestas = [
     ],
   },
   {
+    idPropuesta: 3,
     icon: 'park',
     title: 'Parques y Espacios Públicos para la Familia',
     items: [
@@ -33,6 +36,7 @@ export const Propuestas = [
     ],
   },
   {
+    idPropuesta: 4,
     icon: 'directions_car',
     title: 'Tránsito y Movilidad',
     items: [
@@ -46,6 +50,7 @@ export const Propuestas = [
     ],
   },
   {
+    idPropuesta: 5,
     icon: 'heart_broken',
     title: 'Salud Preventiva',
     items: [
@@ -56,6 +61,7 @@ export const Propuestas = [
     ],
   },
   {
+    idPropuesta: 6,
     icon: 'pets',
     title: 'Bienestar Animal',
     items: [
@@ -69,6 +75,7 @@ export const Propuestas = [
     ],
   },
   {
+    idPropuesta: 7,
     icon: 'school',
     title: 'Educación',
     items: [
@@ -80,6 +87,7 @@ export const Propuestas = [
     ],
   },
   {
+    idPropuesta: 8,
     icon: 'elderly',
     title: 'Inclusión social y atención a poblaciones vulnerables',
     items: [
@@ -92,6 +100,7 @@ export const Propuestas = [
     ],
   },
   {
+    idPropuesta: 9,
     icon: 'sports_soccer',
     title: 'Deporte',
     items: [
@@ -102,6 +111,7 @@ export const Propuestas = [
     ],
   },
   {
+    idPropuesta: 10,
     icon: 'restore_from_trash',
     title: 'Limpieza pública',
     items: [
@@ -109,6 +119,30 @@ export const Propuestas = [
       'Segregación en la fuente.',
       'Reciclaje.',
       'Educación ambiental.',
+    ],
+  },
+  {
+    idPropuesta: 11,
+    icon: 'location_city',
+    title: 'Turismo y Cultura',
+    items: [
+      'Plan de Desarrollo Turístico Distrital.',
+      'Circuitos históricos y culturales.',
+      'Circuitos gastronómicos.',
+      'Ferias gastronómicas permanentes.',
+      'Ferias culturales.',
+      'Integración del turismo con la seguridad distrital mediante el C4.',
+    ],
+  },
+  {
+    idPropuesta: 12,
+    icon: 'nature_people',
+    title: 'Recuperación de Áreas Verdes',
+    items: [
+      'Mantenimiento permanente de parques.',
+      'Recuperación de áreas verdes.',
+      'Iluminación eficiente.',
+      'Mejoramiento del mobiliario urbano.',
     ],
   },
 ];

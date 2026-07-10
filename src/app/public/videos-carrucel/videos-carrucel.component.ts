@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, CUSTOM_ELEMENTS_SCHEMA, OnDestroy, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { MaterialModule } from '../../shared/components/material/material.module';
 import { AnimacionDirective } from '../../shared/directives/animacion.directive';
 import { VideosCorto } from '../../core/data/videos-corto.data';
@@ -15,6 +22,15 @@ export type Platform = 'all' | 'youtube' | 'facebook' | 'instagram' | 'tiktok';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class VideosCarrucelComponent implements OnDestroy, OnInit, AfterViewInit {
+  constructor(private cdRef: ChangeDetectorRef) {}
+
+  touchStartX = 0;
+  touchStartY = 0;
+  touchEndX = 0;
+  touchEndY = 0;
+  isDragging = false;
+  private readonly swipeThreshold = 50;
+
   currentIndex = 0;
   transitionEnabled = true;
   isTransitioning = false;
@@ -26,7 +42,6 @@ export class VideosCarrucelComponent implements OnDestroy, OnInit, AfterViewInit
   videos = VideosCorto;
 
   clonedVideos: typeof VideosCorto = [];
-  trackTransform = 'translateX(0)';
 
   ngOnInit(): void {
     this.clonedVideos = [...this.videos, ...this.videos, ...this.videos];
@@ -35,7 +50,7 @@ export class VideosCarrucelComponent implements OnDestroy, OnInit, AfterViewInit
 
     if (N > 0) {
       this.currentIndex = N;
-      this.updateTransform();
+      this.cdRef.detectChanges();
     }
   }
 
@@ -55,8 +70,8 @@ export class VideosCarrucelComponent implements OnDestroy, OnInit, AfterViewInit
     return ((this.currentIndex % N) + N) % N;
   }
 
-  private updateTransform(): void {
-    this.trackTransform = `translateX(calc(-1 * var(--half-card-width) - ${this.currentIndex} * var(--card-outer-width)))`;
+  getTrackTransform(): string {
+    return `translateX(calc(-1 * var(--half-card-width) - ${this.currentIndex} * var(--card-outer-width)))`;
   }
 
   private startAutoplay(): void {
@@ -90,7 +105,6 @@ export class VideosCarrucelComponent implements OnDestroy, OnInit, AfterViewInit
     this.isTransitioning = true;
     this.transitionEnabled = true;
     this.currentIndex++;
-    this.updateTransform();
 
     if (restart) {
       this.startAutoplay();
@@ -103,7 +117,6 @@ export class VideosCarrucelComponent implements OnDestroy, OnInit, AfterViewInit
     this.isTransitioning = true;
     this.transitionEnabled = true;
     this.currentIndex--;
-    this.updateTransform();
     this.startAutoplay();
   }
 
@@ -120,7 +133,6 @@ export class VideosCarrucelComponent implements OnDestroy, OnInit, AfterViewInit
       diff += N;
     }
     this.currentIndex += diff;
-    this.updateTransform();
     this.startAutoplay();
   }
 
@@ -130,7 +142,6 @@ export class VideosCarrucelComponent implements OnDestroy, OnInit, AfterViewInit
     this.isTransitioning = true;
     this.transitionEnabled = true;
     this.currentIndex = idx;
-    this.updateTransform();
     this.startAutoplay();
   }
 
@@ -142,7 +153,6 @@ export class VideosCarrucelComponent implements OnDestroy, OnInit, AfterViewInit
     if (this.currentIndex >= 2 * N) {
       this.transitionEnabled = false;
       this.currentIndex -= N;
-      this.updateTransform();
 
       setTimeout(() => {
         this.transitionEnabled = true;
@@ -150,7 +160,6 @@ export class VideosCarrucelComponent implements OnDestroy, OnInit, AfterViewInit
     } else if (this.currentIndex < N) {
       this.transitionEnabled = false;
       this.currentIndex += N;
-      this.updateTransform();
       setTimeout(() => {
         this.transitionEnabled = true;
       });
@@ -159,5 +168,35 @@ export class VideosCarrucelComponent implements OnDestroy, OnInit, AfterViewInit
 
   abrirVideo(url: string): void {
     window.open(url, '_blank');
+  }
+
+  //Para moviles el touch
+  get isMobile(): boolean {
+    return window.innerWidth <= 768;
+  }
+
+  onTouchStart(event: TouchEvent): void {
+    this.isDragging = true;
+
+    this.touchStartX = event.changedTouches[0].clientX;
+    this.touchStartY = event.changedTouches[0].clientY;
+
+    this.pauseAutoplay();
+  }
+
+  onTouchEnd(event: TouchEvent): void {
+    if (!this.isMobile) return;
+    const touch = event.changedTouches[0];
+
+    const diffX = this.touchStartX - touch.clientX;
+    const diffY = this.touchStartY - touch.clientY;
+
+    this.isDragging = false;
+
+    if (Math.abs(diffX) > this.swipeThreshold && Math.abs(diffX) > Math.abs(diffY)) {
+      diffX > 0 ? this.nextSlide() : this.prevSlide();
+    }
+
+    this.resumeAutoplay();
   }
 }

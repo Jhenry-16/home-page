@@ -2,10 +2,10 @@
 <app-historia></app-historia>
 
 <section id="propuestas">
-  <div class="container" animacion="fade-up">
-    <h2 class="titulo-seccion">Mis principales propuestas</h2>
+  <div class="container">
+    <h2 class="titulo-seccion" animacion="slide-right">Mis principales propuestas</h2>
     <div class="cards-propuestas">
-      <mat-card class="texto-propuestas" *ngFor="let p of propuestas">
+      <mat-card class="texto-propuestas" *ngFor="let p of propuestas" animacion="zoom-in">
         <mat-card-header>
           <div mat-card-avatar class="icon-container">
             <mat-icon>{{ p.icon }}</mat-icon>
