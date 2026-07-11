@@ -13,6 +13,6 @@ export class NoAutorizadoComponent {
   constructor(private router: Router) {}
 
   volverLogin() {
-    this.router.navigate(['/login']);
+    this.router.navigate(['/']);
   }
 }

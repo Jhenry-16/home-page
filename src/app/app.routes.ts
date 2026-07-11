@@ -8,11 +8,6 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'home', // redirige al home
-        pathMatch: 'full',
-      },
-      {
-        path: '',
         loadChildren: () => import('./public/public.routes').then((m) => m.routes_public),
       },
     ],
@@ -43,7 +38,6 @@ export const routes: Routes = [
   },
   {
     path: '**',
-
     redirectTo: '404',
   },
 ];

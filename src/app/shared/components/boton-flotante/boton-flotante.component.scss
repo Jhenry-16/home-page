@@ -1,4 +1,4 @@
-@use 'variables' as v;
+@use 'global' as *;
 
 .main-button.mat-mdc-fab {
   width: 60px;
@@ -7,7 +7,7 @@
   padding: 0 !important;
   border-radius: 50% !important;
   overflow: hidden;
-  background: v.$secondary-color !important;
+  background: $secondary-color !important;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
   transition:
     width 0.4s ease,
@@ -125,14 +125,14 @@
   }
   80% {
     transform: scale(1.12) translateY(-5%);
-    box-shadow: 0 0 0 15px rgba(v.$secondary-color, 0.2);
+    box-shadow: 0 0 0 15px rgba($secondary-color, 0.2);
   }
   85% {
     transform: scale(1);
   }
   90% {
     transform: scale(1.12) translateY(-5%);
-    box-shadow: 0 0 0 20px rgba(v.$secondary-color, 0.1);
+    box-shadow: 0 0 0 20px rgba($secondary-color, 0.1);
   }
   100% {
     transform: scale(1);

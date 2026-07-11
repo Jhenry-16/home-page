@@ -13,8 +13,6 @@ export class DialogService {
       data,
       disableClose: true,
       autoFocus: false,
-      //height: '400px',
-      //width: '600px'
     });
   }
 }

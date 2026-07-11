@@ -1,4 +1,4 @@
-@use 'variables' as v;
+@use 'global' as *;
 
 .closeDialogUp {
   font-size: 20px;
@@ -13,7 +13,7 @@
   width: 30px;
   height: 30px;
   mat-icon {
-    color: v.$surface-color;
+    color: $surface-color;
   }
   &:hover {
     cursor: pointer;

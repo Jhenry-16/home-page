@@ -1,22 +1,18 @@
-@use 'variables' as v;
+@use 'global' as *;
 
 :host {
   display: block;
 }
 
-$primary: #1565ff;
-$secondary: #0f172a;
-$background: #f6f9ff;
 $text: #1e293b;
 $gray: #64748b;
-$white: #ffffff;
 $shadow: rgba(15, 23, 42, 0.12);
 
 .social-section {
   position: relative;
   overflow: hidden;
   padding: 40px 0;
-  background: v.$surface-color;
+  background: $surface-color;
   animation: fadeUp 0.7s ease-out;
 }
 
@@ -26,8 +22,8 @@ $shadow: rgba(15, 23, 42, 0.12);
   gap: 10px;
   padding: 12px 24px;
   border-radius: 50px;
-  background: v.$secondary-badge;
-  color: v.$secondary-color;
+  background: $secondary-badge;
+  color: $secondary-color;
   font-size: 12px;
   font-weight: 700;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
@@ -47,7 +43,7 @@ $shadow: rgba(15, 23, 42, 0.12);
 .subtitle {
   font-size: 16px;
   line-height: 1.5;
-  color: v.$text;
+  color: $text;
   margin-bottom: 30px;
 }
 
@@ -69,10 +65,10 @@ $shadow: rgba(15, 23, 42, 0.12);
   height: 58px;
   border: none;
   border-radius: 50%;
-  background: rgba(v.$primary-color, 0.08);
+  background: rgba($primary-color, 0.08);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  color: v.$primary-color;
+  color: $primary-color;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -92,10 +88,10 @@ $shadow: rgba(15, 23, 42, 0.12);
   }
 
   &:hover:not(:disabled) {
-    background: v.$primary-color;
-    color: v.$surface-color;
+    background: $primary-color;
+    color: $surface-color;
     transform: translateY(-50%) scale(1.08);
-    box-shadow: 0 12px 30px rgba(v.$primary-color, 0.35);
+    box-shadow: 0 12px 30px rgba($primary-color, 0.35);
   }
 
   &:disabled {
@@ -145,7 +141,7 @@ $shadow: rgba(15, 23, 42, 0.12);
   border-radius: 28px;
   overflow: hidden;
   cursor: pointer;
-  background: $white;
+  background: $surface-color;
   border: 2px solid transparent;
   opacity: 0.55;
   transform: scale(0.9);
@@ -161,7 +157,7 @@ $shadow: rgba(15, 23, 42, 0.12);
 .video-card.active {
   opacity: 1;
   transform: scale(1.03);
-  border-color: v.$primary-color;
+  border-color: $primary-color;
   box-shadow: 0 20px 45px rgba(21, 101, 255, 0.3);
   z-index: 10;
 }
@@ -219,12 +215,12 @@ $shadow: rgba(15, 23, 42, 0.12);
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid rgba(255, 255, 255, 0.25);
-  background: white;
+  background: $surface-color;
 }
 
 .social h5 {
   margin: 0;
-  color: white;
+  color: $surface-color;
   font-size: 1rem;
   font-weight: 700;
 }
@@ -241,7 +237,7 @@ $shadow: rgba(15, 23, 42, 0.12);
   background: rgba(255, 255, 255, 0.18);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  color: white;
+  color: $surface-color;
   transition: all 0.3s ease;
   display: flex;
   justify-content: center;
@@ -249,8 +245,8 @@ $shadow: rgba(15, 23, 42, 0.12);
 }
 
 .header button:hover {
-  background: white;
-  color: $primary;
+  background: $surface-color;
+  color: $primary-color;
   transform: rotate(90deg);
 }
 
@@ -269,7 +265,7 @@ $shadow: rgba(15, 23, 42, 0.12);
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white;
+  color: $surface-color;
   z-index: 20;
   transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
   cursor: pointer;
@@ -287,8 +283,8 @@ $shadow: rgba(15, 23, 42, 0.12);
 
 .video-card:hover .play {
   transform: translate(-50%, -50%) scale(1.15);
-  background: white;
-  color: $primary;
+  background: $surface-color;
+  color: $primary-color;
   box-shadow: 0 15px 35px rgba(255, 255, 255, 0.35);
   animation: none;
 }
@@ -298,7 +294,7 @@ $shadow: rgba(15, 23, 42, 0.12);
   left: 22px;
   right: 22px;
   bottom: 22px;
-  color: white;
+  color: $surface-color;
   z-index: 15;
 }
 
@@ -321,7 +317,7 @@ $shadow: rgba(15, 23, 42, 0.12);
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  color: white;
+  color: $surface-color;
   font-size: 0.9rem;
   font-weight: 500;
 }
@@ -349,13 +345,13 @@ $shadow: rgba(15, 23, 42, 0.12);
   cursor: pointer;
 
   &:hover {
-    background: $primary;
+    background: $primary-color;
   }
 
   &.active {
     width: 38px;
     border-radius: 30px;
-    background: $primary;
+    background: $primary-color;
   }
 }
 

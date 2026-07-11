@@ -33,13 +33,14 @@
 <app-conversatorio></app-conversatorio>
 
 <ng-template #modalBienvenida>
-  <mat-dialog-content align="center">
-    <div class="modal-banner-container">
-      <img src="assets/images/fondos/fondo5.jpg" alt="Bienvenido" />
-      <button mat-flat-button class="whatsapp-overlay-button" (click)="openWhatsApp()">
-        <mat-icon svgIcon="whatsapp"></mat-icon>
-        <span class="button-text">ÚNETE AL WHATSAPP</span>
-      </button>
-    </div>
+  <mat-dialog-content align="center" class="dialog-home">
+    <picture>
+      <source media="(max-width: 768px)" srcset="assets/images/fondos/fondo5-vertical.jpg" />
+      <img src="assets/images/fondos/fondo5.jpg" class="modal-banner-image" alt="Bienvenido" />
+    </picture>
+    <button mat-flat-button class="whatsapp-overlay-button" (click)="openWhatsApp()">
+      <mat-icon svgIcon="whatsapp"></mat-icon>
+      <span class="button-text">ÚNETE AL WHATSAPP</span>
+    </button>
   </mat-dialog-content>
 </ng-template>

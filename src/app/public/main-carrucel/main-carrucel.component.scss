@@ -1,4 +1,4 @@
-@use 'variables' as v;
+@use 'global' as *;
 
 .hero-slider {
   position: relative;
@@ -6,9 +6,9 @@
   overflow: hidden;
   background: linear-gradient(
     90deg,
-    rgba(v.$surface-color, 0.95) 0%,
-    rgba(v.$surface-color, 0.82) 45%,
-    rgba(v.$primary-color, 0.9) 100%
+    rgba($surface-color, 0.95) 0%,
+    rgba($surface-color, 0.82) 45%,
+    rgba($primary-color, 0.9) 100%
   );
 }
 
@@ -87,7 +87,7 @@
   margin: 24px 0;
   padding: 10px;
   border-radius: 8px;
-  background: rgba(v.$primary-color, 0.08);
+  background: rgba($primary-color, 0.08);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.15);
@@ -146,7 +146,7 @@
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.12);
   backdrop-filter: blur(12px);
-  color: v.$surface-color;
+  color: $surface-color;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -162,7 +162,7 @@
   }
 
   &:hover {
-    background: v.$primary-color;
+    background: $primary-color;
     transform: translateY(-50%) scale(1.08);
   }
 }
@@ -197,7 +197,7 @@
 .slider-dots button.active {
   width: 42px;
   border-radius: 30px;
-  background: v.$primary-color;
+  background: $primary-color;
 }
 
 @media (max-width: 991px) {

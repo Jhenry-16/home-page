@@ -4,6 +4,7 @@ import {
   ChangeDetectorRef,
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
+  NgZone,
   OnDestroy,
   OnInit,
 } from '@angular/core';
@@ -22,7 +23,10 @@ export type Platform = 'all' | 'youtube' | 'facebook' | 'instagram' | 'tiktok';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class VideosCarrucelComponent implements OnDestroy, OnInit, AfterViewInit {
-  constructor(private cdRef: ChangeDetectorRef) {}
+  constructor(
+    private cdRef: ChangeDetectorRef,
+    private ngZone: NgZone,
+  ) {}
   currentIndex = 0;
   transitionEnabled = true;
   isTransitioning = false;
@@ -30,16 +34,14 @@ export class VideosCarrucelComponent implements OnDestroy, OnInit, AfterViewInit
   isPaused = false;
   private autoplayInterval?: ReturnType<typeof setInterval>;
 
-  selectedSocial = 'tiktok';
+  selectedSocial = 'youtube';
   videos = VideosCorto;
 
   clonedVideos: typeof VideosCorto = [];
 
   ngOnInit(): void {
     this.clonedVideos = [...this.videos, ...this.videos, ...this.videos];
-
     const N = this.videos.length;
-
     if (N > 0) {
       setTimeout(() => {
         this.currentIndex = N;
@@ -49,8 +51,10 @@ export class VideosCarrucelComponent implements OnDestroy, OnInit, AfterViewInit
   }
 
   ngAfterViewInit(): void {
-    requestAnimationFrame(() => {
-      this.startAutoplay();
+    this.ngZone.runOutsideAngular(() => {
+      requestAnimationFrame(() => {
+        this.startAutoplay();
+      });
     });
   }
 
@@ -73,7 +77,10 @@ export class VideosCarrucelComponent implements OnDestroy, OnInit, AfterViewInit
 
     this.autoplayInterval = setInterval(() => {
       if (!this.isPaused) {
-        this.nextSlide(false);
+        this.ngZone.run(() => {
+          this.nextSlide(false);
+          this.cdRef.detectChanges();
+        });
       }
     }, 3500);
   }

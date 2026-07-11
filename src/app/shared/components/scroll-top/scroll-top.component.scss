@@ -1,4 +1,4 @@
-@use 'variables' as v;
+@use 'global' as *;
 
 .scroll-top {
   position: fixed;
@@ -31,7 +31,7 @@
 
 .progress {
   fill: none;
-  stroke: v.$secondary-color;
+  stroke: $secondary-color;
   stroke-width: 3;
   stroke-linecap: round;
   stroke-dasharray: 289;
@@ -46,8 +46,8 @@ button {
   transform: translate(-50%, -50%);
   width: 55px;
   height: 55px;
-  background: v.$surface-color !important;
-  color: v.$secondary-color !important;
+  background: $surface-color !important;
+  color: $secondary-color !important;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 }
 

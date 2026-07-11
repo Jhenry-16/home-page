@@ -18,10 +18,10 @@ export class AccessDeniedComponent {
 
   volverLogin() {
     this.authService.logout();
-    this.router.navigate(['/login']);
+    this.router.navigate(['/']);
   }
 
   volverHome() {
-    this.router.navigate(['/home']);
+    this.router.navigate(['/']);
   }
 }

@@ -1,6 +1,5 @@
-@use './assets/styles/themes.scss';
-@use './assets/styles/variables.scss' as v;
-@use './assets/styles/mixins.scss' as m;
+@use 'themes.scss';
+@use 'global' as *;
 
 *,
 *::before,
@@ -81,7 +80,7 @@ button:hover {
 }
 
 .title-modal {
-  background: v.$primary-color;
+  background: $primary-color;
   color: white;
   font-size: 16px;
   padding: 20px 20px;
@@ -97,7 +96,7 @@ button:hover {
   font-size: 32px;
   padding-bottom: 4px;
   margin-bottom: 20px;
-  color: v.$primary-color;
+  color: $primary-color;
   text-shadow:
     0 2px 4px rgba(0, 0, 0, 0.35),
     0 4px 12px rgba(0, 0, 0, 0.2);
@@ -114,7 +113,7 @@ button:hover {
     bottom: -8px;
     width: 32px;
     height: 3px;
-    background: v.$primary-color;
+    background: $primary-color;
     border-radius: 2px;
     transition:
       width 0.3s ease,
@@ -129,7 +128,7 @@ button:hover {
     width: 90%;
   }
 
-  @include m.tablet {
+  @include tablet {
     &::after {
       left: 50%;
       transform: translateX(-50%);

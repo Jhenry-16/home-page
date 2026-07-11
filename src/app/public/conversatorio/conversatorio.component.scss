@@ -1,4 +1,4 @@
-@use 'variables' as v;
+@use 'global' as *;
 
 :host {
   display: block;
@@ -8,7 +8,7 @@
   min-height: 80vh;
   padding: 24px 0;
   display: flex;
-  background: v.$surface-color;
+  background: $surface-color;
   align-items: center;
   justify-content: center;
 }

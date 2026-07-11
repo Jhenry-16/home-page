@@ -13,6 +13,6 @@ export class NotFoundComponent {
   constructor(private router: Router) {}
 
   volverHome() {
-    this.router.navigate(['/home']);
+    this.router.navigate(['/']);
   }
 }
