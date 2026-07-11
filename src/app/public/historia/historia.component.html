@@ -60,15 +60,7 @@
 
 <ng-template #verVideo>
   <div class="title-modal" cdkFocusInitial>Mi historia</div>
-  <mat-dialog-content align="center">
-    <iframe
-      [src]="videoUrl"
-      width="100%"
-      height="420"
-      frameborder="0"
-      allow="autoplay"
-      allowfullscreen
-    >
-    </iframe>
+  <mat-dialog-content class="video-container">
+    <iframe [src]="videoUrl" frameborder="0" allow="autoplay" allowfullscreen> </iframe>
   </mat-dialog-content>
 </ng-template>

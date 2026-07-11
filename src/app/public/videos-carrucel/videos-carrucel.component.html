@@ -7,7 +7,7 @@
       </span>
     </div>
 
-    <div class="text-center" animacion="slide-right">
+    <div class="text-center" animacion="fade-up">
       <h2 class="titulo-seccion">Videos destacados</h2>
       <p class="subtitle">Descubre lo más reciente y relevante de nuestras redes sociales.</p>
     </div>
@@ -17,15 +17,11 @@
       animacion="zoom-in"
       (mouseenter)="pauseAutoplay()"
       (mouseleave)="resumeAutoplay()"
-      (touchstart)="onTouchStart($event)"
-      (touchend)="onTouchEnd($event)"
     >
-      <!-- Flecha izquierda -->
       <button class="slider-arrow prev" type="button" (click)="prevSlide()">
         <mat-icon>chevron_left</mat-icon>
       </button>
 
-      <!-- Tarjetas -->
       <div class="cards-container">
         <div
           class="cards-track"
@@ -37,9 +33,8 @@
             class="video-card"
             *ngFor="let video of clonedVideos; let i = index"
             [class.active]="i === currentIndex"
-            (click)="!isDragging && goToCard(i)"
+            (click)="goToCard(i)"
           >
-            <!-- HEADER -->
             <div class="header">
               <div class="social">
                 <img
@@ -52,24 +47,16 @@
                   <small>{{ video.user }}</small>
                 </div>
               </div>
-
-              <!-- <button mat-icon-button>
-                <mat-icon>more_horiz</mat-icon>
-              </button> -->
             </div>
 
-            <!-- Imagen -->
             <img class="cover" [src]="video.imagen" [alt]="video.title" />
 
-            <!-- Play -->
             <button class="play" (click)="abrirVideo(video.urlvideo)">
               <mat-icon>play_arrow</mat-icon>
             </button>
 
-            <!-- Gradiente -->
             <div class="gradient"></div>
 
-            <!-- Contenido -->
             <div class="content">
               <h4>{{ video.title }}</h4>
 
@@ -95,7 +82,6 @@
       </button>
     </div>
 
-    <!-- PAGINADOR -->
     <div class="pagination-custom">
       <span
         *ngFor="let video of videos; let i = index"

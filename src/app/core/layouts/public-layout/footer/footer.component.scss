@@ -177,23 +177,23 @@ footer {
   }
 
   &.facebook:hover {
-    background-color: #1877f2 !important;
-    box-shadow: 0 6px 14px rgba(24, 119, 242, 0.3) !important;
+    background-color: v.$facebook-color !important;
+    box-shadow: 0 6px 14px rgba(v.$facebook-color, 0.3) !important;
   }
 
   &.instagram:hover {
-    background-color: #e1306c !important;
-    box-shadow: 0 6px 14px rgba(225, 48, 108, 0.3) !important;
+    background-color: v.$instagram-color !important;
+    box-shadow: 0 6px 14px rgba(v.$instagram-color, 0.3) !important;
   }
 
   &.tiktok:hover {
-    background-color: #010101 !important;
-    box-shadow: 0 6px 14px rgba(1, 1, 1, 0.3) !important;
+    background-color: v.$tiktok-color !important;
+    box-shadow: 0 6px 14px rgba(v.$tiktok-color, 0.3) !important;
   }
 
   &.whatsapp:hover {
-    background-color: v.$green !important;
-    box-shadow: 0 6px 14px rgba(37, 211, 102, 0.3) !important;
+    background-color: v.$whatsapp-color !important;
+    box-shadow: 0 6px 14px rgba(v.$whatsapp-color, 0.3) !important;
   }
 }
 
@@ -253,8 +253,8 @@ footer {
     }
 
     &.whatsapp-bg {
-      background: rgba(v.$green, 0.1);
-      color: v.$green;
+      background: rgba(v.$whatsapp-color, 0.1);
+      color: v.$whatsapp-color;
     }
   }
 
@@ -263,7 +263,7 @@ footer {
     color: white;
 
     &.whatsapp-bg {
-      background: v.$green;
+      background: v.$whatsapp-color;
       color: white;
     }
   }

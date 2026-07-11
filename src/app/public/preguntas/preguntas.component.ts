@@ -106,4 +106,9 @@ export class PreguntasComponent {
       emitEvent: false,
     });
   }
+
+  abrirPDF() {
+    const rutaPdf = 'assets/doc/Terminos_condiciones.pdf';
+    window.open(rutaPdf, '_blank');
+  }
 }

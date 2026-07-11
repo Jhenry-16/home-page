@@ -1,16 +1,3 @@
-<!-- <div class="whatsapp-container">
-  <button
-    mat-fab
-    class="whatsapp-float"
-    (click)="openWhatsApp()"
-    aria-label="Únete al equipo ganador por WhatsApp"
-  >
-    <span class="mdc-button__label">
-      <mat-icon svgIcon="whatsapp" class="whatsapp-icon"></mat-icon>
-      <span class="whatsapp-text">Únete al equipo ganador</span>
-    </span>
-  </button>
-</div> -->
 <div *ngIf="isButtonVisible" class="buttons-container">
   <button mat-fab class="main-button" aria-label="Compartir en redes">
     <span class="mdc-button__label">
@@ -18,7 +5,6 @@
     </span>
   </button>
 
-  <!-- Botón de Facebook -->
   <button
     mat-mini-fab
     class="social-button facebook-button"
@@ -30,7 +16,6 @@
     </span>
   </button>
 
-  <!-- Botón de Instagram -->
   <button
     mat-mini-fab
     class="social-button instagram-button"
@@ -41,8 +26,6 @@
       <mat-icon svgIcon="instagram"></mat-icon>
     </span>
   </button>
-
-  <!-- Botón de TikTok -->
   <button
     mat-mini-fab
     class="social-button tiktok-button"
@@ -54,7 +37,6 @@
     </span>
   </button>
 
-  <!-- Botón de WhatsApp -->
   <button
     mat-mini-fab
     class="social-button whatsapp-button"

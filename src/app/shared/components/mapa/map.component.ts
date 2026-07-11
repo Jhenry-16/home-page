@@ -79,8 +79,10 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       marker.on('mouseover', () => {
         this.ngZone.run(() => {
           marker.setIcon(activeIcon);
-          this.selectedMarker = item;
-          this.cdr.detectChanges();
+          setTimeout(() => {
+            this.selectedMarker = item;
+            this.cdr.detectChanges();
+          }, 0);
         });
       });
 

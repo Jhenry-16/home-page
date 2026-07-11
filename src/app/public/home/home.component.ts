@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, inject, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MaterialModule } from '../../shared/components/material/material.module';
 import { MainCarrucelComponent } from '../main-carrucel/main-carrucel.component';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
@@ -12,6 +12,7 @@ import { Propuestas } from '../../core/data/propuestas.data';
 import { DialogService } from '../../core/services/dialog/dialog.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { DialogcustomComponent } from '../../core/dialogcustom/dialogcustom.component';
+import { IconoSvgService } from '../../core/services/icono-svg.service';
 
 @Component({
   selector: 'app-home',
@@ -33,8 +34,12 @@ export class HomeComponent implements AfterViewInit {
   constructor(
     private sanitizer: DomSanitizer,
     private dialogService: DialogService,
-  ) {}
+  ) {
+    const redes = ['whatsapp'];
+    this.iconManager.registerIcons(redes);
+  }
 
+  private iconManager = inject(IconoSvgService);
   @ViewChild('modalBienvenida') welcomeModal!: TemplateRef<any>;
   mostrarVideo = false;
   videoUrl!: SafeResourceUrl;
@@ -43,17 +48,6 @@ export class HomeComponent implements AfterViewInit {
     setTimeout(() => {
       this.abrirModal(this.welcomeModal);
     });
-    // const opened = sessionStorage.getItem('WELCOME_MODAL');
-
-    // if (opened) {
-    //   return;
-    // }
-
-    // setTimeout(() => {
-    //   this.abrirModal(this.welcomeModal);
-
-    //   sessionStorage.setItem('WELCOME_MODAL', 'true');
-    // });
   }
 
   verVideo() {
@@ -62,7 +56,10 @@ export class HomeComponent implements AfterViewInit {
     const rawUrl = `https://drive.google.com/file/d/1GF9uTllgsgPq3twhPOdIB83RHrBxe-5C/preview`;
     this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(rawUrl);
   }
-
+  openWhatsApp(): void {
+    const mensaje = encodeURIComponent('Hola, deseo más información.');
+    window.open(`https://chat.whatsapp.com/GIiVnDNzcXLG59blFrT5ML?text=${mensaje}`, '_blank');
+  }
   abrirModal(template: TemplateRef<any>) {
     return this.dialogService.openDialogCustom({
       template,

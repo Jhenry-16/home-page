@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, OnDestroy, OnInit, TemplateRef } from '@angular/core';
+import { Component, TemplateRef } from '@angular/core';
 import { MaterialModule } from '../../shared/components/material/material.module';
 import { AnimacionDirective } from '../../shared/directives/animacion.directive';
 import { DialogService } from '../../core/services/dialog/dialog.service';
@@ -19,8 +19,9 @@ export class HistoriaComponent {
     private sanitizer: DomSanitizer,
     private dialogService: DialogService,
   ) {
-    const rawUrl = `https://drive.google.com/file/d/1GF9uTllgsgPq3twhPOdIB83RHrBxe-5C/preview`;
-    this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(rawUrl);
+    this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+      `https://drive.google.com/file/d/1GF9uTllgsgPq3twhPOdIB83RHrBxe-5C/preview`,
+    );
   }
 
   private matDialogRef!: MatDialogRef<DialogcustomComponent>;

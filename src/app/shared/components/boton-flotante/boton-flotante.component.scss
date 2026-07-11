@@ -1,186 +1,5 @@
 @use 'variables' as v;
 
-// .whatsapp-container {
-//   position: fixed;
-//   right: 20px;
-//   top: 75%;
-//   transform: translateY(-50%);
-//   z-index: 100;
-// }
-
-// .whatsapp-float.mat-mdc-fab {
-//   width: 58px;
-//   height: 58px;
-//   min-width: 58px;
-//   padding: 0 !important;
-//   border-radius: 58px;
-//   overflow: hidden;
-//   background: v.$surface-color !important;
-//   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-//   transition:
-//     width 0.4s ease,
-//     border-radius 0.4s ease,
-//     transform 0.3s ease,
-//     background-color 0.3s;
-//   animation: whatsappPulse 3s infinite;
-//   display: flex;
-//   align-items: center;
-//   justify-content: flex-start;
-
-//   .mdc-button__label {
-//     display: flex !important;
-//     align-items: center !important;
-//     justify-content: flex-start !important;
-//     width: 100%;
-//     height: 100%;
-//     padding-left: 12px;
-//   }
-
-//   img {
-//     width: 34px;
-//     height: 34px;
-//     object-fit: contain;
-//     flex-shrink: 0;
-//     transition: transform 0.3s ease;
-//   }
-// }
-
-// .whatsapp-text {
-//   color: #25d366;
-//   font-size: 15px;
-//   font-weight: 700;
-//   white-space: nowrap;
-//   opacity: 0;
-//   max-width: 0;
-//   margin-left: 0;
-//   overflow: hidden;
-//   display: inline-block;
-//   transition:
-//     opacity 0.2s ease,
-//     max-width 0.35s ease,
-//     margin-left 0.35s ease;
-// }
-
-// .whatsapp-float.mat-mdc-fab:hover {
-//   width: 280px;
-//   border-radius: 40px;
-//   transform: scale(1.03);
-//   animation-play-state: paused;
-
-//   .whatsapp-text {
-//     opacity: 1;
-//     max-width: 220px;
-//     margin-left: 12px;
-//   }
-// }
-
-// .whatsapp-float.mat-mdc-fab:active {
-//   transform: scale(0.97) translate(2px, 2px);
-// }
-
-// @keyframes whatsappPulse {
-//   0%,
-//   75% {
-//     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-//   }
-//   80% {
-//     transform: scale(1.12) translateY(-5%);
-//     box-shadow: 0 0 0 15px rgba(37, 211, 102, 0.2);
-//   }
-//   85% {
-//     transform: scale(1);
-//   }
-//   90% {
-//     transform: scale(1.12) translateY(-5%);
-//     box-shadow: 0 0 0 20px rgba(37, 211, 102, 0.1);
-//   }
-//   100% {
-//     transform: scale(1);
-//   }
-// }
-
-// @media (max-width: 992px) {
-//   .whatsapp-container {
-//     right: 20px;
-//   }
-//   .whatsapp-float.mat-mdc-fab {
-//     width: 60px;
-//     height: 60px;
-//     min-width: 60px;
-//     .mdc-button__label {
-//       padding-left: 15px;
-//     }
-//     img {
-//       width: 30px;
-//       height: 30px;
-//     }
-//   }
-// }
-
-// @media (max-width: 576px) {
-//   .whatsapp-container {
-//     right: 20px;
-//   }
-//   .whatsapp-float.mat-mdc-fab {
-//     width: 56px;
-//     height: 56px;
-//     min-width: 56px;
-//     .mdc-button__label {
-//       padding-left: 14px;
-//     }
-//     img {
-//       width: 28px;
-//       height: 28px;
-//     }
-
-//     &:hover {
-//       width: 56px;
-//       border-radius: 56px;
-//       .whatsapp-text {
-//         display: none !important;
-//       }
-//     }
-//   }
-// }
-
-.buttons-container {
-  position: fixed;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 1000;
-  width: 60px;
-  height: 60px;
-  display: grid;
-  place-items: center;
-  transition: right 0.3s ease;
-
-  &:hover {
-    right: 10px;
-
-    .main-button.mat-mdc-fab {
-      animation-play-state: paused;
-    }
-
-    .facebook-button {
-      transform: translate(0, -90px);
-      opacity: 1;
-    }
-    .instagram-button {
-      transform: translate(-75px, -45px);
-      opacity: 1;
-    }
-    .tiktok-button {
-      transform: translate(-75px, 45px);
-      opacity: 1;
-    }
-    .whatsapp-button {
-      transform: translate(0px, 90px);
-      opacity: 1;
-    }
-  }
-}
-
 .main-button.mat-mdc-fab {
   width: 60px;
   height: 60px;
@@ -216,19 +35,12 @@
 }
 
 .social-button.mat-mdc-mini-fab {
-  position: absolute;
   z-index: 10;
-  transform: translate(0, 0);
-  opacity: 0;
   width: 50px !important;
   height: 50px !important;
   padding: 0 !important;
   background-color: #e8e8e8 !important;
   box-shadow: -2px 5px 10px rgba(0, 0, 0, 0.1) !important;
-  transition:
-    transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-    opacity 0.3s ease,
-    background-color 0.2s;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -258,40 +70,47 @@
   mat-icon {
     color: #1877f2 !important;
   }
-  &:hover {
+  &:hover,
+  &:focus {
     background-color: #1877f2 !important;
     mat-icon {
       color: white !important;
     }
   }
 }
+
 .instagram-button {
   mat-icon {
     color: #e1306c !important;
   }
-  &:hover {
+  &:hover,
+  &:focus {
     background-color: #e1306c !important;
     mat-icon {
       color: white !important;
     }
   }
 }
+
 .tiktok-button {
   mat-icon {
     color: #121212 !important;
   }
-  &:hover {
+  &:hover,
+  &:focus {
     background-color: #121212 !important;
     mat-icon {
       color: white !important;
     }
   }
 }
+
 .whatsapp-button {
   mat-icon {
     color: #25d366 !important;
   }
-  &:hover {
+  &:hover,
+  &:focus {
     background-color: #25d366 !important;
     mat-icon {
       color: white !important;
@@ -317,5 +136,114 @@
   }
   100% {
     transform: scale(1);
+  }
+}
+
+@media (min-width: 1025px) {
+  .buttons-container {
+    position: fixed;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1000;
+    width: 60px;
+    height: 60px;
+    display: grid;
+    place-items: center;
+    transition: right 0.3s ease;
+
+    .social-button.mat-mdc-mini-fab {
+      position: absolute;
+      transform: translate(0, 0);
+      opacity: 0;
+      transition:
+        transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+        opacity 0.3s ease,
+        background-color 0.2s;
+    }
+
+    &:hover {
+      right: 10px;
+
+      .main-button.mat-mdc-fab {
+        animation-play-state: paused;
+      }
+
+      .facebook-button {
+        transform: translate(0, -90px);
+        opacity: 1;
+      }
+      .instagram-button {
+        transform: translate(-75px, -45px);
+        opacity: 1;
+      }
+      .tiktok-button {
+        transform: translate(-75px, 45px);
+        opacity: 1;
+      }
+      .whatsapp-button {
+        transform: translate(0px, 90px);
+        opacity: 1;
+      }
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .buttons-container {
+    position: fixed;
+    right: 0 !important;
+    top: 50%;
+    transform: translateY(-50%) !important;
+    z-index: 1000;
+    width: auto !important;
+    height: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    background: rgba(255, 255, 255, 0.85) !important;
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    border-radius: 16px 0 0 16px !important;
+    padding: 12px 6px 12px 10px !important;
+    box-shadow: -4px 6px 20px rgba(0, 0, 0, 0.15) !important;
+    border: 1px solid rgba(255, 255, 255, 0.35) !important;
+    border-right: none !important;
+    transition: all 0.3s ease;
+
+    .main-button {
+      display: none !important;
+    }
+
+    .social-button.mat-mdc-mini-fab {
+      position: relative !important;
+      transform: none !important;
+      opacity: 1 !important;
+      width: 44px !important;
+      height: 44px !important;
+      margin: 0 !important;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08) !important;
+      transition:
+        transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+        background-color 0.2s ease !important;
+      transition-delay: 0s !important;
+
+      &:active {
+        transform: scale(0.9) !important;
+      }
+
+      .mdc-button__label {
+        padding: 0 !important;
+      }
+
+      mat-icon {
+        width: 26px !important;
+        height: 26px !important;
+        font-size: 26px !important;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+      }
+    }
   }
 }

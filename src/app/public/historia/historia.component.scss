@@ -86,6 +86,21 @@
   justify-content: space-between;
 }
 
-iframe {
-  height: 350px !important;
+.video-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  overflow: hidden;
+
+  iframe {
+    width: 100%;
+    max-width: 800px;
+    height: 420px;
+    border: 0;
+  }
+}
+
+::ng-deep .mat-mdc-dialog-container {
+  width: 600px !important;
 }

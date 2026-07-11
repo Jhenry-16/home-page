@@ -23,14 +23,6 @@ export type Platform = 'all' | 'youtube' | 'facebook' | 'instagram' | 'tiktok';
 })
 export class VideosCarrucelComponent implements OnDestroy, OnInit, AfterViewInit {
   constructor(private cdRef: ChangeDetectorRef) {}
-
-  touchStartX = 0;
-  touchStartY = 0;
-  touchEndX = 0;
-  touchEndY = 0;
-  isDragging = false;
-  private readonly swipeThreshold = 50;
-
   currentIndex = 0;
   transitionEnabled = true;
   isTransitioning = false;
@@ -49,8 +41,10 @@ export class VideosCarrucelComponent implements OnDestroy, OnInit, AfterViewInit
     const N = this.videos.length;
 
     if (N > 0) {
-      this.currentIndex = N;
-      this.cdRef.detectChanges();
+      setTimeout(() => {
+        this.currentIndex = N;
+        this.cdRef.detectChanges();
+      });
     }
   }
 
@@ -168,35 +162,5 @@ export class VideosCarrucelComponent implements OnDestroy, OnInit, AfterViewInit
 
   abrirVideo(url: string): void {
     window.open(url, '_blank');
-  }
-
-  //Para moviles el touch
-  get isMobile(): boolean {
-    return window.innerWidth <= 768;
-  }
-
-  onTouchStart(event: TouchEvent): void {
-    this.isDragging = true;
-
-    this.touchStartX = event.changedTouches[0].clientX;
-    this.touchStartY = event.changedTouches[0].clientY;
-
-    this.pauseAutoplay();
-  }
-
-  onTouchEnd(event: TouchEvent): void {
-    if (!this.isMobile) return;
-    const touch = event.changedTouches[0];
-
-    const diffX = this.touchStartX - touch.clientX;
-    const diffY = this.touchStartY - touch.clientY;
-
-    this.isDragging = false;
-
-    if (Math.abs(diffX) > this.swipeThreshold && Math.abs(diffX) > Math.abs(diffY)) {
-      diffX > 0 ? this.nextSlide() : this.prevSlide();
-    }
-
-    this.resumeAutoplay();
   }
 }

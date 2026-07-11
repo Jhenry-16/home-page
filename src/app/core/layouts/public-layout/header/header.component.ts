@@ -94,8 +94,8 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
       },
       {
         root: null,
-        rootMargin: '-90px 0px -40% 0px',
-        threshold: 0.3,
+        rootMargin: '-90px 0px -70% 0px',
+        threshold: 0,
       },
     );
 
