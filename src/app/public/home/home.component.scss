@@ -166,7 +166,7 @@ picture {
   object-fit: contain;
 }
 
-.whatsapp-overlay-button {
+button[mat-flat-button].whatsapp-overlay-button {
   position: absolute;
   left: 50%;
   bottom: 24px;
