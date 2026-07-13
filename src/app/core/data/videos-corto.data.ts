@@ -13,7 +13,7 @@ export const VideosCorto = [
     id: 2,
     social: 'youtube',
     user: '@jose-casas',
-    title: 'Histotria de vida',
+    title: 'Historia de vida',
     imagen: 'assets/images/fondos/fondo-vy1.jpg',
     urlvideo: 'https://www.youtube.com/watch?v=OsBeb2k4OfM&t=18s',
     likes: '2.7K',
