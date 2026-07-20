@@ -41,6 +41,7 @@
                 (keydown)="validarDatosinput($event, 'numero')"
                 mainlength="9"
                 maxlength="9"
+                inputmode="numeric"
               />
               <mat-error>
                 <span *ngIf="formPreguntas.get('celular')?.hasError('required')">
@@ -111,7 +112,6 @@
               </p>
             </div>
           </div>
-
           <div class="mt-4" align="center">
             <button
               mat-flat-button

@@ -1,12 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectorRef,
-  Component,
-  inject,
-  OnDestroy,
-  OnInit,
-  TemplateRef,
-} from '@angular/core';
+import { Component, TemplateRef } from '@angular/core';
 import { MaterialModule } from '../../shared/components/material/material.module';
 import { AnimacionDirective } from '../../shared/directives/animacion.directive';
 import { DialogService } from '../../core/services/dialog/dialog.service';
@@ -14,13 +7,12 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { DialogcustomComponent } from '../../core/dialogcustom/dialogcustom.component';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
-import { timeout } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { validarInput, ValidationType } from '../../shared/utils/validaciones.util';
 import { MatFormField } from '@angular/material/form-field';
 import { Sector, Tipoapoyo } from '../../core/data/seleccion.data';
-import { PreloaderService } from '../../core/services/preloader.service';
 import { PreloaderComponent } from '../../shared/components/progress-bar/progress-bar.component';
+import { GoogleSheetService } from '../../core/services/google-sheet.service';
 import { resetFormControls } from '../../shared/utils/reset-form.util';
 
 @Component({
@@ -36,6 +28,7 @@ export class PreguntasComponent {
     private dialogService: DialogService,
     private toastrService: ToastrService,
     private formBuild: FormBuilder,
+    private googleSheetService: GoogleSheetService,
   ) {
     this.buildForm();
     const rawUrl = `https://drive.google.com/file/d/1GF9uTllgsgPq3twhPOdIB83RHrBxe-5C/preview`;
@@ -56,7 +49,7 @@ export class PreguntasComponent {
       correo: ['', [Validators.required, Validators.email]],
       sector: ['', Validators.required],
       pregunta: [''],
-      termino: ['', Validators.required],
+      termino: [false, Validators.requiredTrue],
       tipoapoyo: ['', Validators.required],
     });
   }
@@ -66,18 +59,27 @@ export class PreguntasComponent {
       this.formPreguntas.markAllAsTouched();
       return;
     }
-
     this.progressEnvio = true;
 
-    setTimeout(() => {
-      this.progressEnvio = false;
+    this.googleSheetService.guardar(this.formPreguntas.value).subscribe({
+      next: (res) => {
+        this.limpiarFormulario();
+        this.progressEnvio = false;
+        this.toastrService.success(
+          'Enviado correctamente, en breve nos comunicamos ¡Gracias por tu opinión!',
+          'Exitoso',
+          {
+            timeOut: 3200,
+            progressBar: true,
+          },
+        );
+      },
 
-      this.toastrService.success(
-        'Tu colsulta se guardó con exito nos comunicaremos pronto',
-        'Éxito',
-      );
-      this.limpiarFormulario();
-    }, 6000);
+      error: () => {
+        this.progressEnvio = false;
+        this.toastrService.error('No se pudo enviar, vuelva intentar');
+      },
+    });
   }
 
   abrirPdf() {
@@ -99,12 +101,7 @@ export class PreguntasComponent {
   }
 
   limpiarFormulario() {
-    resetFormControls(this.formPreguntas, Object.keys(this.formPreguntas.controls), {
-      valueMap: Object.fromEntries(
-        Object.keys(this.formPreguntas.controls).map((key) => [key, '']),
-      ),
-      emitEvent: false,
-    });
+    this.formPreguntas.reset();
   }
 
   abrirPDF() {
