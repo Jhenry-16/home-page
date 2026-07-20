@@ -4,136 +4,221 @@
       <h2 class="titulo-seccion">Pregúntale a José Casas</h2>
       <p>Tu opinión es muy importante. Escríbenos tu pregunta, propuesta o preocupación.</p>
     </div>
-    <div class="contenido-formulario">
-      <mat-card class="preguntas-card" animacion="zoom-in">
-        <form [formGroup]="formPreguntas" (ngSubmit)="enviarPregunta()" class="row">
-          <div class="col-12 col-sm-6">
-            <mat-form-field appearance="outline" class="full-width mat-body">
-              <mat-label class="mat-body">Nombre(s)</mat-label>
-              <input
-                formControlName="nombres"
-                matInput
-                placeholder="Escribe tu nombre"
-                (keydown)="validarDatosinput($event, 'letraespacio')"
-              />
-              <mat-error>Campo obligatorio</mat-error>
-            </mat-form-field>
-          </div>
-          <div class="col-12 col-sm-6">
-            <mat-form-field appearance="outline" class="full-width mat-body">
-              <mat-label class="mat-body">Apellidos</mat-label>
-              <input
-                formControlName="apellidos"
-                matInput
-                placeholder="Apellidos"
-                (keydown)="validarDatosinput($event, 'letraespacio')"
-              />
-              <mat-error>Campo obligatorio</mat-error>
-            </mat-form-field>
-          </div>
-          <div class="col-12 col-sm-6">
-            <mat-form-field appearance="outline" class="full-width mat-body">
-              <mat-label class="mat-body">Celular</mat-label>
-              <input
-                matInput
-                type="text"
-                formControlName="celular"
-                (keydown)="validarDatosinput($event, 'numero')"
-                mainlength="9"
-                maxlength="9"
-                inputmode="numeric"
-              />
-              <mat-error>
-                <span *ngIf="formPreguntas.get('celular')?.hasError('required')">
-                  Campo obligatorio</span
-                >
-                <span *ngIf="formPreguntas.get('celular')?.hasError('minlength')">
-                  Télefono/Celular inválido</span
-                >
-              </mat-error>
-            </mat-form-field>
-          </div>
-          <div class="col-12 col-sm-6">
-            <mat-form-field appearance="outline" class="full-width mat-body">
-              <mat-label class="mat-body">Correo electrónico</mat-label>
-              <input formControlName="correo" matInput placeholder="tucorreo@correo.com" />
-              <mat-error>
-                <span *ngIf="formPreguntas.get('correo')?.hasError('required')">
-                  Campo obligatorio</span
-                >
-                <span *ngIf="formPreguntas.get('correo')?.hasError('email')">
-                  Correo inválido
-                </span>
-              </mat-error>
-            </mat-form-field>
-          </div>
-          <div class="col-12 col-sm-6">
-            <mat-form-field appearance="outline" class="full-width mat-body">
-              <mat-label>Sector donde vives</mat-label>
-              <mat-select formControlName="sector" class="mat-body">
-                <mat-option>--Selecione sector--</mat-option>
-                <mat-option *ngFor="let sector of listaSector" [value]="sector.descripcion">{{
-                  sector.descripcion
-                }}</mat-option>
-              </mat-select>
-              <mat-error>Campo obligatorio</mat-error>
-            </mat-form-field>
-          </div>
-          <div class="col-12 col-sm-6">
-            <mat-form-field appearance="outline" class="full-width mat-body">
-              <mat-label>Formar parte del equipo como:</mat-label>
-              <mat-select formControlName="tipoapoyo" class="mat-body">
-                <mat-option>--Selecione como apoyar--</mat-option>
-                <mat-option *ngFor="let tipo of listaTipoapoyo" [value]="tipo.descripcion">{{
-                  tipo.descripcion
-                }}</mat-option>
-              </mat-select>
-              <mat-error>Campo obligatorio</mat-error>
-            </mat-form-field>
-          </div>
-          <div class="col-12">
-            <mat-form-field appearance="outline" class="full-width mat-body">
-              <mat-label>Escribe tu pregunta</mat-label>
-              <textarea
-                class="mat-body"
-                matInput
-                rows="3"
-                formControlName="pregunta"
-                placeholder="Cuéntanos tu pregunta, propuesta o preocupación..."
-              ></textarea>
-            </mat-form-field>
-          </div>
-          <div class="col-12">
-            <div class="d-flex align-items-center flex-content-center">
-              <mat-checkbox formControlName="termino"> </mat-checkbox>
-              <p class="info-termino">
-                Acepto el tratamiento de mis datos personales.
-                <span (click)="abrirPDF()">Más información.</span>
-              </p>
+    @if (!formularioEnviado) {
+      <div class="contenido-formulario">
+        <mat-card class="preguntas-card" animacion="zoom-in">
+          <form [formGroup]="formPreguntas" (ngSubmit)="enviarPregunta()" class="row">
+            <div class="col-12 col-sm-6">
+              <mat-form-field appearance="outline" class="full-width mat-body">
+                <mat-label class="mat-body">Nombre(s)</mat-label>
+                <input
+                  formControlName="nombres"
+                  matInput
+                  placeholder="Escribe tu nombre"
+                  (keydown)="validarDatosinput($event, 'letraespacio')"
+                />
+                <mat-error>Campo obligatorio</mat-error>
+              </mat-form-field>
             </div>
-          </div>
-          <div class="mt-4" align="center">
-            <button
-              mat-flat-button
-              color="primary"
-              type="submit"
-              [disabled]="formPreguntas.invalid"
-            >
-              <mat-icon>send</mat-icon>
-              ENVIAR MI PREGUNTA
-            </button>
-          </div>
-        </form>
-      </mat-card>
-      <div class="voice" animacion="zoom-in">
-        <mat-icon>groups</mat-icon>
-        <h2>Tu voz cuenta</h2>
-        <p>Queremos escucharte para construir juntos el Pueblo Libre que todos merecemos.</p>
-        <img src="assets/images/fondos/pueblo_libre.png" alt="Pueblo Libre" />
+            <div class="col-12 col-sm-6">
+              <mat-form-field appearance="outline" class="full-width mat-body">
+                <mat-label class="mat-body">Apellidos</mat-label>
+                <input
+                  formControlName="apellidos"
+                  matInput
+                  placeholder="Apellidos"
+                  (keydown)="validarDatosinput($event, 'letraespacio')"
+                />
+                <mat-error>Campo obligatorio</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-12 col-sm-6">
+              <mat-form-field appearance="outline" class="full-width mat-body">
+                <mat-label class="mat-body">Celular</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  formControlName="celular"
+                  (keydown)="validarDatosinput($event, 'numero')"
+                  mainlength="9"
+                  maxlength="9"
+                  inputmode="numeric"
+                />
+                <mat-error>
+                  <span *ngIf="formPreguntas.get('celular')?.hasError('required')">
+                    Campo obligatorio</span
+                  >
+                  <span *ngIf="formPreguntas.get('celular')?.hasError('minlength')">
+                    Télefono/Celular inválido</span
+                  >
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-12 col-sm-6">
+              <mat-form-field appearance="outline" class="full-width mat-body">
+                <mat-label class="mat-body">Correo electrónico</mat-label>
+                <input formControlName="correo" matInput placeholder="tucorreo@correo.com" />
+                <mat-error>
+                  <span *ngIf="formPreguntas.get('correo')?.hasError('required')">
+                    Campo obligatorio</span
+                  >
+                  <span *ngIf="formPreguntas.get('correo')?.hasError('email')">
+                    Correo inválido
+                  </span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-12 col-sm-6">
+              <mat-form-field appearance="outline" class="full-width mat-body">
+                <mat-label>Sector donde vives</mat-label>
+                <mat-select formControlName="sector" class="mat-body">
+                  <mat-option>--Selecione sector--</mat-option>
+                  <mat-option *ngFor="let sector of listaSector" [value]="sector.descripcion">{{
+                    sector.descripcion
+                  }}</mat-option>
+                </mat-select>
+                <mat-error>Campo obligatorio</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-12 col-sm-6">
+              <mat-form-field appearance="outline" class="full-width mat-body">
+                <mat-label>Formar parte del equipo como:</mat-label>
+                <mat-select formControlName="tipoapoyo" class="mat-body">
+                  <mat-option>--Selecione como apoyar--</mat-option>
+                  <mat-option *ngFor="let tipo of listaTipoapoyo" [value]="tipo.descripcion">{{
+                    tipo.descripcion
+                  }}</mat-option>
+                </mat-select>
+                <mat-error>Campo obligatorio</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-12">
+              <mat-form-field appearance="outline" class="full-width mat-body">
+                <mat-label>Escribe tu pregunta</mat-label>
+                <textarea
+                  class="mat-body"
+                  matInput
+                  rows="3"
+                  formControlName="pregunta"
+                  placeholder="Cuéntanos tu pregunta, propuesta o preocupación..."
+                ></textarea>
+              </mat-form-field>
+            </div>
+            <div class="col-12">
+              <div class="d-flex align-items-center flex-content-center">
+                <mat-checkbox formControlName="termino"> </mat-checkbox>
+                <p class="info-termino">
+                  Acepto el tratamiento de mis datos personales.
+                  <span (click)="abrirPDF()">Más información.</span>
+                </p>
+              </div>
+            </div>
+            <div class="mt-4" align="center">
+              <button
+                mat-flat-button
+                color="primary"
+                type="submit"
+                [disabled]="formPreguntas.invalid"
+              >
+                <mat-icon>send</mat-icon>
+                ENVIAR MI PREGUNTA
+              </button>
+            </div>
+          </form>
+        </mat-card>
+
+        <div class="voice" animacion="zoom-in">
+          <mat-icon>groups</mat-icon>
+          <h2>Tu voz cuenta</h2>
+          <p>Queremos escucharte para construir juntos el Pueblo Libre que todos merecemos.</p>
+          <img src="assets/images/fondos/pueblo_libre.png" alt="Pueblo Libre" />
+        </div>
+        @if (progressEnvio) {
+          <app-progress-bar></app-progress-bar>
+        }
       </div>
-      @if (progressEnvio) {
-        <app-progress-bar></app-progress-bar>
-      }
-    </div>
+    } @else {
+      <div class="success-message text-center">
+        <!-- Icono con animación -->
+        <div class="success-icon-wrapper">
+          <div class="icon-circle">
+            <mat-icon>mark_email_read</mat-icon>
+          </div>
+        </div>
+
+        <!-- Títulos con Copywriting Premium -->
+        <h3 class="success-title" animacion="slide-left">¡Gracias!</h3>
+        <h4 class="success-subtitle" animacion="slide-left">
+          Tu opinión y propuesta son fundamentales para construir el Pueblo Libre que todos
+          merecemos.
+        </h4>
+
+        <!-- Cuerpo del Mensaje -->
+        <div class="success-body" animacion="slide-right">
+          <p class="highlight-text">¡Se registro tu opinión correctamente!</p>
+          <p class="message-detail">
+            Hemos enviado un <strong>correo electrónico de confirmación</strong>. Por favor, revisa
+            tu bandeja de entrada o la carpeta de <strong>correo no deseado (spam)</strong>
+            para validar el envío. ¡Pronto nos pondremos en contacto contigo!
+          </p>
+        </div>
+
+        <hr class="success-divider" />
+
+        <!-- Redes Sociales Oficiales -->
+        <div class="next-steps" animacion="slide-left">
+          <p class="next-steps-title">
+            <strong>Únete a José Casas y se parte de este cambio</strong>
+          </p>
+          <p class="next-steps-desc text-muted">
+            Sigue de cerca nuestro plan de trabajo y propuestas a través de nuestros canales
+            oficiales:
+          </p>
+
+          <div class="social-links-success">
+            <a
+              href="https://chat.whatsapp.com/GIiVnDNzcXLG59blFrT5ML"
+              target="_blank"
+              class="social-success-btn whatsapp"
+              title="WhatsApp Channel"
+            >
+              <mat-icon svgIcon="whatsapp"></mat-icon>
+            </a>
+            <a
+              href="https://www.facebook.com/JoseCasasOficial"
+              target="_blank"
+              class="social-success-btn facebook"
+              title="Facebook"
+            >
+              <mat-icon svgIcon="facebook"></mat-icon>
+            </a>
+            <a
+              href="https://www.instagram.com/josecasascarrion/"
+              target="_blank"
+              class="social-success-btn instagram"
+              title="Instagram"
+            >
+              <mat-icon svgIcon="instagram"></mat-icon>
+            </a>
+            <a
+              href="https://www.tiktok.com/@josecasascarrion"
+              target="_blank"
+              class="social-success-btn tiktok"
+              title="TikTok"
+            >
+              <mat-icon svgIcon="tiktok"></mat-icon>
+            </a>
+          </div>
+        </div>
+
+        <!-- Botón para preguntar de nuevo -->
+        <div>
+          <button mat-stroked-button class="btn-reset" (click)="nuevaPregunta()">
+            <mat-icon>add_comment</mat-icon>
+            REALIZAR OTRA PREGUNTA
+          </button>
+        </div>
+      </div>
+    }
   </div>
 </section>

@@ -109,34 +109,6 @@
   }
 }
 
-.thanks {
-  min-height: 110px;
-  background: #064aad;
-  color: #fff;
-  border-radius: 8px;
-  padding: 25px 80px;
-  display: grid;
-  grid-template-columns: 80px 1fr 80px;
-  align-items: center;
-  gap: 24px;
-
-  mat-icon {
-    font-size: 64px;
-    width: 64px;
-    height: 64px;
-  }
-
-  h2 {
-    margin: 0;
-    font-size: 28px;
-  }
-
-  p {
-    margin: 4px 0 0;
-    font-size: 16px;
-  }
-}
-
 .btn-historia {
   display: flex;
   gap: 8px;
@@ -150,5 +122,237 @@
   span {
     color: $primary-color;
     cursor: pointer;
+  }
+}
+
+// SUCCESS STATE STYLES FOR COMPLETED FORM
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(#20c765, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba(#20c765, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(#20c765, 0);
+  }
+}
+
+.success-message {
+  animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding-top: 8px;
+
+  .success-icon-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+
+    .icon-circle {
+      width: 84px;
+      height: 84px;
+      background-color: rgba(#20c765, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 24px rgba(#20c765, 0.15);
+      border: 2px solid rgba(#20c765, 0.2);
+      animation: pulse 2s infinite;
+
+      mat-icon {
+        font-size: 48px;
+        width: 48px;
+        height: 48px;
+        color: #20c765;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+
+  .success-title {
+    color: $primary-color;
+    font-size: 26px;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.5px;
+  }
+
+  .success-subtitle {
+    color: #555;
+    font-size: 15px;
+    font-weight: 500;
+    max-width: 480px;
+    line-height: 1.4;
+    margin-bottom: 1.75rem;
+  }
+
+  .success-body {
+    margin: 0px;
+    max-width: 520px;
+    background: #f8faff;
+    border-radius: 16px;
+    padding: 1.25rem 1.5rem;
+    border: 1px dashed rgba($primary-color, 0.15);
+
+    .highlight-text {
+      color: $primary-color;
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .message-detail {
+      color: #4a5568;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 0;
+
+      strong {
+        color: $primary-color;
+        font-weight: 600;
+      }
+    }
+  }
+
+  .success-divider {
+    width: 100%;
+    max-width: 400px;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    margin: 1.5rem 0;
+  }
+
+  .next-steps {
+    max-width: 480px;
+
+    .next-steps-title {
+      color: $text;
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .next-steps-desc {
+      font-size: 13.5px;
+      color: #666;
+      line-height: 1.4;
+    }
+  }
+
+  .social-links-success {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 1rem;
+
+    .social-success-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      text-decoration: none;
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+      mat-icon {
+        width: 20px;
+        height: 20px;
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+      }
+
+      &.whatsapp {
+        background-color: $whatsapp-color;
+      }
+      &.facebook {
+        background-color: $facebook-color;
+      }
+      &.instagram {
+        background-color: $instagram-color;
+      }
+      &.tiktok {
+        background-color: $tiktok-color;
+      }
+    }
+  }
+
+  .btn-reset {
+    margin-top: 1.5rem;
+    border-radius: 20px;
+    padding: 0 24px;
+    height: 42px;
+    font-size: 13.5px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    border-color: rgba($primary-color, 0.3);
+    color: $primary-color;
+    transition: all 0.25s ease;
+
+    mat-icon {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+      margin-right: 6px;
+    }
+
+    &:hover {
+      background-color: rgba($primary-color, 0.04);
+      border-color: $primary-color;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .success-message {
+    padding: 1.5rem 0.5rem !important;
+
+    .success-title {
+      font-size: 22px;
+    }
+
+    .success-subtitle {
+      font-size: 13.5px;
+    }
+
+    .success-body {
+      padding: 1rem;
+
+      .highlight-text {
+        font-size: 14.5px;
+      }
+
+      .message-detail {
+        font-size: 13px;
+      }
+    }
   }
 }

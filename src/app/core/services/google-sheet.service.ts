@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class GoogleSheetService {
   private readonly API =
-    'https://script.google.com/macros/s/AKfycbyjbiF0w89Tn8GJaH58GmFAP3cP4fd6o4VJFkiHlLpbcenVQobj1uXftSFP-9vV7I3y/exec';
+    'https://script.google.com/macros/s/AKfycbxeRD9OiuyhbM6aeaBtZd_Jygu7_9hl3fF7Y3e47Bict58CJw6BicigPgsh33p7cN8/exec';
 
   constructor(private http: HttpClient) {}
 

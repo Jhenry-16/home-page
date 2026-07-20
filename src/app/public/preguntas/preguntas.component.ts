@@ -14,6 +14,7 @@ import { Sector, Tipoapoyo } from '../../core/data/seleccion.data';
 import { PreloaderComponent } from '../../shared/components/progress-bar/progress-bar.component';
 import { GoogleSheetService } from '../../core/services/google-sheet.service';
 import { resetFormControls } from '../../shared/utils/reset-form.util';
+import { IconoSvgService } from '../../core/services/icono-svg.service';
 
 @Component({
   selector: 'app-preguntas',
@@ -29,10 +30,12 @@ export class PreguntasComponent {
     private toastrService: ToastrService,
     private formBuild: FormBuilder,
     private googleSheetService: GoogleSheetService,
+    private iconManager: IconoSvgService,
   ) {
     this.buildForm();
     const rawUrl = `https://drive.google.com/file/d/1GF9uTllgsgPq3twhPOdIB83RHrBxe-5C/preview`;
     this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(rawUrl);
+    this.iconManager.registerIcons(['facebook', 'instagram', 'tiktok', 'whatsapp']);
   }
   private matDialogRef!: MatDialogRef<DialogcustomComponent>;
   videoUrl!: SafeResourceUrl;
@@ -40,6 +43,7 @@ export class PreguntasComponent {
   listaSector = Sector;
   listaTipoapoyo = Tipoapoyo;
   progressEnvio = false;
+  formularioEnviado = false;
 
   buildForm() {
     this.formPreguntas = this.formBuild.group({
@@ -65,14 +69,11 @@ export class PreguntasComponent {
       next: (res) => {
         this.limpiarFormulario();
         this.progressEnvio = false;
-        this.toastrService.success(
-          'Enviado correctamente, en breve nos comunicamos ¡Gracias por tu opinión!',
-          'Exitoso',
-          {
-            timeOut: 3200,
-            progressBar: true,
-          },
-        );
+        this.formularioEnviado = true;
+        this.toastrService.success('Enviado correctamente ¡Gracias por tu opinión!', 'Exitoso', {
+          timeOut: 3200,
+          progressBar: true,
+        });
       },
 
       error: () => {
@@ -80,6 +81,10 @@ export class PreguntasComponent {
         this.toastrService.error('No se pudo enviar, vuelva intentar');
       },
     });
+  }
+
+  nuevaPregunta() {
+    this.formularioEnviado = false;
   }
 
   abrirPdf() {
