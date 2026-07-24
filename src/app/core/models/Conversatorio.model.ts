@@ -1,9 +1,9 @@
-export interface Localizacion {
-  idLocalizacion: number;
+export interface Conversatorio {
+  idConversatorio: number;
   titulo: string;
   fecha: string;
   foto: string;
-  link: '#';
+  link: string;
   lat: number;
   lng: number;
 }

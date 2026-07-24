@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { LayoutsComponent } from './core/layouts/public-layout/layouts.component';
+import { ListaFotosComponent } from './public/lista-imagenes/lista-fotos.component';
 
 export const routes: Routes = [
   {
@@ -11,6 +12,11 @@ export const routes: Routes = [
         loadChildren: () => import('./public/public.routes').then((m) => m.routes_public),
       },
     ],
+  },
+  {
+    path: 'lista-fotos',
+    title: 'Lista de fotos',
+    component: ListaFotosComponent,
   },
   {
     path: 'access-denied',

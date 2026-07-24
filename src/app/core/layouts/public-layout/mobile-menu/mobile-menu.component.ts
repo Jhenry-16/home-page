@@ -1,16 +1,6 @@
-import {
-  AfterViewInit,
-  Component,
-  EventEmitter,
-  HostListener,
-  Output,
-  ViewChild,
-} from '@angular/core';
+import { Component, EventEmitter, HostListener, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../../../../shared/components/material/material.module';
-import { MatDrawer } from '@angular/material/sidenav';
-import { filter, take } from 'rxjs';
-import { DrawerService } from '../../../services/drawer.service';
 
 @Component({
   selector: 'app-mobile-menu',

@@ -4,13 +4,15 @@ import {
   ChangeDetectorRef,
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
+  inject,
   NgZone,
   OnDestroy,
   OnInit,
 } from '@angular/core';
 import { MaterialModule } from '../../shared/components/material/material.module';
 import { AnimacionDirective } from '../../shared/directives/animacion.directive';
-import { VideosCorto } from '../../core/data/videos-corto.data';
+import { GoogleSheetService } from '../../core/services/google-sheet.service';
+import { VideosCorto } from '../../core/models/videos-corto.model';
 
 export type Platform = 'all' | 'youtube' | 'facebook' | 'instagram' | 'tiktok';
 
@@ -27,6 +29,8 @@ export class VideosCarrucelComponent implements OnDestroy, OnInit, AfterViewInit
     private cdRef: ChangeDetectorRef,
     private ngZone: NgZone,
   ) {}
+
+  private readonly serviceVideos = inject(GoogleSheetService);
   currentIndex = 0;
   transitionEnabled = true;
   isTransitioning = false;
@@ -35,19 +39,27 @@ export class VideosCarrucelComponent implements OnDestroy, OnInit, AfterViewInit
   private autoplayInterval?: ReturnType<typeof setInterval>;
 
   selectedSocial = 'youtube';
-  videos = VideosCorto;
+  videos: VideosCorto[] = [];
 
-  clonedVideos: typeof VideosCorto = [];
+  clonedVideos: VideosCorto[] = [];
 
   ngOnInit(): void {
-    this.clonedVideos = [...this.videos, ...this.videos, ...this.videos];
-    const N = this.videos.length;
-    if (N > 0) {
-      setTimeout(() => {
-        this.currentIndex = N;
-        this.cdRef.detectChanges();
-      });
-    }
+    this.serviceVideos.obtenerVideos().subscribe({
+      next: (data) => {
+        this.videos = data;
+
+        this.clonedVideos = [...this.videos, ...this.videos, ...this.videos];
+
+        const N = this.videos.length;
+        if (N > 0) {
+          this.currentIndex = N;
+          this.cdRef.detectChanges();
+        }
+      },
+      error: (error) => {
+        console.error('Error al cargar video', error);
+      },
+    });
   }
 
   ngAfterViewInit(): void {

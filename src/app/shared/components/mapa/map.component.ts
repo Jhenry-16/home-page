@@ -3,17 +3,20 @@ import {
   ChangeDetectorRef,
   Component,
   effect,
+  inject,
   NgZone,
   OnDestroy,
 } from '@angular/core';
 import { MaterialModule } from '../material/material.module';
 import * as L from 'leaflet';
-import { LocalizacionData } from '../../../core/data/localizacion.data';
+import { RouterLink } from '@angular/router';
+import { GoogleSheetService } from '../../../core/services/google-sheet.service';
+import { Conversatorio } from '../../../core/models/Conversatorio.model';
 
 @Component({
   selector: 'app-map',
   standalone: true,
-  imports: [MaterialModule],
+  imports: [MaterialModule, RouterLink],
   templateUrl: './map.component.html',
   styleUrl: './map.component.scss',
 })
@@ -22,10 +25,12 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     private ngZone: NgZone,
     private cdr: ChangeDetectorRef,
   ) {}
+
+  private readonly serviceConversatorio = inject(GoogleSheetService);
   private map?: L.Map;
   selectedMarker: any;
 
-  markers = LocalizacionData;
+  markers: Conversatorio[] = [];
 
   ngAfterViewInit() {
     this.initMap();
@@ -53,7 +58,19 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; OpenStreetMap',
     }).addTo(this.map);
-    this.loadMarkers();
+    this.cargarServicioDatos();
+  }
+
+  private cargarServicioDatos() {
+    this.serviceConversatorio.obtenerConversatorio().subscribe({
+      next: (data) => {
+        this.markers = data.filter((item) => item && item.lat && item.lng);
+        this.loadMarkers();
+      },
+      error: (error) => {
+        console.error('Error al traer datos de Google Sheets:', error);
+      },
+    });
   }
 
   private loadMarkers(): void {

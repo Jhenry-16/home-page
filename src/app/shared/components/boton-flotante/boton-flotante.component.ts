@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, HostListener, inject } from '@angular/cor
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../material/material.module';
 import { IconoSvgService } from '../../../core/services/icono-svg.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-boton-flotante',
@@ -14,7 +15,7 @@ export class BotonFlotanteComponent {
   private iconManager = inject(IconoSvgService);
   private cdRef = inject(ChangeDetectorRef);
 
-  constructor() {
+  constructor(private router: Router) {
     const redes = ['compartir', 'facebook', 'instagram', 'tiktok', 'whatsapp'];
     this.iconManager.registerIcons(redes);
   }
@@ -23,6 +24,14 @@ export class BotonFlotanteComponent {
 
   @HostListener('window:scroll', [])
   onWindowScroll(): void {
+    if (this.router.url.startsWith('/lista-fotos')) {
+      if (!this.isButtonVisible) {
+        this.isButtonVisible = true;
+        this.cdRef.detectChanges();
+      }
+      return;
+    }
+
     const scrollPosition =
       window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
     const previousVisibility = this.isButtonVisible;

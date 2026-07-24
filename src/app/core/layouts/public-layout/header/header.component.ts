@@ -23,14 +23,7 @@ import { Subscription } from 'rxjs';
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent implements AfterViewInit, OnDestroy {
-  constructor() {
-    this.scrollSub = this.scrollService.activeSection$.subscribe((id) => {
-      this.activarSeccion = id;
-      setTimeout(() => {
-        this.cdr.detectChanges();
-      });
-    });
-  }
+  constructor() {}
   @Output() menuClick = new EventEmitter<void>();
 
   private readonly cdr = inject(ChangeDetectorRef);
@@ -67,6 +60,13 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.createObserver();
+
+    this.scrollSub = this.scrollService.activeSection$.subscribe((id) => {
+      setTimeout(() => {
+        this.activarSeccion = id;
+        this.cdr.detectChanges();
+      }, 0);
+    });
   }
 
   @HostListener('window:scroll')

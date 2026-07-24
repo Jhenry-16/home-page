@@ -1,6 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Galeria } from '../models/galeria.model';
+import { Conversatorio } from '../models/Conversatorio.model';
+import { VideosCorto } from '../models/videos-corto.model';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +18,19 @@ export class GoogleSheetService {
     const jsonBody = JSON.stringify(data);
 
     return this.http.post(this.API, jsonBody, {
-      headers: { 'Content-Type': 'text/plain' }, // Evita activar restricciones estrictas de CORS
+      headers: { 'Content-Type': 'text/plain' },
     });
+  }
+
+  obtenerGaleria(): Observable<Galeria[]> {
+    return this.http.get<Galeria[]>(`${this.API}?action=galeria`);
+  }
+
+  obtenerConversatorio(): Observable<Conversatorio[]> {
+    return this.http.get<Conversatorio[]>(`${this.API}?action=conversatorio`);
+  }
+
+  obtenerVideos(): Observable<VideosCorto[]> {
+    return this.http.get<VideosCorto[]>(`${this.API}?action=videos_carrucel`);
   }
 }

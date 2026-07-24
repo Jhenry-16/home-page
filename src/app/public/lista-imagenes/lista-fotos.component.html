@@ -1,0 +1,224 @@
+<header class="header">
+  <mat-toolbar class="header-toolbar">
+    <div class="container">
+      <div class="nav-header">
+        <a class="logo" aria-label="Ir al inicio">
+          <img src="/assets/images/logos/logo-azul.png" alt="Logo" />
+        </a>
+        <nav aria-label="Menú principal">
+          <ul class="menu">
+            <li>
+              <button mat-button type="button" class="desktop-only" (click)="irInicio()">
+                Inicio
+              </button>
+              <button mat-button type="button" class="mobile-only" (click)="irInicio()">
+                <mat-icon style="font-size: 40px; width: 40px; height: 40px; margin: 0"
+                  >home</mat-icon
+                >
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </mat-toolbar>
+</header>
+
+<section id="lista-fotos-seccion">
+  <div class="container pt-5">
+    <!-- Header/Hero Section -->
+    <div class="header-gallery text-center mb-5" animacion="fade-up">
+      <h1 class="titulo-seccion">Galería de Momentos</h1>
+      <p class="subtitle-gallery mx-auto text-muted">
+        Explora los momentos, encuentros vecinales, conversatorios y actividades que compartimos con
+        nuestros vecinos en Pueblo Libre.
+      </p>
+    </div>
+
+    <!-- Search and Filter Panel -->
+    <div class="filter-panel-card mb-4 p-3" animacion="zoom-in">
+      <div class="row align-items-center g-3">
+        <!-- Search Input -->
+        <div class="col-12 col-md-5 col-lg-4">
+          <mat-form-field appearance="outline" class="search-form-field w-100">
+            <mat-label>Buscar</mat-label>
+            <mat-icon matPrefix>search</mat-icon>
+            <input
+              matInput
+              type="text"
+              [(ngModel)]="searchKeyword"
+              (ngModelChange)="applyFilters()"
+              placeholder="Ej. seguridad, parque..."
+            />
+            @if (searchKeyword) {
+              <button
+                matSuffix
+                mat-icon-button
+                aria-label="Limpiar búsqueda"
+                (click)="searchKeyword = ''; applyFilters()"
+              >
+                <mat-icon>close</mat-icon>
+              </button>
+            }
+          </mat-form-field>
+        </div>
+
+        <div class="col-12 col-md-7 col-lg-8">
+          <div
+            class="category-chips-wrapper d-flex flex-wrap gap-2 justify-content-md-end align-items-center"
+          >
+            <span class="filter-label d-none d-lg-inline-block me-2">
+              <mat-icon>filter_list</mat-icon> Filtrar por:
+            </span>
+            @for (cat of categories; track cat) {
+              <button
+                class="category-btn"
+                [class.active]="selectedCategory === cat"
+                (click)="selectCategory(cat)"
+              >
+                {{ cat }}
+              </button>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+    @if (cargando) {
+      <div
+        class="loader-container d-flex flex-column align-items-center justify-content-center py-5"
+      >
+        <mat-spinner diameter="50"></mat-spinner>
+        <p class="text-muted mt-3">Cargando galería de fotos...</p>
+      </div>
+    } @else if (fotosFiltradas.length > 0) {
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+        @for (foto of fotosFiltradas; track foto.id; let i = $index) {
+          <div class="col">
+            <mat-card class="foto-card h-100 border-0" animacion="zoom-in">
+              <div class="image-container position-relative" (click)="openLightbox(foto)">
+                <img
+                  [src]="foto.imagenUrl"
+                  [alt]="foto.titulo"
+                  class="card-img-top photo-img"
+                  [attr.loading]="i < 4 ? 'eager' : 'lazy'"
+                />
+                <div class="image-overlay d-flex align-items-center justify-content-center">
+                  <mat-icon class="zoom-icon">zoom_in</mat-icon>
+                </div>
+                <span class="category-badge badge bg-primary">{{ foto.categoria }}</span>
+              </div>
+              <mat-card-content class="p-3 d-flex flex-column justify-content-between h-100">
+                <div class="card-info">
+                  <h3 class="card-title text-truncate mb-2" [matTooltip]="foto.titulo">
+                    {{ foto.titulo }}
+                  </h3>
+                  <p class="card-desc text-muted m-0">{{ foto.descripcion }}</p>
+                </div>
+                <div class="card-meta">
+                  <div class="meta-item d-flex align-items-center gap-1 text-muted mb-2 small">
+                    <mat-icon>place</mat-icon>
+                    <span class="text-truncate" [title]="foto.lugar">{{ foto.lugar }}</span>
+                  </div>
+                  <div class="meta-item d-flex align-items-center gap-1 text-muted mb-3 small">
+                    <mat-icon>calendar_today</mat-icon>
+                    <span>{{ foto.fecha }}</span>
+                  </div>
+                  <div
+                    class="card-footer-actions d-flex justify-content-between align-items-center pt-2 border-top"
+                  >
+                    <button
+                      class="like-btn d-flex align-items-center gap-1 border-0 bg-transparent"
+                      [class.liked]="foto.liked"
+                      (click)="likePhoto(foto.id, $event)"
+                      [matTooltip]="foto.liked ? 'Quitar me gusta' : 'Me gusta'"
+                    >
+                      <mat-icon>{{ foto.liked ? 'favorite' : 'favorite_border' }}</mat-icon>
+                      <span class="like-count">{{ foto.likes }}</span>
+                    </button>
+                    <button
+                      mat-icon-button
+                      color="primary"
+                      class="share-btn"
+                      (click)="sharePhoto(foto, $event)"
+                      title="Compartir"
+                    >
+                      <mat-icon>share</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        }
+      </div>
+    } @else {
+      <!-- Empty State -->
+      <div class="empty-state text-center py-5" animacion="zoom-in">
+        <div class="empty-icon-wrapper mb-3">
+          <mat-icon>no_photography</mat-icon>
+        </div>
+        <h2 class="empty-title">No encontramos fotos</h2>
+        <p class="empty-desc text-muted mx-auto">
+          No hay resultados que coincidan con "{{ searchKeyword }}" en la categoría "{{
+            selectedCategory
+          }}".
+        </p>
+        <button class="btn-clear-filters mt-3" (click)="clearFilters()">
+          <mat-icon>refresh</mat-icon> Limpiar filtros
+        </button>
+      </div>
+    }
+  </div>
+</section>
+
+<!-- Lightbox Modal -->
+@if (showLightbox) {
+  <div class="lightbox-overlay" (click)="closeLightbox()">
+    <button
+      class="close-btn"
+      (click)="closeLightbox(); $event.stopPropagation()"
+      aria-label="Cerrar"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+
+    <button
+      class="nav-btn prev-btn"
+      (click)="prevPhoto(); $event.stopPropagation()"
+      [disabled]="fotosFiltradas.length <= 1"
+      aria-label="Anterior"
+    >
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+
+    <div class="lightbox-content-wrapper" (click)="$event.stopPropagation()">
+      <div class="lightbox-image-container">
+        <img [src]="activePhoto.imagenUrl" [alt]="activePhoto.titulo" class="lightbox-image" />
+      </div>
+      <div class="lightbox-caption p-3 text-white">
+        <span class="badge bg-primary mb-2">{{ activePhoto.categoria }}</span>
+        <h2 class="lightbox-title h4 mb-2">{{ activePhoto.titulo }}</h2>
+        <p class="lightbox-desc mb-2 small text-white-50">{{ activePhoto.descripcion }}</p>
+        <div class="lightbox-meta d-flex gap-3 small text-white-50">
+          <span class="d-flex align-items-center gap-1"
+            ><mat-icon class="small-icon">place</mat-icon> {{ activePhoto.lugar }}</span
+          >
+          <span class="d-flex align-items-center gap-1"
+            ><mat-icon class="small-icon">calendar_today</mat-icon> {{ activePhoto.fecha }}</span
+          >
+        </div>
+      </div>
+    </div>
+
+    <button
+      class="nav-btn next-btn"
+      (click)="nextPhoto(); $event.stopPropagation()"
+      [disabled]="fotosFiltradas.length <= 1"
+      aria-label="Siguiente"
+    >
+      <mat-icon>chevron_right</mat-icon>
+    </button>
+  </div>
+}
+<app-boton-flotante></app-boton-flotante>
+<app-footer></app-footer>
