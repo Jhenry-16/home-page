@@ -10,9 +10,8 @@ import { VideosCarrucelComponent } from '../videos-carrucel/videos-carrucel.comp
 import { AnimacionDirective } from '../../shared/directives/animacion.directive';
 import { Propuestas } from '../../core/data/propuestas.data';
 import { DialogService } from '../../core/services/dialog/dialog.service';
-import { MatDialogRef } from '@angular/material/dialog';
-import { DialogcustomComponent } from '../../core/dialogcustom/dialogcustom.component';
 import { IconoSvgService } from '../../core/services/icono-svg.service';
+import { GaleriaFotosComponent } from '../galeria-fotos/galeria-fotos.component';
 
 @Component({
   selector: 'app-home',
@@ -26,6 +25,7 @@ import { IconoSvgService } from '../../core/services/icono-svg.service';
     ConversatorioComponent,
     VideosCarrucelComponent,
     AnimacionDirective,
+    GaleriaFotosComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',

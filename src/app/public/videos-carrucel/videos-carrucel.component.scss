@@ -16,30 +16,6 @@ $shadow: rgba(15, 23, 42, 0.12);
   animation: fadeUp 0.7s ease-out;
 }
 
-.badge-social {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 24px;
-  border-radius: 50px;
-  background: $secondary-badge;
-  color: $secondary-color;
-  font-size: 12px;
-  font-weight: 700;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s ease;
-
-  &:hover {
-    transform: translateY(-4px);
-  }
-
-  mat-icon {
-    width: 20px;
-    height: 20px;
-    font-size: 20px;
-  }
-}
-
 .subtitle {
   font-size: 16px;
   line-height: 1.5;
