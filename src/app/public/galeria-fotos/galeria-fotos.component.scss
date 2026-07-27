@@ -1,0 +1,97 @@
+@use 'global' as *;
+
+.transicion-galeria {
+  background: $surface-color;
+  position: relative;
+  overflow: hidden;
+}
+
+button[mat-flat-button].btn-impacto-galeria {
+  position: relative;
+  padding: 16px 40px !important;
+  font-family: inherit;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  height: auto;
+  line-height: normal;
+  transition:
+    transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+    box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+    background-color 0.4s ease;
+
+  mat-icon {
+    margin: 0;
+    font-size: 22px;
+    width: 22px;
+    height: 22px;
+    transition: transform 0.3s ease;
+  }
+
+  .text-btn {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .btn-shimmer-effect {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+    transform: skewX(-25deg);
+    animation: brilloEfecto 4s infinite ease-in-out;
+  }
+
+  &:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 12px 28px rgba($primary-color, 0.4);
+    mat-icon {
+      transform: rotate(-8deg) scale(1.1);
+    }
+  }
+
+  &:active {
+    transform: translateY(-1px) scale(0.98);
+    box-shadow: 0 4px 10px rgba($primary-color, 0.3);
+  }
+}
+
+@keyframes brilloEfecto {
+  0% {
+    left: -100%;
+  }
+  30% {
+    left: 150%;
+  }
+  100% {
+    left: 150%;
+  }
+}
+@media (max-width: 768px) {
+  .transicion-galeria {
+    padding-top: 2.5rem !important;
+    padding-bottom: 2.5rem !important;
+  }
+
+  button[mat-flat-button].btn-impacto-galeria {
+    width: 100%;
+    max-width: 320px;
+    padding: 14px 24px !important;
+
+    mat-icon {
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  .text-btn {
+    font-size: 13px;
+  }
+}

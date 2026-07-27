@@ -10,7 +10,7 @@ import { VideosCorto } from '../models/videos-corto.model';
 })
 export class GoogleSheetService {
   private readonly API =
-    'https://script.google.com/macros/s/AKfycbxeRD9OiuyhbM6aeaBtZd_Jygu7_9hl3fF7Y3e47Bict58CJw6BicigPgsh33p7cN8/exec';
+    'https://script.google.com/macros/s/AKfycbxDreCKeiF87hRIYNnUi4z_M6iuNcLRz1Zn4-iqMBEZmGVA6wKyFwhnckWe3t5waUTF/exec';
 
   constructor(private http: HttpClient) {}
 
