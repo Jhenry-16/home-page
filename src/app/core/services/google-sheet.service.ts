@@ -33,4 +33,8 @@ export class GoogleSheetService {
   obtenerVideos(): Observable<VideosCorto[]> {
     return this.http.get<VideosCorto[]>(`${this.API}?action=videos_carrucel`);
   }
+
+  incrementarContador() {
+    return this.http.get(`${this.API}?action=contador`);
+  }
 }
