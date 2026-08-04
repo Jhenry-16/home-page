@@ -12,6 +12,8 @@ import { Propuestas } from '../../core/data/propuestas.data';
 import { DialogService } from '../../core/services/dialog/dialog.service';
 import { IconoSvgService } from '../../core/services/icono-svg.service';
 import { GaleriaFotosComponent } from '../galeria-fotos/galeria-fotos.component';
+import { GoogleSheetService } from '../../core/services/google-sheet.service';
+import { ImageModal } from '../../core/models/Image-dialog.model';
 
 @Component({
   selector: 'app-home',
@@ -30,7 +32,7 @@ import { GaleriaFotosComponent } from '../galeria-fotos/galeria-fotos.component'
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-export class HomeComponent implements AfterViewInit {
+export class HomeComponent implements OnInit {
   constructor(
     private sanitizer: DomSanitizer,
     private dialogService: DialogService,
@@ -40,16 +42,24 @@ export class HomeComponent implements AfterViewInit {
   }
 
   private iconManager = inject(IconoSvgService);
+  private serviceImagenModal = inject(GoogleSheetService);
   @ViewChild('modalBienvenida') welcomeModal!: TemplateRef<any>;
   mostrarVideo = false;
   videoUrl!: SafeResourceUrl;
 
-  ngAfterViewInit(): void {
-    setTimeout(() => {
-      this.abrirModal(this.welcomeModal);
+  imagenModal?: ImageModal;
+
+  ngOnInit() {
+    this.serviceImagenModal.obtenerImagenModal().subscribe({
+      next: (data) => {
+        this.imagenModal = data;
+
+        queueMicrotask(() => {
+          this.abrirModal(this.welcomeModal);
+        });
+      },
     });
   }
-
   verVideo() {
     this.mostrarVideo = true;
 

@@ -40,10 +40,12 @@
 
 <ng-template #modalBienvenida>
   <mat-dialog-content align="center" class="dialog-home">
-    <picture>
-      <source media="(max-width: 768px)" srcset="assets/images/fondos/fondo5-vertical.jpg" />
-      <img src="assets/images/fondos/fondo5.jpg" class="modal-banner-image" alt="Bienvenido" />
-    </picture>
+    <ng-container *ngIf="imagenModal">
+      <picture>
+        <source media="(max-width:768px)" [srcset]="imagenModal.imagenvertical" />
+        <img [src]="imagenModal.imagenhorizontal" />
+      </picture>
+    </ng-container>
     <button mat-flat-button class="whatsapp-overlay-button" (click)="openWhatsApp()">
       <mat-icon svgIcon="whatsapp"></mat-icon>
       <span class="button-text">ÚNETE AL WHATSAPP</span>

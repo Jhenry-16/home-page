@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Galeria } from '../models/galeria.model';
 import { Conversatorio } from '../models/Conversatorio.model';
 import { VideosCorto } from '../models/videos-corto.model';
+import { ImageModal } from '../models/Image-dialog.model';
 
 @Injectable({
   providedIn: 'root',
@@ -36,5 +37,11 @@ export class GoogleSheetService {
 
   incrementarContador() {
     return this.http.get(`${this.API}?action=contador`);
+  }
+
+  obtenerImagenModal(): Observable<ImageModal> {
+    return this.http
+      .get<ImageModal[]>(`${this.API}?action=image_modal`)
+      .pipe(map((data) => data[0]));
   }
 }
