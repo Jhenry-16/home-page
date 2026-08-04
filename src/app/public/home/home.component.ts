@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, inject, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, inject, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MaterialModule } from '../../shared/components/material/material.module';
 import { MainCarrucelComponent } from '../main-carrucel/main-carrucel.component';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
@@ -62,7 +62,6 @@ export class HomeComponent implements OnInit {
   }
   verVideo() {
     this.mostrarVideo = true;
-
     const rawUrl = `https://drive.google.com/file/d/1GF9uTllgsgPq3twhPOdIB83RHrBxe-5C/preview`;
     this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(rawUrl);
   }
